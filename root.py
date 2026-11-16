@@ -22,15 +22,12 @@ TX_POWER_DBM = 2         # max transmit power. Default is 19.5 dBm; 2 is the low
 VERSION = 1
 KEY_ID = 1
 RUN_ID = 1               # +1 per run, must be identical on all boards
-SCENARIO = "stable"      # "stable" or "failure" (LOGGING.md); recorded in the summary
-FAILED_NODE = 0          # failure scenario: the relay that switches itself off (see node.py) ...
-FAIL_AT_S = 150          # ... this many seconds after its boot. Only written to the summary here; same value on all boards
 
 ADV_INTERVAL_MS = 5000   # + 0-10% jitter
 DATA_INTERVAL_MS = 10000  # + 0-10% jitter
-WARMUP_S = 30            # nodes send no data for this long after boot
+WARMUP_S = 60            # nodes send no data for this long after boot
 RUN_S = 300              # then nodes generate data for this long (measured run)
-DRAIN_S = 30             # then the root waits this long for packets still in flight
+DRAIN_S = 60             # then the root waits this long for packets still in flight
 NEIGHBOR_TIMEOUT_MS = 15000
 RSS_THRESHOLD = -85      # dBm
 RSS_ALPHA = 0.3          # EMA smoothing of RSSI
@@ -473,13 +470,11 @@ def print_stats(cnt, out=None):
 def write_summary(cnt):
     c = cnt.snapshot()
     lines = ["# iot-log format 1", "format=1", "device=root", "device_id=%d" % ROOT_ID, "sensor=",
-             "mode=" + MODE, "run_id=%d" % RUN_ID, "scenario=" + SCENARIO,
+             "mode=" + MODE, "run_id=%d" % RUN_ID,
              "warmup_s=%d" % WARMUP_S, "run_s=%d" % RUN_S, "drain_s=%d" % DRAIN_S,
              "adv_interval_s=%d" % (ADV_INTERVAL_MS // 1000),
              "data_interval_s=%d" % (DATA_INTERVAL_MS // 1000),
              "tx_power_dbm=%s" % radio.wlan.config("txpower")]
-    if SCENARIO == "failure":
-        lines += ["failure_node=%d" % FAILED_NODE, "failure_at_s=%d" % FAIL_AT_S]
     lines += ["%s=%s" % kv for kv in sorted(c.items()) if not kv[0].startswith("node")]
     for k in ("adv_tx", "adv_rx", "delivered"):
         if k not in c:
@@ -489,8 +484,8 @@ def write_summary(cnt):
             f.write("\n".join(lines) + "\n")
     except OSError:
         log("could not write " + SUMMARY_FILE)
-    log("SUMMARY run_id=%d mode=%s scenario=%s tx_power=%s dBm"
-        % (RUN_ID, MODE, SCENARIO, radio.wlan.config("txpower")))
+    log("SUMMARY run_id=%d mode=%s tx_power=%s dBm"
+        % (RUN_ID, MODE, radio.wlan.config("txpower")))
     log("schedule: warm-up %d s, measured run %d s, drain %d s (from root boot, t = 0)"
         % (WARMUP_S, RUN_S, DRAIN_S))
     print_stats(cnt)

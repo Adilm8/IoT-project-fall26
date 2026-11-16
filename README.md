@@ -68,7 +68,7 @@ Task.md suggests starting values in [section II](Task.md#ii-equipment-and-config
 
 - Advertisement: 5 s + 0–10% jitter (root too). The instructor mentioned 10 s for the root, but we use 5 s for everyone.
 - Data: 10 s + 0–10% jitter.
-- Run schedule (DV): after boot a node sends no data of its own for 30 s (`WARMUP_MS`), then generates data for exactly 5 minutes (`RUN_MS`), then stops. Advertisements and relaying carry on the whole time, so DV can form routes and in-flight packets are forwarded. The root waits 30 s more (`DRAIN_S`) and then writes the summary. Total 30 + 300 + 30 = 360 s counted from the root boot.
+- Run schedule (DV): after boot a node sends no data of its own for 60 s (`WARMUP_MS`), then generates data for exactly 5 minutes (`RUN_MS`), then stops. Advertisements and relaying carry on the whole time, so DV can form routes and in-flight packets are forwarded. The root waits 60 s more (`DRAIN_S`) and then writes the summary. Total 60 + 300 + 60 = 420 s counted from the root boot. The longer warm-up gives DV time to form routes before the measured run (in the test set, routes took 40 to 51 s to settle).
 - Neighbor timeout: 15 s, checked every 1 s.
 - RSS threshold: −85 dBm, EMA with $\alpha = 0.3$ (see [Task.md section III](Task.md#iii-task-1-neighbor-discovery)).
 - Parent switch margin: 5 dB (same hop only, see [section IV](Task.md#iv-task-2-parent-selection)).
@@ -126,7 +126,7 @@ Two programs, one per board, each a single file with a `MODE` constant at the to
 
 Transmit power is set by `TX_POWER_DBM` at the top of both programs (currently 2 dBm; the ESP32 default is 19.5 dBm). 2 dBm is the lowest value the driver accepts, and the radio rounds to hardware steps, so on our boards it reads back as about 1 dBm. Each program prints the value it read back when it starts.
 
-Both programs have comments that point to the Task.md section each part implements. `MODE`, `RUN_ID` and `SCENARIO` must be identical on all boards. Both use the rx thread for receiving and one worker thread for sending, so the radio never has two callers ([Task.md section VI](Task.md#vi-task-4-threaded-operation)).
+Both programs have comments that point to the Task.md section each part implements. `MODE` and `RUN_ID` must be identical on all boards. Both use the rx thread for receiving and one worker thread for sending, so the radio never has two callers ([Task.md section VI](Task.md#vi-task-4-threaded-operation)).
 
 ### Reading the root output
 
@@ -142,15 +142,14 @@ Both programs have comments that point to the Task.md section each part implemen
 
 All teams use the same files, described in [LOGGING.md](LOGGING.md): per device and run a `summary` (key=value, written once at the end) and an `events` CSV (one line per delivered packet, route change or generated sample). The root writes:
 
-- `root_summary_<MODE>_run<RUN_ID>.txt`: schedule, `SCENARIO`, `FAILED_NODE` / `FAIL_AT_S` (failure scenario only) and all root counters.
+- `root_summary_<MODE>_run<RUN_ID>.txt`: schedule and all root counters.
 - `root_events_<MODE>_run<RUN_ID>.csv`: an `rx` line per unique delivered packet and a `route` line per route change it hears advertised.
 - `root_console_<MODE>_run<RUN_ID>.txt`: everything the root prints (the `DELIVERED`, `STATS`, ... lines below), for humans only.
 
 Boot truncates the events and console files, so a restart cannot mix two attempts in one file: change `RUN_ID` for every attempt. Copy the files off with Thonny's file browser (View, Files) before you delete or reflash.
 
-Run schedule, counted from the root boot: 0 to 30 s warm-up, 30 to 330 s measured run, 330 to 360 s drain, then the root writes the summary and logs `SUMMARY written`. The log marks each step with a `PHASE` line. Nodes must be powered on within a few seconds after the root: each node starts its own 30 s + 5 min clock at its boot, so a node that starts later also stops later and has less drain time. Each node does the same with `node<ID>_summary_<MODE>_run<RUN_ID>.txt` and `node<ID>_events_<MODE>_run<RUN_ID>.csv` (`generated`, `acq_fail`, no-route drops, own and relayed data sends, adverts sent, final route).
+Run schedule, counted from the root boot: 0 to 60 s warm-up, 60 to 360 s measured run, 360 to 420 s drain, then the root writes the summary and logs `SUMMARY written`. The log marks each step with a `PHASE` line. Nodes must be powered on within a few seconds after the root: each node starts its own 60 s + 5 min clock at its boot, so a node that starts later also stops later and has less drain time. Each node does the same with `node<ID>_summary_<MODE>_run<RUN_ID>.txt` and `node<ID>_events_<MODE>_run<RUN_ID>.csv` (`generated`, `acq_fail`, no-route drops, own and relayed data sends, adverts sent, final route).
 
-For the failure scenario ([Task.md section VIII](Task.md#viii-task-6-experimental-comparison), scenario 2) set `SCENARIO = "failure"` on every board and `FAILED_NODE` / `FAIL_AT_S` on the root (and on any node that carries the shutdown code). Exactly one relay is switched off, the board whose `DEVICE_ID` equals `FAILED_NODE`: `FAIL_AT_S` seconds after its own boot it stops sending, writes its summary and a `fail` event, and turns ESP-NOW off (`should_fail()` / `shut_down()` in `node.py`). The root only records the values. Nodes boot a few seconds after the root, so on the root clock the failure is a few seconds later than `FAIL_AT_S`. Details in [LOGGING.md](LOGGING.md#failure-scenario).
 
 Every 10 s the root also logs the [Task.md section VIII](Task.md#viii-task-6-experimental-comparison) numbers:
 
@@ -177,14 +176,13 @@ logs/02/team-5-CO/dv/node5_summary_dv_run2.txt, node5_events_dv_run2.csv
 python3 summarize.py 02
 ```
 
-It needs only Python 3 (plots need `matplotlib`, and are skipped without it). It prints a Markdown report and saves it as `logs/02/results/summary.md` together with `runs.csv` and `per_source.csv` (the underlying results table) and, if matplotlib is installed, `plot_per_source_pdr.png` and `plot_overhead.png`. The report has warnings first (missing node summaries, wrong run IDs, fewer than three runs), then per-run results, mean ± sd per scenario and mode, per-source PDR, DV convergence, failure recovery, topology (last route and RSSI per node) and a short answer per metric. `--expect 1,3,4,...` warns when a source is silent in a run.
+It needs only Python 3 (plots need `matplotlib`, and are skipped without it). It prints a Markdown report and saves it as `logs/02/results/summary.md` together with `runs.csv` and `per_source.csv` (the underlying results table) and, if matplotlib is installed, `plot_per_source_pdr.png` and `plot_overhead.png`. The report has warnings first (missing node summaries, wrong run IDs, fewer than three runs), then per-run results, mean ± sd per mode, per-source PDR, DV convergence, topology (last route and RSSI per node) and a short answer per metric. `--expect 1,3,4,...` warns when a source is silent in a run.
 
 How the numbers are computed:
 
-- **PDR**: unique `(origin, seq)` at the root with `seq < generated`, divided by `generated` from the source's node summary (the root's highest seq + 1 is the fallback, flagged). In the failure scenario the failed relay is not a source.
+- **PDR**: unique `(origin, seq)` at the root with `seq < generated`, divided by `generated` from the source's node summary (the root's highest seq + 1 is the fallback, flagged).
 - **Overhead**: (own + relayed data + adverts over all node summaries, plus root adverts) divided by unique packets delivered.
 - **Startup convergence (DV)**: from the root's `route` lines, the earliest time at which every connected device has a valid route and no device changes route for 3 advertisement intervals (15 s). This is the same rule as the root's `CONVERGE` line, evaluated on the log. The report also gives the number of route changes after the warm-up, which shows flapping.
-- **Failure recovery**: for each surviving source, time from `failure_at_s` to its first valid route not via the failed node (DV), to the first packet at the root, and the gap in root receptions across the failure (both modes). No packet after the failure is reported as no recovery.
 
 The result for the test set is written by hand in [logs/00/SUMMARY.md](logs/00/SUMMARY.md).
 

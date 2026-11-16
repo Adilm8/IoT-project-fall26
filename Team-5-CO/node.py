@@ -33,17 +33,14 @@ DEVICE_ID = 5            # your team ID (1-254)
 MODE = "dv"              # "dv" or "flood" - must be the same on root and node
 
 CHANNEL = 1
-WARMUP_MS = 30000        # no own data for 30 s after boot (adverts and relaying still run)
+WARMUP_MS = 60000        # no own data for 60 s after boot (adverts and relaying still run)
 RUN_MS = 300000          # then generate data for exactly 5 minutes; relaying and adverts go on
-DRAIN_MS = 30000         # after the run, keep relaying this long, then write the summary file
+DRAIN_MS = 60000         # after the run, keep relaying this long, then write the summary file
 TX_POWER_DBM = 2         # max transmit power. Default is 19.5 dBm; 2 is the lowest the driver accepts
                          # (below 2 raises an error) and it reads back as about 1 dBm (hardware steps)
 VERSION = 1
 KEY_ID = 1
 RUN_ID = 1               # +1 per run, must be identical on all boards
-SCENARIO = "stable"      # "stable" or "failure" (LOGGING.md); recorded in the summary
-FAILED_NODE = 0          # failure scenario: ID of the relay that switches itself off. Same value on ALL boards
-FAIL_AT_S = 150          # ... this many seconds after ITS OWN boot. Same value on ALL boards, and on the root
 
 ADV_INTERVAL_MS = 5000   # + 0-10% jitter
 DATA_INTERVAL_MS = 10000  # + 0-10% jitter
@@ -570,7 +567,7 @@ def write_run_summary():
     with state_lock:
         p, h = route["parent"], route["hop"]
     lines = ["# iot-log format 1", "format=1", "device=node", "device_id=%d" % ME, "sensor=CO",
-             "mode=" + MODE, "run_id=%d" % RUN_ID, "scenario=" + SCENARIO,
+             "mode=" + MODE, "run_id=%d" % RUN_ID,
              "warmup_s=%d" % (WARMUP_MS // 1000), "run_s=%d" % (RUN_MS // 1000),
              "drain_s=%d" % (DRAIN_MS // 1000),
              "adv_interval_s=%d" % (ADV_INTERVAL_MS // 1000),
@@ -593,41 +590,16 @@ def write_run_summary():
     print("SUMMARY written to", SUMMARY_FILE)
 
 
-# Task VIII scenario 2 (topology change). Every board runs this code with the same SCENARIO,
-# FAILED_NODE and FAIL_AT_S; only the board whose DEVICE_ID equals FAILED_NODE acts on it. At
-# FAIL_AT_S after its boot it stops the worker thread (no more sends), writes its summary with the
-# counters up to now and a "fail" event, and turns ESP-NOW off, so it is silent for good (a reboot
-# would be a new run). Nodes boot right after the root, so this is FAIL_AT_S on the root clock plus
-# a few seconds.
-dead = False
-
-
-def should_fail():
-    return SCENARIO == "failure" and ME == FAILED_NODE and elapsed(boot_ms) >= FAIL_AT_S * 1000
-
-
-def shut_down():
-    global dead
-    dead = True                 # worker returns at its next loop pass
-    time.sleep_ms(500)          # let it finish a send in progress before the radio goes off
-    radio.e.active(False)
-    ev("fail", node=ME, info="shutdown")
-    print("FAILURE: node %d switched off at %d s after boot" % (ME, elapsed(boot_ms) // 1000))
-    write_run_summary()
-
-
 def worker():
     now = ticks()
     next_adv = time.ticks_add(now, jittered(ADV_INTERVAL_MS))
-    gen_start = time.ticks_add(now, WARMUP_MS)   # warm-up: first own sample after 30 s
+    gen_start = time.ticks_add(now, WARMUP_MS)   # warm-up: first own sample after 60 s
     gen_end = time.ticks_add(gen_start, RUN_MS)  # measured run: own samples for 5 minutes only
     next_data = gen_start
     generating = True
     summary_due = time.ticks_add(gen_end, DRAIN_MS)
     summarized = False
     while True:
-        if dead:
-            return
         now = ticks()
         if MODE == "dv" and time.ticks_diff(now, next_adv) >= 0:
             send_adv()
@@ -662,12 +634,8 @@ _thread.start_new_thread(worker, ())
 # neighbors every second, and prints the neighbor table and counters every 10 s.
 print("node %d mode=%s run=%d tx_power=%s dBm, warm-up %d s, then %d s of data"
       % (ME, MODE, RUN_ID, radio.wlan.config("txpower"), WARMUP_MS // 1000, RUN_MS // 1000))
-last_exp = last_tab = last_cnt = boot_ms = ticks()
+last_exp = last_tab = last_cnt = ticks()
 while True:
-    if should_fail():
-        shut_down()
-        while True:
-            time.sleep(1)       # silent until power-off; the summary is already written
     rssi, msg = radio.recv(100)
     if msg:
         cnt.bump("rx_total")

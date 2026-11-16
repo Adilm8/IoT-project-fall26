@@ -2,7 +2,7 @@
 
 Hand-written, because the logs of this set predate [LOGGING.md](../../LOGGING.md) and `summarize.py` cannot read them. This set is **not** used for the report. Numbers are copied from the root summaries (`root/*/root_summary_*.txt`) and the node summaries / logs that exist.
 
-Setup of the run: root + 9 sources (nodes 1, 3, 4, 5, 6, 7, 8, 10, 12), 30 s warm-up, 300 s measured run, 30 s drain, one sample every ~10 s per node (about 29 to 30 samples each). Transmit power 0.25 to 1.5 dBm, changing between attempts. Scenario: stable topology only, no relay was switched off.
+Setup of the run: root + 9 sources (nodes 1, 3, 4, 5, 6, 7, 8, 10, 12), 30 s warm-up, 300 s measured run, 30 s drain, one sample every ~10 s per node (about 29 to 30 samples each). Transmit power 0.25 to 1.5 dBm, changing between attempts.
 
 ## Did it work?
 
@@ -54,4 +54,4 @@ Flooding delivered about 98%, DV 71 to 85% in this set. PDR denominators are the
 1. Everyone uses [LOGGING.md](../../LOGGING.md); check `RUN_ID` and `MODE` on every board before every run, and use a new `RUN_ID` per attempt.
 2. Same node set in every run (nodes 5 and 6 were missing in DV run 2).
 3. Move the weakest sources (node 10, node 12) closer or accept that they lose packets in both protocols.
-4. Decide the failure-scenario relay and timing before the runs, and set the same `SCENARIO`, `FAILED_NODE`, `FAIL_AT_S` on every board (the relay switches itself off in software, see [LOGGING.md](../../LOGGING.md#failure-scenario)).
+4. The warm-up is now 60 s (it was 30 s here), because DV took 40 to 51 s to settle. The drain is 60 s too.

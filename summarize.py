@@ -120,17 +120,9 @@ def convergence_time(rows, quiet_ms, end_ms):
 def analyze(run, expect):
     rkv, rrows = run.root
     nodekv = {i: v[0] for i, v in run.nodes.items()}
-    scenario = rkv.get("scenario", "stable")
-    sched = (num(rkv, "warmup_s", 30), num(rkv, "run_s", 300), num(rkv, "drain_s", 30))
+    sched = (num(rkv, "warmup_s", 60), num(rkv, "run_s", 300), num(rkv, "drain_s", 60))
     end_ms = sum(sched) * 1000
     adv_ms = num(rkv, "adv_interval_s", 5) * 1000
-    failed = num(rkv, "failure_node") if scenario == "failure" else None
-    fail_ms = num(rkv, "failure_at_s") * 1000 if scenario == "failure" and num(rkv, "failure_at_s") is not None else None
-    if scenario == "failure" and (failed is None or fail_ms is None):
-        run.warn.append("scenario=failure but failure_node / failure_at_s missing in root summary: no recovery analysis")
-    for i, kv in nodekv.items():
-        if kv.get("scenario", scenario) != scenario:
-            run.warn.append("node %d says scenario=%s, root says %s" % (i, kv.get("scenario"), scenario))
 
     # unique deliveries by (origin, seq), first reception wins
     first = {}
@@ -141,7 +133,7 @@ def analyze(run, expect):
     for (o, s), r in first.items():
         by_src.setdefault(o, []).append((r["t_ms"], s))
 
-    sources = sorted((set(nodekv) | set(by_src) | set(expect)) - {0, failed})
+    sources = sorted((set(nodekv) | set(by_src) | set(expect)) - {0})
     per, estimated = {}, []
     for n in sources:
         kv = nodekv.get(n)
@@ -174,15 +166,15 @@ def analyze(run, expect):
     data_tx = sum(num(k, "data_tx_own", 0) + num(k, "data_tx_relay", 0) for k in nodekv.values())
     own_tx = sum(num(k, "data_tx_own", 0) for k in nodekv.values())
     adv_tx = sum(num(k, "adv_tx", 0) for k in nodekv.values()) + num(rkv, "adv_tx", 0)
-    missing = [n for n in expect_set(sources, failed) if n not in nodekv]
+    missing = [n for n in sources if n not in nodekv]
     if missing:
         run.warn.append("no node summary for %s: overhead is a lower bound" % ", ".join(map(str, missing)))
-    m = {"scenario": scenario, "mode": run.mode, "run_id": run.run_id, "sources": len(per),
+    m = {"mode": run.mode, "run_id": run.run_id, "sources": len(per),
          "generated": gen_total, "delivered": got_total,
          "pdr": got_total / gen_total if gen_total else None,
          "data_tx": data_tx, "own_tx": own_tx, "relay_tx": data_tx - own_tx, "adv_tx": adv_tx, "total_tx": data_tx + adv_tx,
          "overhead": (data_tx + adv_tx) / delivered_all if delivered_all else None,
-         "complete": not missing, "per_source": per, "failed": failed, "fail_ms": fail_ms,
+         "complete": not missing, "per_source": per,
          "dup_at_root": num(rkv, "drop_dup", 0)}
 
     # topology: last advertised route per node, mean RSSI of the last hop
@@ -202,31 +194,9 @@ def analyze(run, expect):
         t, m["not_converged"] = convergence_time(rrows, STABLE_ADV_INTERVALS * adv_ms, end_ms)
         m["convergence_s"] = t / 1000 if t is not None else None
         if not rrows:
-            run.warn.append("root events missing: no convergence / recovery analysis")
+            run.warn.append("root events missing: no convergence analysis")
 
-    # failure recovery
-    m["recovery"] = []
-    if failed is not None and fail_ms is not None:
-        for n in sources:
-            rx = sorted(t for t, _ in by_src.get(n, []))
-            before = [t for t in rx if t < fail_ms]
-            after = [t for t in rx if t >= fail_ms]
-            row = {"node": n, "gap_s": (after[0] - before[-1]) / 1000 if before and after else None,
-                   "first_rx_after_s": (after[0] - fail_ms) / 1000 if after else None,
-                   "affected": None, "route_s": None}
-            if run.mode == "dv":
-                routes = sorted((r for r in rrows if r["event"] == "route" and r["node"] == n), key=lambda r: r["t_ms"])
-                cur = [r for r in routes if r["t_ms"] <= fail_ms]
-                row["affected"] = bool(cur and cur[-1]["parent"] == failed)
-                alt = [r for r in routes if r["t_ms"] > fail_ms and r["hop"] is not None
-                       and r["hop"] < NO_ROUTE and r["parent"] != failed]
-                row["route_s"] = (alt[0]["t_ms"] - fail_ms) / 1000 if alt else None
-            m["recovery"].append(row)
     return m
-
-
-def expect_set(sources, failed):
-    return [n for n in sources if n != failed]
 
 
 # ---- report --------------------------------------------------------------------------------
@@ -256,7 +226,7 @@ def build_report(set_id, results, warnings):
     w = out.append
     groups = {}
     for m in results:
-        groups.setdefault((m["scenario"], m["mode"]), []).append(m)
+        groups.setdefault(m["mode"], []).append(m)
     w("# Experiment set %s: summary\n" % set_id)
     if warnings:
         w("## Warnings\n")
@@ -264,11 +234,11 @@ def build_report(set_id, results, warnings):
             w("- " + x)
         w("")
     w("## Runs (underlying results)\n")
-    w("| scenario | mode | run | sources | generated | delivered | PDR | data tx | adv tx | total tx | overhead | convergence (s) | complete |")
-    w("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |")
-    for m in sorted(results, key=lambda m: (m["scenario"], m["mode"], m["run_id"])):
-        w("| %s | %s | %d | %d | %d | %d | %s | %d | %d | %d | %s | %s | %s |" % (
-            m["scenario"], m["mode"], m["run_id"], m["sources"], m["generated"], m["delivered"], pct(m["pdr"]),
+    w("| mode | run | sources | generated | delivered | PDR | data tx | adv tx | total tx | overhead | convergence (s) | complete |")
+    w("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |")
+    for m in sorted(results, key=lambda m: (m["mode"], m["run_id"])):
+        w("| %s | %d | %d | %d | %d | %s | %d | %d | %d | %s | %s | %s |" % (
+            m["mode"], m["run_id"], m["sources"], m["generated"], m["delivered"], pct(m["pdr"]),
             m["data_tx"], m["adv_tx"], m["total_tx"], f2(m["overhead"]),
             f2(m["convergence_s"], 0) if m["mode"] == "dv" else "–", "yes" if m["complete"] else "NO"))
     w("\nOverhead = (data + relayed + advertisement send attempts of all devices, root included) / unique packets delivered. "
@@ -276,22 +246,22 @@ def build_report(set_id, results, warnings):
       "With `complete = NO` some node summaries are missing and the overhead is a lower bound.\n")
 
     w("## Mean ± standard deviation across runs\n")
-    w("| scenario | mode | runs | PDR | overhead | data tx | adv tx | duplicates dropped at root |")
-    w("| --- | --- | --- | --- | --- | --- | --- | --- |")
-    for (sc, mo), ms_ in sorted(groups.items()):
-        w("| %s | %s | %d | %s | %s | %s | %s | %s |" % (
-            sc, mo, len(ms_), ms([m["pdr"] for m in ms_], pct_f, 100), ms([m["overhead"] for m in ms_]),
+    w("| mode | runs | PDR | overhead | data tx | adv tx | duplicates dropped at root |")
+    w("| --- | --- | --- | --- | --- | --- | --- |")
+    for mo, ms_ in sorted(groups.items()):
+        w("| %s | %d | %s | %s | %s | %s | %s |" % (
+            mo, len(ms_), ms([m["pdr"] for m in ms_], pct_f, 100), ms([m["overhead"] for m in ms_]),
             ms([m["data_tx"] for m in ms_], lambda x: "%.0f" % x), ms([m["adv_tx"] for m in ms_], lambda x: "%.0f" % x),
             ms([m["dup_at_root"] for m in ms_], lambda x: "%.0f" % x)))
     w("")
-    for (sc, mo), ms_ in sorted(groups.items()):
+    for mo, ms_ in sorted(groups.items()):
         if len(ms_) < 3:
-            w("⚠ %s / %s: only %d run(s), Task.md asks for at least three." % (sc, mo, len(ms_)))
+            w("⚠ %s: only %d run(s), Task.md asks for at least three." % (mo, len(ms_)))
 
     w("## Per-source PDR (mean ± sd)\n")
     cols = sorted(groups)
     srcs = sorted({n for m in results for n in m["per_source"]})
-    w("| source | " + " | ".join("%s / %s" % c for c in cols) + " |")
+    w("| source | " + " | ".join(cols) + " |")
     w("| --- |" + " --- |" * len(cols))
     for n in srcs:
         cells = []
@@ -306,30 +276,13 @@ def build_report(set_id, results, warnings):
         w("## DV startup convergence\n")
         w("Time from root boot (t = 0) until every connected device has a valid route and no device changes its route for %d advertisement intervals "
           "(from the routes the root hears advertised; same rule as the root's CONVERGE line).\n" % STABLE_ADV_INTERVALS)
-        w("| scenario | run | convergence (s) | devices without a route at the end | route changes after warm-up |")
-        w("| --- | --- | --- | --- | --- |")
-        for m in sorted(dv, key=lambda m: (m["scenario"], m["run_id"])):
-            w("| %s | %d | %s | %s | %s |" % (m["scenario"], m["run_id"],
+        w("| run | convergence (s) | devices without a route at the end | route changes after warm-up |")
+        w("| --- | --- | --- | --- |")
+        for m in sorted(dv, key=lambda m: m["run_id"]):
+            w("| %d | %s | %s | %s |" % (m["run_id"],
               f2(m["convergence_s"], 0) if m["convergence_s"] is not None else "not converged",
               ", ".join(map(str, m["not_converged"])) or "–", m["changes"]))
         w("\nMany route changes after warm-up mean parents keep flapping; that costs delivery (packets sent to a stale parent are lost).\n")
-
-    fails = [m for m in results if m["recovery"]]
-    if fails:
-        w("## Failure recovery\n")
-        w("Gap = time between the last packet from a source before the failure and the first one after it (root receptions). "
-          "Route time = failure until the source advertises a valid route not via the failed node (DV). "
-          "\"–\" with a gap of n/a means no recovery in the log.\n")
-        w("| mode | run | failed node | at (s) | source | via failed node? | route time (s) | first rx after failure (s) | gap (s) |")
-        w("| --- | --- | --- | --- | --- | --- | --- | --- | --- |")
-        for m in sorted(fails, key=lambda m: (m["mode"], m["run_id"])):
-            for r in m["recovery"]:
-                aff = "–" if r["affected"] is None else ("yes" if r["affected"] else "no")
-                w("| %s | %d | %d | %d | node %d | %s | %s | %s | %s |" % (
-                    m["mode"], m["run_id"], m["failed"], m["fail_ms"] / 1000, r["node"], aff,
-                    f2(r["route_s"], 1) if m["mode"] == "dv" else "–",
-                    f2(r["first_rx_after_s"], 1), f2(r["gap_s"], 1)))
-        w("")
 
     w("## Topology (per run)\n")
     w("Last route each node advertised to the root (hop / parent, DV) and mean RSSI at the root of each transmitter heard (dBm). "
@@ -343,26 +296,17 @@ def build_report(set_id, results, warnings):
     w("")
 
     w("## Answers to Task.md section VIII\n")
-    for sc in sorted({m["scenario"] for m in results}):
-        d, fl = groups.get((sc, "dv")), groups.get((sc, "flood"))
-        if not (d and fl):
-            w("- **%s**: only %s runs found, no DV vs flooding comparison." % (sc, "DV" if d else "flooding"))
-            continue
+    d, fl = groups.get("dv"), groups.get("flood")
+    if not (d and fl):
+        w("- Only %s runs found, no DV vs flooding comparison." % ("DV" if d else "flooding"))
+    else:
         avg = lambda g, k: statistics.mean([m[k] for m in g if m[k] is not None] or [float("nan")])
-        w("- **%s, PDR**: DV %s, flooding %s." % (sc, pct_f(100 * avg(d, "pdr")), pct_f(100 * avg(fl, "pdr"))))
-        w("- **%s, overhead** (send attempts per delivered packet): DV %.2f (data %.0f + adverts %.0f per run), flooding %.2f (data %.0f)."
-          % (sc, avg(d, "overhead"), avg(d, "data_tx"), avg(d, "adv_tx"), avg(fl, "overhead"), avg(fl, "data_tx")))
+        w("- **PDR**: DV %s, flooding %s." % (pct_f(100 * avg(d, "pdr")), pct_f(100 * avg(fl, "pdr"))))
+        w("- **Overhead** (send attempts per delivered packet): DV %.2f (data %.0f + adverts %.0f per run), flooding %.2f (data %.0f)."
+          % (avg(d, "overhead"), avg(d, "data_tx"), avg(d, "adv_tx"), avg(fl, "overhead"), avg(fl, "data_tx")))
         conv = [m["convergence_s"] for m in d if m["convergence_s"] is not None]
-        w("- **%s, DV convergence**: %s." % (sc, ("%s s mean over %d of %d runs" % (f2(statistics.mean(conv), 0), len(conv), len(d)))
-                                            if conv else "no run converged (some route kept changing)"))
-    if fails:
-        for mo in ("dv", "flood"):
-            gaps = [r["gap_s"] for m in fails if m["mode"] == mo for r in m["recovery"]]
-            lost = sum(1 for g in gaps if g is None)
-            if gaps:
-                good = [g for g in gaps if g is not None]
-                w("- **failure, %s**: %d of %d surviving sources never delivered again after the failure%s." % (
-                    mo, lost, len(gaps), ", median gap %.1f s for the others" % statistics.median(good) if good else ""))
+        w("- **DV convergence**: %s." % (("%s s mean over %d of %d runs" % (f2(statistics.mean(conv), 0), len(conv), len(d)))
+                                       if conv else "no run converged (some route kept changing)"))
     w("")
     return "\n".join(out)
 
@@ -370,18 +314,18 @@ def build_report(set_id, results, warnings):
 def write_tables(res_dir, results):
     with open(os.path.join(res_dir, "runs.csv"), "w", newline="") as f:
         c = csv.writer(f)
-        c.writerow(["scenario", "mode", "run_id", "sources", "generated", "delivered", "pdr", "data_tx", "own_tx",
+        c.writerow(["mode", "run_id", "sources", "generated", "delivered", "pdr", "data_tx", "own_tx",
                     "relay_tx", "adv_tx", "total_tx", "overhead", "convergence_s", "route_changes", "complete"])
         for m in results:
-            c.writerow([m["scenario"], m["mode"], m["run_id"], m["sources"], m["generated"], m["delivered"],
+            c.writerow([m["mode"], m["run_id"], m["sources"], m["generated"], m["delivered"],
                         m["pdr"], m["data_tx"], m["own_tx"], m["relay_tx"], m["adv_tx"], m["total_tx"], m["overhead"],
                         m["convergence_s"], m["changes"], m["complete"]])
     with open(os.path.join(res_dir, "per_source.csv"), "w", newline="") as f:
         c = csv.writer(f)
-        c.writerow(["scenario", "mode", "run_id", "source", "generated", "generated_exact", "delivered", "pdr", "acq_fail", "drop_noroute"])
+        c.writerow(["mode", "run_id", "source", "generated", "generated_exact", "delivered", "pdr", "acq_fail", "drop_noroute"])
         for m in results:
             for n, p in sorted(m["per_source"].items()):
-                c.writerow([m["scenario"], m["mode"], m["run_id"], n, p["generated"], p["exact"], p["delivered"],
+                c.writerow([m["mode"], m["run_id"], n, p["generated"], p["exact"], p["delivered"],
                             p["pdr"], p["acq_fail"], p["noroute"]])
 
 
@@ -394,41 +338,39 @@ def plots(res_dir, results):
         return "matplotlib not installed, plots skipped (pip install matplotlib)"
     groups = {}
     for m in results:
-        groups.setdefault((m["scenario"], m["mode"]), []).append(m)
-    scenarios = sorted({k[0] for k in groups})
+        groups.setdefault(m["mode"], []).append(m)
     colors = {"dv": "#1f77b4", "flood": "#ff7f0e"}
+    names = {"dv": "DV", "flood": "Flooding"}
 
     def sd(v):
         return statistics.stdev(v) if len(v) > 1 else 0
 
-    fig, axes = plt.subplots(len(scenarios), 1, figsize=(9, 3.6 * len(scenarios)), squeeze=False)
     srcs = sorted({n for m in results for n in m["per_source"]})
-    for ax, sc in zip(axes[:, 0], scenarios):
-        for j, mo in enumerate(("dv", "flood")):
-            g = groups.get((sc, mo), [])
-            vals = [[m["per_source"][n]["pdr"] * 100 for m in g if n in m["per_source"] and m["per_source"][n]["pdr"] is not None] for n in srcs]
-            ax.bar([i + (j - 0.5) * 0.38 for i in range(len(srcs))], [statistics.mean(v) if v else 0 for v in vals], 0.38,
-                   yerr=[sd(v) for v in vals], capsize=2, label=mo.upper() if mo == "dv" else "Flooding", color=colors[mo])
-        ax.set_xticks(range(len(srcs)))
-        ax.set_xticklabels(["node %d" % n for n in srcs])
-        ax.set_ylabel("PDR (%)")
-        ax.set_ylim(0, 105)
-        ax.set_title("Per-source PDR, %s scenario (mean ± sd over runs)" % sc)
-        ax.legend()
+    fig, ax = plt.subplots(figsize=(9, 3.8))
+    for j, mo in enumerate(("dv", "flood")):
+        g = groups.get(mo, [])
+        vals = [[m["per_source"][n]["pdr"] * 100 for m in g if n in m["per_source"] and m["per_source"][n]["pdr"] is not None] for n in srcs]
+        ax.bar([i + (j - 0.5) * 0.38 for i in range(len(srcs))], [statistics.mean(v) if v else 0 for v in vals], 0.38,
+               yerr=[sd(v) for v in vals], capsize=2, label=names[mo], color=colors[mo])
+    ax.set_xticks(range(len(srcs)))
+    ax.set_xticklabels(["node %d" % n for n in srcs])
+    ax.set_ylabel("PDR (%)")
+    ax.set_ylim(0, 105)
+    ax.set_title("Per-source PDR (mean ± sd over runs)")
+    ax.legend()
     fig.tight_layout()
     fig.savefig(os.path.join(res_dir, "plot_per_source_pdr.png"), dpi=150)
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(7, 3.6))
-    for j, mo in enumerate(("dv", "flood")):
-        vals = [[m["overhead"] for m in groups.get((sc, mo), []) if m["overhead"] is not None] for sc in scenarios]
-        ax.bar([i + (j - 0.5) * 0.38 for i in range(len(scenarios))], [statistics.mean(v) if v else 0 for v in vals], 0.38,
-               yerr=[sd(v) for v in vals], capsize=3, label=mo.upper() if mo == "dv" else "Flooding", color=colors[mo])
-    ax.set_xticks(range(len(scenarios)))
-    ax.set_xticklabels(scenarios)
+    fig, ax = plt.subplots(figsize=(5, 3.6))
+    modes = [mo for mo in ("dv", "flood") if mo in groups]
+    vals = [[m["overhead"] for m in groups[mo] if m["overhead"] is not None] for mo in modes]
+    ax.bar(range(len(modes)), [statistics.mean(v) if v else 0 for v in vals], 0.5,
+           yerr=[sd(v) for v in vals], capsize=3, color=[colors[mo] for mo in modes])
+    ax.set_xticks(range(len(modes)))
+    ax.set_xticklabels([names[mo] for mo in modes])
     ax.set_ylabel("send attempts per delivered packet")
     ax.set_title("Transmission overhead (mean ± sd over runs)")
-    ax.legend()
     fig.tight_layout()
     fig.savefig(os.path.join(res_dir, "plot_overhead.png"), dpi=150)
     plt.close(fig)
