@@ -1,0 +1,16 @@
+SUMMARY run_id=4 mode=dv tx_power=0.75 dBm
+schedule: warm-up 30 s, measured run 300 s, drain 30 s (from root boot, t = 0)
+[ 360s] STATS      delivered=224 (node 1: 26, node 3: 26, node 4: 24, node 5: 29, node 6: 27, node 7: 27, node 8: 26, node 10: 20, node 12: 19) | adverts heard=537 sent=69 | dropped: dest=191
+[ 360s] LINKS      last RSSI heard from: node 1: -68 dBm, node 3: -90 dBm, node 4: -86 dBm, node 5: -71 dBm, node 6: -79 dBm, node 7: -79 dBm, node 8: -69 dBm, node 10: -91 dBm, node 12: -86 dBm
+[ 360s] PDR        overall 224/264 = 84.8% | node 1: 26/29 = 89.7%, node 3: 26/28 = 92.9%, node 4: 24/29 = 82.8%, node 5: 29/29 = 100.0%, node 6: 27/30 = 90.0%, node 7: 27/30 = 90.0%, node 8: 26/30 = 86.7%, node 10: 20/29 = 69.0%, node 12: 19/30 = 63.3%
+[ 360s] CONVERGE   all routes up, last change 0 s ago, waiting for 15 s of stability
+node 1: first heard 8 s, first route 8 s, last route change 358 s, hop 3 parent 4
+node 3: first heard 3 s, first route 8 s, last route change 348 s, hop 3 parent 6
+node 4: first heard 3 s, first route 18 s, last route change 354 s, hop 2 parent 5
+node 5: first heard 7 s, first route 7 s, last route change 7 s, hop 1 parent 0
+node 6: first heard 9 s, first route 9 s, last route change 356 s, hop 3 parent 4
+node 7: first heard 2 s, first route 8 s, last route change 360 s, hop 4 parent 8
+node 8: first heard 7 s, first route 12 s, last route change 358 s, hop 3 parent 4
+node 10: first heard 9 s, first route 9 s, last route change 335 s, hop 2 parent 1
+node 12: first heard 7 s, first route 12 s, last route change 357 s, hop 4 parent 8
+PDR note: generated = highest seq seen + 1 per node (packets lost at the very end are invisible), compare with each node's own 'generated' count.

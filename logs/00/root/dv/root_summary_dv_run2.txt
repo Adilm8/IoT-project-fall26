@@ -1,0 +1,14 @@
+SUMMARY run_id=2 mode=dv tx_power=1.25 dBm
+schedule: warm-up 30 s, measured run 300 s, drain 30 s (from root boot, t = 0)
+[ 361s] STATS      delivered=143 (node 1: 22, node 3: 18, node 4: 20, node 7: 22, node 8: 29, node 10: 16, node 12: 16) | adverts heard=447 sent=69 | dropped: dest=216, run=104
+[ 361s] LINKS      last RSSI heard from: node 1: -76 dBm, node 3: -89 dBm, node 4: -88 dBm, node 7: -77 dBm, node 8: -69 dBm, node 10: -84 dBm, node 12: -88 dBm
+[ 361s] PDR        overall 143/202 = 70.8% | node 1: 22/29 = 75.9%, node 3: 18/29 = 62.1%, node 4: 20/29 = 69.0%, node 7: 22/30 = 73.3%, node 8: 29/28 = 103.6%, node 10: 16/28 = 57.1%, node 12: 16/29 = 55.2%
+[ 361s] CONVERGE   all routes up, last change 13 s ago, waiting for 15 s of stability
+node 1: first heard 9 s, first route 9 s, last route change 325 s, hop 2 parent 3
+node 3: first heard 8 s, first route 8 s, last route change 282 s, hop 1 parent 0
+node 4: first heard 4 s, first route 9 s, last route change 347 s, hop 2 parent 3
+node 7: first heard 2 s, first route 12 s, last route change 323 s, hop 2 parent 3
+node 8: first heard 4 s, first route 10 s, last route change 284 s, hop 2 parent 3
+node 10: first heard 4 s, first route 14 s, last route change 347 s, hop 2 parent 3
+node 12: first heard 6 s, first route 11 s, last route change 284 s, hop 2 parent 3
+PDR note: generated = highest seq seen + 1 per node (packets lost at the very end are invisible), compare with each node's own 'generated' count.

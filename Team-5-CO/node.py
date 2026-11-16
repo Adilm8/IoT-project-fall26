@@ -33,9 +33,17 @@ DEVICE_ID = 5            # your team ID (1-254)
 MODE = "dv"              # "dv" or "flood" - must be the same on root and node
 
 CHANNEL = 1
+WARMUP_MS = 30000        # no own data for 30 s after boot (adverts and relaying still run)
+RUN_MS = 300000          # then generate data for exactly 5 minutes; relaying and adverts go on
+DRAIN_MS = 30000         # after the run, keep relaying this long, then write the summary file
+TX_POWER_DBM = 2         # max transmit power. Default is 19.5 dBm; 2 is the lowest the driver accepts
+                         # (below 2 raises an error) and it reads back as about 1 dBm (hardware steps)
 VERSION = 1
 KEY_ID = 1
 RUN_ID = 1               # +1 per run, must be identical on all boards
+SCENARIO = "stable"      # "stable" or "failure" (LOGGING.md); recorded in the summary
+FAILED_NODE = 0          # failure scenario: ID of the relay that switches itself off. Same value on ALL boards
+FAIL_AT_S = 150          # ... this many seconds after ITS OWN boot. Same value on ALL boards, and on the root
 
 ADV_INTERVAL_MS = 5000   # + 0-10% jitter
 DATA_INTERVAL_MS = 10000  # + 0-10% jitter
@@ -114,6 +122,8 @@ class Radio:
         wlan = network.WLAN(network.STA_IF)
         wlan.active(True)
         wlan.config(channel=CHANNEL)
+        wlan.config(txpower=TX_POWER_DBM)   # lower power shortens range (helps build multi-hop topologies)
+        self.wlan = wlan
         self.e = espnow.ESPNow()
         self.e.active(True)
         self.e.add_peer(BCAST)
@@ -308,6 +318,24 @@ def read_co():
 # Section VI: the main thread receives (rx), the worker thread sends (tx). Shared state is
 # protected by locks, and the worker never holds a lock while sleeping or sending.
 ME = DEVICE_ID
+
+# File formats for all teams: LOGGING.md. The events CSV and the summary are what
+# summarize.py reads. Boot truncates the events file, so a restart never mixes two attempts
+# (raise RUN_ID for every attempt).
+EVENTS_FILE = "node%d_events_%s_run%d.csv" % (ME, MODE, RUN_ID)
+with open(EVENTS_FILE, "w") as _f:
+    _f.write("t_ms,event,node,seq,via,rssi,hop,parent,info\n")
+
+
+# One CSV line per event (LOGGING.md, events file). Fields must not contain commas.
+def ev(event, node="", seq="", info="", hop="", parent=""):
+    try:
+        with open(EVENTS_FILE, "a") as f:
+            f.write("%d,%s,%s,%s,,,%s,%s,%s\n"
+                    % (time.ticks_ms(), event, node, seq, hop, parent, str(info).replace(",", ";")))
+    except OSError:
+        pass
+
 NONE = 255
 
 radio = Radio()
@@ -373,6 +401,7 @@ def recompute(now):
     route["parent"], route["hop"] = p, h
     if p != old_p or h != old_h:
         rss = "-" if new is None else "%.1f" % -new[1]
+        ev("route", node=ME, hop=h, parent=p, info=(why or "hop update").replace(" ", "_"))
         return "ROUTE parent %d->%d hop %d->%d rss=%s reason=%s" % (old_p, p, old_h, h, rss, why or "hop update")
     return None
 
@@ -487,6 +516,8 @@ def send_data(origin, seq, code, ttl, payload, local):
             dest = route["parent"]
         if dest == NONE:
             cnt.bump("drop_noroute")
+            if local:
+                ev("noroute", node=ME, seq=seq)
             print("DROP no route origin=%d seq=%d" % (origin, seq))
             return
     else:
@@ -510,11 +541,13 @@ def generate():
         payload = bytes([read_co()])
     except Exception as ex:
         cnt.bump("acq_fail")
+        ev("acqfail", node=ME)
         print("ACQ FAIL co:", ex)
         return                              # no packet on failed acquisition
     seq = seq_counter
     seq_counter = (seq_counter + 1) & 0xFFFF
     cnt.bump("generated")
+    ev("gen", node=ME, seq=seq, info=4)
     ttl = TTL_INIT
     if ttl <= 0:
         return
@@ -526,18 +559,90 @@ def generate():
 
 # Section VI worker thread: schedules advertisements (DV only) and own data with jitter,
 # and sends queued relay packets when they are due. A short sleep avoids a busy loop.
+# Section VIII: per-device counters of this run, saved to a file at the end of the drain.
+# generated counts every sample, including ones dropped for "no route" (they do not enter
+# acq_fail). Transmission overhead needs send attempts = own data + relayed data + adverts.
+SUMMARY_FILE = "node%d_summary_%s_run%d.txt" % (ME, MODE, RUN_ID)
+
+
+def write_run_summary():
+    c = cnt.snapshot()
+    with state_lock:
+        p, h = route["parent"], route["hop"]
+    lines = ["# iot-log format 1", "format=1", "device=node", "device_id=%d" % ME, "sensor=CO",
+             "mode=" + MODE, "run_id=%d" % RUN_ID, "scenario=" + SCENARIO,
+             "warmup_s=%d" % (WARMUP_MS // 1000), "run_s=%d" % (RUN_MS // 1000),
+             "drain_s=%d" % (DRAIN_MS // 1000),
+             "adv_interval_s=%d" % (ADV_INTERVAL_MS // 1000),
+             "data_interval_s=%d" % (DATA_INTERVAL_MS // 1000),
+             "tx_power_dbm=%s" % radio.wlan.config("txpower")]
+    for k in ("generated", "acq_fail", "drop_noroute", "data_tx_own", "data_tx_relay", "adv_tx"):
+        lines.append("%s=%d" % (k, c.get(k, 0)))
+    if MODE == "dv":
+        lines += ["final_hop=%d" % h, "final_parent=%d" % p]
+    lines += ["%s=%s" % kv for kv in sorted(c.items())
+              if kv[0] not in ("generated", "acq_fail", "drop_noroute", "data_tx_own",
+                               "data_tx_relay", "adv_tx")]
+    try:
+        with open(SUMMARY_FILE, "w") as f:
+            f.write("\n".join(lines) + "\n")
+    except OSError:
+        print("could not write", SUMMARY_FILE)
+    for line in lines:
+        print(line)
+    print("SUMMARY written to", SUMMARY_FILE)
+
+
+# Task VIII scenario 2 (topology change). Every board runs this code with the same SCENARIO,
+# FAILED_NODE and FAIL_AT_S; only the board whose DEVICE_ID equals FAILED_NODE acts on it. At
+# FAIL_AT_S after its boot it stops the worker thread (no more sends), writes its summary with the
+# counters up to now and a "fail" event, and turns ESP-NOW off, so it is silent for good (a reboot
+# would be a new run). Nodes boot right after the root, so this is FAIL_AT_S on the root clock plus
+# a few seconds.
+dead = False
+
+
+def should_fail():
+    return SCENARIO == "failure" and ME == FAILED_NODE and elapsed(boot_ms) >= FAIL_AT_S * 1000
+
+
+def shut_down():
+    global dead
+    dead = True                 # worker returns at its next loop pass
+    time.sleep_ms(500)          # let it finish a send in progress before the radio goes off
+    radio.e.active(False)
+    ev("fail", node=ME, info="shutdown")
+    print("FAILURE: node %d switched off at %d s after boot" % (ME, elapsed(boot_ms) // 1000))
+    write_run_summary()
+
+
 def worker():
     now = ticks()
     next_adv = time.ticks_add(now, jittered(ADV_INTERVAL_MS))
-    next_data = time.ticks_add(now, jittered(DATA_INTERVAL_MS))
+    gen_start = time.ticks_add(now, WARMUP_MS)   # warm-up: first own sample after 30 s
+    gen_end = time.ticks_add(gen_start, RUN_MS)  # measured run: own samples for 5 minutes only
+    next_data = gen_start
+    generating = True
+    summary_due = time.ticks_add(gen_end, DRAIN_MS)
+    summarized = False
     while True:
+        if dead:
+            return
         now = ticks()
         if MODE == "dv" and time.ticks_diff(now, next_adv) >= 0:
             send_adv()
             next_adv = time.ticks_add(now, jittered(ADV_INTERVAL_MS))
-        if time.ticks_diff(now, next_data) >= 0:
-            generate()
-            next_data = time.ticks_add(now, jittered(DATA_INTERVAL_MS))
+        if generating and time.ticks_diff(now, next_data) >= 0:
+            if time.ticks_diff(now, gen_end) >= 0:
+                generating = False          # run over: no new samples, relaying carries on
+                print("RUN OVER: stopped generating, generated=%d"
+                      % cnt.snapshot().get("generated", 0))
+            else:
+                generate()
+                next_data = time.ticks_add(now, jittered(DATA_INTERVAL_MS))
+        if not summarized and time.ticks_diff(now, summary_due) >= 0:
+            summarized = True               # drain over: save this run's counters
+            write_run_summary()
         item = None
         with fq_lock:
             for k, it in enumerate(fq):
@@ -555,9 +660,14 @@ _thread.start_new_thread(worker, ())
 # Section VI main/receive thread: the only thread that calls recv(). It decrypts and checks
 # every packet (section V.A), updates neighbors (III), selects the parent (IV), expires
 # neighbors every second, and prints the neighbor table and counters every 10 s.
-print("node %d mode=%s run=%d" % (ME, MODE, RUN_ID))
-last_exp = last_tab = last_cnt = ticks()
+print("node %d mode=%s run=%d tx_power=%s dBm, warm-up %d s, then %d s of data"
+      % (ME, MODE, RUN_ID, radio.wlan.config("txpower"), WARMUP_MS // 1000, RUN_MS // 1000))
+last_exp = last_tab = last_cnt = boot_ms = ticks()
 while True:
+    if should_fail():
+        shut_down()
+        while True:
+            time.sleep(1)       # silent until power-off; the summary is already written
     rssi, msg = radio.recv(100)
     if msg:
         cnt.bump("rx_total")

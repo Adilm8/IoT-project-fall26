@@ -1,0 +1,53 @@
+BOOTUP: Device 7, Mode=FLOODING
+--- STATS t=30803 mode=FLOODING ---
+no_rssi:0 generated:0 relay_queue_drops:0 data_relayed:1 tx_fail:0 data_originated:0 no_route_drops:0 adv_sent:0 acq_fail:0 ttl_drop:0 duplicate:3 integrity_fail:0 bad_packet:0 sensor_queue_drops:0 neighbor_expired:0
+GENERATED,30832,7,1,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,41051,7,2,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,51068,7,3,3,-122.41940 deg lon,37.77490 deg lat
+--- STATS t=60883 mode=FLOODING ---
+no_rssi:0 generated:3 relay_queue_drops:0 data_relayed:16 tx_fail:0 data_originated:3 no_route_drops:0 adv_sent:0 acq_fail:0 ttl_drop:0 duplicate:94 integrity_fail:0 bad_packet:0 sensor_queue_drops:0 neighbor_expired:0
+GENERATED,62074,7,4,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,72985,7,5,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,83528,7,6,3,-122.41940 deg lon,37.77490 deg lat
+--- STATS t=90913 mode=FLOODING ---
+no_rssi:0 generated:6 relay_queue_drops:0 data_relayed:37 tx_fail:0 data_originated:6 no_route_drops:0 adv_sent:0 acq_fail:0 ttl_drop:0 duplicate:218 integrity_fail:0 bad_packet:0 sensor_queue_drops:0 neighbor_expired:0
+GENERATED,94017,7,7,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,105039,7,8,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,115563,7,9,3,-122.41940 deg lon,37.77490 deg lat
+--- STATS t=120964 mode=FLOODING ---
+no_rssi:0 generated:9 relay_queue_drops:0 data_relayed:57 tx_fail:0 data_originated:9 no_route_drops:0 adv_sent:0 acq_fail:0 ttl_drop:0 duplicate:326 integrity_fail:0 bad_packet:0 sensor_queue_drops:0 neighbor_expired:0
+GENERATED,125766,7,10,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,136083,7,11,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,146624,7,12,3,-122.41940 deg lon,37.77490 deg lat
+--- STATS t=151043 mode=FLOODING ---
+no_rssi:0 generated:12 relay_queue_drops:0 data_relayed:76 tx_fail:0 data_originated:12 no_route_drops:0 adv_sent:0 acq_fail:0 ttl_drop:0 duplicate:450 integrity_fail:0 bad_packet:0 sensor_queue_drops:0 neighbor_expired:0
+GENERATED,156724,7,13,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,167453,7,14,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,177863,7,15,3,-122.41940 deg lon,37.77490 deg lat
+--- STATS t=181083 mode=FLOODING ---
+no_rssi:0 generated:15 relay_queue_drops:0 data_relayed:96 tx_fail:0 data_originated:15 no_route_drops:0 adv_sent:0 acq_fail:0 ttl_drop:0 duplicate:574 integrity_fail:0 bad_packet:0 sensor_queue_drops:0 neighbor_expired:0
+GENERATED,188377,7,16,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,198486,7,17,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,209300,7,18,3,-122.41940 deg lon,37.77490 deg lat
+--- STATS t=211103 mode=FLOODING ---
+no_rssi:0 generated:18 relay_queue_drops:0 data_relayed:116 tx_fail:0 data_originated:18 no_route_drops:0 adv_sent:0 acq_fail:0 ttl_drop:0 duplicate:690 integrity_fail:0 bad_packet:0 sensor_queue_drops:0 neighbor_expired:0
+GENERATED,220033,7,19,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,230634,7,20,3,-122.41940 deg lon,37.77490 deg lat
+--- STATS t=241104 mode=FLOODING ---
+no_rssi:0 generated:20 relay_queue_drops:0 data_relayed:137 tx_fail:0 data_originated:20 no_route_drops:0 adv_sent:0 acq_fail:0 ttl_drop:0 duplicate:816 integrity_fail:0 bad_packet:0 sensor_queue_drops:0 neighbor_expired:0
+GENERATED,241645,7,21,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,252353,7,22,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,263371,7,23,3,-122.41940 deg lon,37.77490 deg lat
+--- STATS t=271193 mode=FLOODING ---
+no_rssi:0 generated:23 relay_queue_drops:0 data_relayed:155 tx_fail:0 data_originated:23 no_route_drops:0 adv_sent:0 acq_fail:0 ttl_drop:0 duplicate:931 integrity_fail:0 bad_packet:0 sensor_queue_drops:0 neighbor_expired:0
+GENERATED,273692,7,24,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,283805,7,25,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,294526,7,26,3,-122.41940 deg lon,37.77490 deg lat
+--- STATS t=301213 mode=FLOODING ---
+no_rssi:0 generated:26 relay_queue_drops:0 data_relayed:175 tx_fail:0 data_originated:26 no_route_drops:0 adv_sent:0 acq_fail:0 ttl_drop:0 duplicate:1056 integrity_fail:0 bad_packet:0 sensor_queue_drops:0 neighbor_expired:0
+GENERATED,305259,7,27,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,315810,7,28,3,-122.41940 deg lon,37.77490 deg lat
+GENERATED,326424,7,29,3,-122.41940 deg lon,37.77490 deg lat
+GENERATION STOPPED t=330833 (drain phase, still relaying)
+--- STATS t=331213 mode=FLOODING ---
+no_rssi:0 generated:29 relay_queue_drops:0 data_relayed:195 tx_fail:0 data_originated:29 no_route_drops:0 adv_sent:0 acq_fail:0 ttl_drop:0 duplicate:1181 integrity_fail:0 bad_packet:0 sensor_queue_drops:0 neighbor_expired:0

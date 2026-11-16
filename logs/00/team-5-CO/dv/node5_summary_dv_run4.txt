@@ -1,0 +1,7 @@
+SUMMARY node 5 run_id=4 mode=dv
+schedule: warm-up 30 s, run 300 s, drain 30 s
+generated=29  (PDR denominator: root's delivered / generated)
+acq_fail=0  (not counted as generated)
+no_route_drops=0  (generated but dropped, section V)
+data_tx_own=29 data_tx_relay=4 adv_tx=68  total send attempts=101
+all counters: {'data_tx_own': 29, 'data_tx_relay': 4, 'rx_total': 903, 'generated': 29, 'drop_dest': 370, 'adv_tx': 68, 'adv_rx': 529}

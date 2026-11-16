@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a group project aimed at creating an IoT network using routing and flooding and comparing them. The assignment is in [Task.md](Task.md) (also as [Task.pdf](Task.pdf)); the packet formats we use are in [PACKETS.md](PACKETS.md).
+This is a group project aimed at creating an IoT network using routing and flooding and comparing them. The assignment is in [Task.md](Task.md) (also as [Task.pdf](Task.pdf)); the packet formats we use are in [PACKETS.md](PACKETS.md) and the log format every team uses is in [LOGGING.md](LOGGING.md).
 
 - [Hardware and software](#hardware-and-software)
 - [Team agreements](#team-agreements)
@@ -68,6 +68,7 @@ Task.md suggests starting values in [section II](Task.md#ii-equipment-and-config
 
 - Advertisement: 5 s + 0–10% jitter (root too). The instructor mentioned 10 s for the root, but we use 5 s for everyone.
 - Data: 10 s + 0–10% jitter.
+- Run schedule (DV): after boot a node sends no data of its own for 30 s (`WARMUP_MS`), then generates data for exactly 5 minutes (`RUN_MS`), then stops. Advertisements and relaying carry on the whole time, so DV can form routes and in-flight packets are forwarded. The root waits 30 s more (`DRAIN_S`) and then writes the summary. Total 30 + 300 + 30 = 360 s counted from the root boot.
 - Neighbor timeout: 15 s, checked every 1 s.
 - RSS threshold: −85 dBm, EMA with $\alpha = 0.3$ (see [Task.md section III](Task.md#iii-task-1-neighbor-discovery)).
 - Parent switch margin: 5 dB (same hop only, see [section IV](Task.md#iv-task-2-parent-selection)).
@@ -121,17 +122,71 @@ Two programs, one per board, each a single file with a `MODE` constant at the to
 - `root.py`: the root, ID 0. In `"dv"` mode it advertises hop 0 with parent 0 and logs every unique data packet it receives. In `"flood"` mode it only receives.
 - `Team-5-CO/node.py`: a non-root device with the CO sensor. It advertises, picks a parent, forwards for others and sends its own samples. `DEVICE_ID` and `MODE` are set at the top (our team ID is 5).
 - `keys.py`: the keychain from [above](#shared-psk-and-keychain), copied to every board next to the program.
+- `summarize.py`: runs on the computer, not on a board. Reads the logs of one experiment set and computes the [Task.md section VIII](Task.md#viii-task-6-experimental-comparison) numbers, see [Summarizing a set of logs](#summarizing-a-set-of-logs).
 
-Both programs have comments that point to the Task.md section each part implements. `MODE` and `RUN_ID` must be identical on all boards. Both use the rx thread for receiving and one worker thread for sending, so the radio never has two callers ([Task.md section VI](Task.md#vi-task-4-threaded-operation)).
+Transmit power is set by `TX_POWER_DBM` at the top of both programs (currently 2 dBm; the ESP32 default is 19.5 dBm). 2 dBm is the lowest value the driver accepts, and the radio rounds to hardware steps, so on our boards it reads back as about 1 dBm. Each program prints the value it read back when it starts.
+
+Both programs have comments that point to the Task.md section each part implements. `MODE`, `RUN_ID` and `SCENARIO` must be identical on all boards. Both use the rx thread for receiving and one worker thread for sending, so the radio never has two callers ([Task.md section VI](Task.md#vi-task-4-threaded-operation)).
 
 ### Reading the root output
 
 ```
-[  83s] DELIVERED  node 5   seq 12    SMOKE (code 4)  smoke=0 (not detected)
+[  83s] DELIVERED  node 5   seq 12    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -42 dBm]
 [  90s] STATS      delivered=9 (node 5: 9) | adverts heard=18 sent=18 | dropped: none
+[  90s] LINKS      last RSSI heard from: node 5: -42 dBm
 ```
 
-`DELIVERED` appears once per unique packet that passed decryption, the CRC check and validation ([Task.md, reception](Task.md#reception)). It shows the origin node, its sequence number, the sensor and the decoded reading with units, as the task asks for the root log ([required delivery behavior](Task.md#required-delivery-behavior)). The number in brackets is seconds since the root started. `STATS` is printed every 10 s: unique packets per node, advertisements received and sent, and every drop reason that is not zero (`crc`, `dup`, `dest`, `code`, `payload`, `run`, ...).
+`DELIVERED` appears once per unique packet that passed decryption, the CRC check and validation ([Task.md, reception](Task.md#reception)). It shows the origin node, its sequence number, the sensor and the decoded reading with units, as the task asks for the root log ([required delivery behavior](Task.md#required-delivery-behavior)). The first number in brackets is seconds since the root started. The last bracket on a `DELIVERED` line is the transmitter the root heard and its RSSI. That is the last hop: it is the origin only when the packet arrived directly, otherwise it is the relay. `LINKS` lists the most recent RSSI per neighbor the root hears. `STATS` is printed every 10 s: unique packets per node, advertisements received and sent, and every drop reason that is not zero (`crc`, `dup`, `dest`, `code`, `payload`, `run`, ...).
+
+### Log file and metrics
+
+All teams use the same files, described in [LOGGING.md](LOGGING.md): per device and run a `summary` (key=value, written once at the end) and an `events` CSV (one line per delivered packet, route change or generated sample). The root writes:
+
+- `root_summary_<MODE>_run<RUN_ID>.txt`: schedule, `SCENARIO`, `FAILED_NODE` / `FAIL_AT_S` (failure scenario only) and all root counters.
+- `root_events_<MODE>_run<RUN_ID>.csv`: an `rx` line per unique delivered packet and a `route` line per route change it hears advertised.
+- `root_console_<MODE>_run<RUN_ID>.txt`: everything the root prints (the `DELIVERED`, `STATS`, ... lines below), for humans only.
+
+Boot truncates the events and console files, so a restart cannot mix two attempts in one file: change `RUN_ID` for every attempt. Copy the files off with Thonny's file browser (View, Files) before you delete or reflash.
+
+Run schedule, counted from the root boot: 0 to 30 s warm-up, 30 to 330 s measured run, 330 to 360 s drain, then the root writes the summary and logs `SUMMARY written`. The log marks each step with a `PHASE` line. Nodes must be powered on within a few seconds after the root: each node starts its own 30 s + 5 min clock at its boot, so a node that starts later also stops later and has less drain time. Each node does the same with `node<ID>_summary_<MODE>_run<RUN_ID>.txt` and `node<ID>_events_<MODE>_run<RUN_ID>.csv` (`generated`, `acq_fail`, no-route drops, own and relayed data sends, adverts sent, final route).
+
+For the failure scenario ([Task.md section VIII](Task.md#viii-task-6-experimental-comparison), scenario 2) set `SCENARIO = "failure"` on every board and `FAILED_NODE` / `FAIL_AT_S` on the root (and on any node that carries the shutdown code). Exactly one relay is switched off, the board whose `DEVICE_ID` equals `FAILED_NODE`: `FAIL_AT_S` seconds after its own boot it stops sending, writes its summary and a `fail` event, and turns ESP-NOW off (`should_fail()` / `shut_down()` in `node.py`). The root only records the values. Nodes boot a few seconds after the root, so on the root clock the failure is a few seconds later than `FAIL_AT_S`. Details in [LOGGING.md](LOGGING.md#failure-scenario).
+
+Every 10 s the root also logs the [Task.md section VIII](Task.md#viii-task-6-experimental-comparison) numbers:
+
+```
+[ 120s] PDR        overall 18/20 = 90.0% | node 5: 9/10 = 90.0%, node 6: 9/10 = 90.0%
+[ 120s] CONVERGE   converged: 2 node(s) have a route, last change at 14 s  <== STARTUP CONVERGENCE TIME
+```
+
+- **PDR** is unique packets delivered divided by packets generated. The root cannot see a packet that never arrived, so it takes the generated count to be the highest sequence number seen plus 1. That works because a node numbers its samples from 0 at boot and every sample, including one dropped for "no route", uses a number. Packets lost at the very end are not visible, so check the final count against the node's own `generated` counter. Reset (reboot) the nodes at the start of each run so that numbering starts from 0.
+- **Per-source PDR** is the same ratio for each origin, listed after the overall figure.
+- **Startup convergence time** (DV) is measured from the root's boot (t = 0, the documented common start, so power the nodes on right after the root). It is the time of the last route change, reported once every node the root knows has a route and none has changed hop or parent for 3 advertisement intervals (15 s). The root learns routes from the advertisements it hears, plus a node's first delivered packet if its adverts are out of range, so a node that is never heard is not counted. `ROUTE` lines in the log show each change (`hop 255->1 parent 255->0`).
+- Transmission overhead needs the send counters of every node, so it comes from the node summaries, not the root. Use `generated` from the node summary as the exact PDR denominator instead of the root's estimate (`summarize.py` does).
+
+### Summarizing a set of logs
+
+Logs go in `logs/<NN>/` (two-digit experiment set, `00` is our unstructured test set and is not used), one folder per device and mode as in [LOGGING.md](LOGGING.md#folder-and-file-names):
+
+```
+logs/02/root/dv/root_summary_dv_run2.txt, root_events_dv_run2.csv
+logs/02/team-5-CO/dv/node5_summary_dv_run2.txt, node5_events_dv_run2.csv
+```
+
+```
+python3 summarize.py 02
+```
+
+It needs only Python 3 (plots need `matplotlib`, and are skipped without it). It prints a Markdown report and saves it as `logs/02/results/summary.md` together with `runs.csv` and `per_source.csv` (the underlying results table) and, if matplotlib is installed, `plot_per_source_pdr.png` and `plot_overhead.png`. The report has warnings first (missing node summaries, wrong run IDs, fewer than three runs), then per-run results, mean ± sd per scenario and mode, per-source PDR, DV convergence, failure recovery, topology (last route and RSSI per node) and a short answer per metric. `--expect 1,3,4,...` warns when a source is silent in a run.
+
+How the numbers are computed:
+
+- **PDR**: unique `(origin, seq)` at the root with `seq < generated`, divided by `generated` from the source's node summary (the root's highest seq + 1 is the fallback, flagged). In the failure scenario the failed relay is not a source.
+- **Overhead**: (own + relayed data + adverts over all node summaries, plus root adverts) divided by unique packets delivered.
+- **Startup convergence (DV)**: from the root's `route` lines, the earliest time at which every connected device has a valid route and no device changes route for 3 advertisement intervals (15 s). This is the same rule as the root's `CONVERGE` line, evaluated on the log. The report also gives the number of route changes after the warm-up, which shows flapping.
+- **Failure recovery**: for each surviving source, time from `failure_at_s` to its first valid route not via the failed node (DV), to the first packet at the root, and the gap in root receptions across the failure (both modes). No packet after the failure is reported as no recovery.
+
+The result for the test set is written by hand in [logs/00/SUMMARY.md](logs/00/SUMMARY.md).
 
 ### Putting it on a board
 
@@ -152,6 +207,4 @@ DO goes low when CO is above the level set by the potentiometer. Low is reported
 
 ### Tested so far
 
-DV mode with one root and one node, boards next to each other. The node found the root, chose it as parent (`ROUTE parent 255->0 hop 255->1`), the RSSI estimate updated, and the root logged every packet once with no drops. The first sample, generated before the route existed, is dropped as "no route", as [Task.md section V](Task.md#v-task-3-data-generation-and-delivery) asks.
-
-Not tested yet: flooding mode, two-hop paths, parent switching, neighbor expiry, and the other four sensor types.
+Test set `00` ([logs/00/SUMMARY.md](logs/00/SUMMARY.md)): 1 root and 9 sources, DV runs 2 to 4 and flooding runs 1 to 3. Flooding delivered about 98%, DV 71 to 85%; two-hop and longer paths, parent switching and neighbor expiry were exercised (and parents kept flapping). The other four sensor types are sent by the other teams' nodes and decode at the root. The new log files ([LOGGING.md](LOGGING.md)) and `summarize.py` are not yet exercised with real boards: they were checked on generated logs only.

@@ -17,12 +17,20 @@ from keys import keychain
 MODE = "dv"              # "dv" or "flood" - must be the same on root and node
 
 CHANNEL = 1
+TX_POWER_DBM = 2         # max transmit power. Default is 19.5 dBm; 2 is the lowest the driver accepts
+                         # (below 2 raises an error) and it reads back as about 1 dBm (hardware steps)
 VERSION = 1
 KEY_ID = 1
 RUN_ID = 1               # +1 per run, must be identical on all boards
+SCENARIO = "stable"      # "stable" or "failure" (LOGGING.md); recorded in the summary
+FAILED_NODE = 0          # failure scenario: the relay that switches itself off (see node.py) ...
+FAIL_AT_S = 150          # ... this many seconds after its boot. Only written to the summary here; same value on all boards
 
 ADV_INTERVAL_MS = 5000   # + 0-10% jitter
 DATA_INTERVAL_MS = 10000  # + 0-10% jitter
+WARMUP_S = 30            # nodes send no data for this long after boot
+RUN_S = 300              # then nodes generate data for this long (measured run)
+DRAIN_S = 30             # then the root waits this long for packets still in flight
 NEIGHBOR_TIMEOUT_MS = 15000
 RSS_THRESHOLD = -85      # dBm
 RSS_ALPHA = 0.3          # EMA smoothing of RSSI
@@ -98,6 +106,8 @@ class Radio:
         wlan = network.WLAN(network.STA_IF)
         wlan.active(True)
         wlan.config(channel=CHANNEL)
+        wlan.config(txpower=TX_POWER_DBM)   # lower power shortens range (helps build multi-hop topologies)
+        self.wlan = wlan
         self.e = espnow.ESPNow()
         self.e.active(True)
         self.e.add_peer(BCAST)
@@ -275,22 +285,109 @@ def check_data(inner):
     return (dest, origin, seq, ttl, code, payload), text
 
 
+# Everything the root reports goes through log(): printed on the console and appended to a
+# file on the board, one file per run ID. The file is opened and closed per line, so it
+# survives a power cut. Only the main thread logs, so no lock is needed.
+# File formats for all teams: LOGGING.md. The console log is free text for humans; the events
+# CSV and the summary are what summarize.py reads. Boot truncates the console log and the
+# events file, so a restart never mixes two attempts (raise RUN_ID for every attempt).
+LOG_FILE = "root_console_%s_run%d.txt" % (MODE, RUN_ID)       # the mode is in the name, so dv and
+EVENTS_FILE = "root_events_%s_run%d.csv" % (MODE, RUN_ID)     # flood runs never share a file
+SUMMARY_FILE = "root_summary_%s_run%d.txt" % (MODE, RUN_ID)
+EVENT_COLS = "t_ms,event,node,seq,via,rssi,hop,parent,info"
+
+for _name, _head in ((LOG_FILE, ""), (EVENTS_FILE, EVENT_COLS + "\n")):
+    with open(_name, "w") as _f:
+        _f.write(_head)
+
+
+# One CSV line per event (LOGGING.md, events file). Fields must not contain commas.
+def ev(event, node="", seq="", via="", rssi="", hop="", parent="", info=""):
+    try:
+        with open(EVENTS_FILE, "a") as f:
+            f.write("%d,%s,%s,%s,%s,%s,%s,%s,%s\n"
+                    % (ticks(), event, node, seq, via, rssi, hop, parent, str(info).replace(",", ";")))
+    except OSError:
+        pass
+
+
+def log(line):
+    print(line)
+    try:
+        with open(LOG_FILE, "a") as f:
+            f.write(line + "\n")
+    except OSError:
+        pass
+
+
+# Section VIII metrics, all measured from what the root itself receives.
+# PDR: each non-root device numbers its samples 0, 1, 2, ... from boot (seq +1 per sample,
+# including samples dropped for "no route"), so highest seq seen + 1 is the number it
+# generated, as far as the root can tell. Samples lost at the very end are not visible.
+seq_max = {}   # origin -> highest sequence number delivered
+
+# Startup convergence (DV): per node [first_heard_ms, route_ms, last_change_ms, hop, parent].
+# route_ms is when the node first had a route (an advert with hop < 255, or its first
+# delivered data if its adverts are out of the root's range). last_change_ms is the last
+# time its (hop, parent) changed. The common start is the root boot (t = 0).
+route_state = {}
+conv_reported = False
+
+
+def note_advert(nid, hop, parent):
+    t = ticks()
+    st = route_state.get(nid)
+    if st is None:
+        route_state[nid] = [t, t if hop < 255 else None, t, hop, parent]
+        ev("route", node=nid, hop=hop, parent=parent, info="first_heard")
+        log("[%4ds] ROUTE      node %d first heard: hop %d parent %d" % (t // 1000, nid, hop, parent))
+    elif st[3] is None:   # seen so far only through delivered data, now its adverts are heard
+        st[3], st[4] = hop, parent
+        ev("route", node=nid, hop=hop, parent=parent, info="advert_heard")
+        log("[%4ds] ROUTE      node %d advert heard: hop %d parent %d" % (t // 1000, nid, hop, parent))
+    elif (hop, parent) != (st[3], st[4]):
+        ev("route", node=nid, hop=hop, parent=parent, info="route_change")
+        log("[%4ds] ROUTE      node %d hop %d->%d parent %d->%d"
+            % (t // 1000, nid, st[3], hop, st[4], parent))
+        st[3], st[4], st[2] = hop, parent, t
+        if st[1] is None and hop < 255:
+            st[1] = t
+
+
+def note_delivery(origin):
+    t = ticks()
+    st = route_state.get(origin)
+    if st is None:
+        route_state[origin] = [t, t, t, None, None]
+    elif st[1] is None:
+        st[1], st[2] = t, t
+
+
+# Last RSSI heard from each transmitting neighbor (dBm). Only the main (receive) thread
+# reads and writes it, so it needs no lock. It is the RSSI of the LAST HOP (the outer
+# sender_id), which is the origin only when the packet came straight from the origin.
+link_rssi = {}
+
+
 # Section V "At the root": the root only accepts data addressed to it (DV: dest = 0, flooding:
 # dest = 255), ignores overheard DV data for other devices, drops duplicates, never forwards,
 # and logs each unique packet once with origin, sequence, sensor and decoded value.
 # Section V.A: nothing reaches the log unless decryption, CRC and validation all passed.
-def root_process(msg, mode, env, cnt, dup):
+def root_process(msg, mode, env, cnt, dup, rssi=None):
     """Root receive path. Prints one line per unique delivered packet."""
     cnt.bump("rx_total")
     sender, inner = env.open(msg)
     if sender is None:
         cnt.bump(inner)
         return
+    if rssi is not None:
+        link_rssi[sender] = rssi   # section III: RSSI is tied to the (checked) sender ID
     if inner[0] == PT_ADV:
         if len(inner) != 5 or inner[2] != sender:
             cnt.bump("drop_inner")
         else:
             cnt.bump("adv_rx")
+            note_advert(sender, inner[3], inner[4])
         return
     if inner[0] != PT_DATA:
         cnt.bump("drop_inner")
@@ -308,19 +405,103 @@ def root_process(msg, mode, env, cnt, dup):
         return
     cnt.bump("delivered")
     cnt.bump("node%d" % origin)    # per-source count, for per-source PDR (section VIII)
-    print("[%4ds] DELIVERED  node %-3d seq %-5d %-6s(code %d)  %s"
-          % (ticks() // 1000, origin, seq, SENSORS[code][0], code, text))
+    if seq > seq_max.get(origin, -1):
+        seq_max[origin] = seq
+    note_delivery(origin)
+    ev("rx", node=origin, seq=seq, via=sender, rssi="" if rssi is None else rssi,
+       info="%s;%s" % (SENSORS[code][0], text))
+    log("[%4ds] DELIVERED  node %-3d seq %-5d %-6s(code %d)  %s  [via node %d, RSSI %s]"
+          % (ticks() // 1000, origin, seq, SENSORS[code][0], code, text, sender,
+             "%d dBm" % rssi if rssi is not None else "n/a"))
 
 # Section VIII: periodic summary, easier to read than a raw dict. Shows how many unique
 # packets arrived per node, advertisements heard/sent, and every drop reason that is non-zero.
-def print_stats(cnt):
+def print_stats(cnt, out=None):
+    global conv_reported
+    out = out or log
+    now_s = ticks() // 1000
     c = cnt.snapshot()
     nodes = sorted((int(k[4:]), v) for k, v in c.items() if k.startswith("node"))
     drops = ", ".join("%s=%d" % (k[5:], v) for k, v in sorted(c.items()) if k.startswith("drop_"))
-    print("[%4ds] STATS      delivered=%d (%s) | adverts heard=%d sent=%d | dropped: %s"
-          % (ticks() // 1000, c.get("delivered", 0),
-             ", ".join("node %d: %d" % n for n in nodes) or "none yet",
-             c.get("adv_rx", 0), c.get("adv_tx", 0), drops or "none"))
+    out("[%4ds] STATS      delivered=%d (%s) | adverts heard=%d sent=%d | dropped: %s"
+        % (now_s, c.get("delivered", 0),
+           ", ".join("node %d: %d" % n for n in nodes) or "none yet",
+           c.get("adv_rx", 0), c.get("adv_tx", 0), drops or "none"))
+    out("[%4ds] LINKS      last RSSI heard from: %s"
+        % (now_s,
+           ", ".join("node %d: %d dBm" % kv for kv in sorted(link_rssi.items())) or "nobody yet"))
+    # PDR = unique delivered / generated, overall and per source (section VIII).
+    got = exp = 0
+    parts = []
+    for origin, n in nodes:
+        e = seq_max.get(origin, -1) + 1
+        got += n
+        exp += e
+        parts.append("node %d: %d/%d = %.1f%%" % (origin, n, e, 100.0 * n / e if e else 0.0))
+    if exp:
+        out("[%4ds] PDR        overall %d/%d = %.1f%% | %s"
+            % (now_s, got, exp, 100.0 * got / exp, ", ".join(parts)))
+    else:
+        out("[%4ds] PDR        no data delivered yet" % now_s)
+    if MODE != "dv":
+        return
+    # Startup convergence (section VIII): every known node has a route and none of them
+    # changed (hop, parent) for 3 advertisement intervals.
+    if not route_state:
+        out("[%4ds] CONVERGE   no node heard yet" % now_s)
+        return
+    waiting = sorted(n for n, s in route_state.items() if s[1] is None)
+    if waiting:
+        out("[%4ds] CONVERGE   waiting for a route from node %s"
+            % (now_s, ", ".join(str(n) for n in waiting)))
+        return
+    last_change = max(s[2] for s in route_state.values())
+    if elapsed(last_change) >= 3 * ADV_INTERVAL_MS:
+        out("[%4ds] CONVERGE   converged: %d node(s) have a route, last change at %d s%s"
+            % (now_s, len(route_state), last_change // 1000,
+               "" if conv_reported else "  <== STARTUP CONVERGENCE TIME"))
+        conv_reported = True
+    else:
+        out("[%4ds] CONVERGE   all routes up, last change %d s ago, waiting for %d s of stability"
+            % (now_s, elapsed(last_change) // 1000, 3 * ADV_INTERVAL_MS // 1000))
+
+
+# Section VIII: final summary of the run, written once to its own file (and logged).
+# SUMMARY_FILE is the key=value file from LOGGING.md that summarize.py reads. The console log
+# gets the same STATS / LINKS / PDR / CONVERGE lines as the periodic output, and finally each
+# node's last route and when it first had one.
+def write_summary(cnt):
+    c = cnt.snapshot()
+    lines = ["# iot-log format 1", "format=1", "device=root", "device_id=%d" % ROOT_ID, "sensor=",
+             "mode=" + MODE, "run_id=%d" % RUN_ID, "scenario=" + SCENARIO,
+             "warmup_s=%d" % WARMUP_S, "run_s=%d" % RUN_S, "drain_s=%d" % DRAIN_S,
+             "adv_interval_s=%d" % (ADV_INTERVAL_MS // 1000),
+             "data_interval_s=%d" % (DATA_INTERVAL_MS // 1000),
+             "tx_power_dbm=%s" % radio.wlan.config("txpower")]
+    if SCENARIO == "failure":
+        lines += ["failure_node=%d" % FAILED_NODE, "failure_at_s=%d" % FAIL_AT_S]
+    lines += ["%s=%s" % kv for kv in sorted(c.items()) if not kv[0].startswith("node")]
+    for k in ("adv_tx", "adv_rx", "delivered"):
+        if k not in c:
+            lines.append(k + "=0")
+    try:
+        with open(SUMMARY_FILE, "w") as f:
+            f.write("\n".join(lines) + "\n")
+    except OSError:
+        log("could not write " + SUMMARY_FILE)
+    log("SUMMARY run_id=%d mode=%s scenario=%s tx_power=%s dBm"
+        % (RUN_ID, MODE, SCENARIO, radio.wlan.config("txpower")))
+    log("schedule: warm-up %d s, measured run %d s, drain %d s (from root boot, t = 0)"
+        % (WARMUP_S, RUN_S, DRAIN_S))
+    print_stats(cnt)
+    for nid in sorted(route_state):
+        s = route_state[nid]
+        log("node %d: first heard %d s, first route %s, last route change %d s, hop %s parent %s"
+            % (nid, s[0] // 1000, "%d s" % (s[1] // 1000) if s[1] is not None else "never",
+               s[2] // 1000, s[3], s[4]))
+    log("PDR note: generated = highest seq seen + 1 per node (packets lost at the very end "
+        "are invisible), compare with each node's own 'generated' count.")
+    log("[%4ds] SUMMARY    written to %s" % (ticks() // 1000, SUMMARY_FILE))
 
 
 # ---- program ----
@@ -350,15 +531,29 @@ def adv_worker():
 if MODE == "dv":
     _thread.start_new_thread(adv_worker, ())
 
-print("root started: mode=%s run_id=%d (all boards must use the same)" % (MODE, RUN_ID))
+log("root started: mode=%s run_id=%d (all boards must use the same) tx_power=%s dBm, logging to %s, %s"
+    % (MODE, RUN_ID, radio.wlan.config("txpower"), LOG_FILE, EVENTS_FILE))
 # Section VI main/receive thread: the only consumer of ESP-NOW packets. recv() waits up to
 # 500 ms, so the loop never spins. Every packet goes through root_process (decrypt, check,
 # validate, de-duplicate, log).
-last = ticks()
+last = start = ticks()
+phase = 0   # 0 warm-up, 1 measured run, 2 drain, 3 summary written
 while True:
     rssi, msg = radio.recv(500)
     if msg:
-        root_process(msg, MODE, env, cnt, dup)
+        root_process(msg, MODE, env, cnt, dup, rssi)
     if elapsed(last) >= 10000:
         last = ticks()
         print_stats(cnt)
+    # Run schedule, counted from the root boot (the common start): warm-up, measured run,
+    # drain, then the summary file. The log keeps going afterwards.
+    e = elapsed(start) // 1000
+    if phase == 0 and e >= WARMUP_S:
+        phase = 1
+        log("[%4ds] PHASE      warm-up over, measured run starts (%d s)" % (e, RUN_S))
+    if phase == 1 and e >= WARMUP_S + RUN_S:
+        phase = 2
+        log("[%4ds] PHASE      nodes stop generating, draining for %d s" % (e, DRAIN_S))
+    if phase == 2 and e >= WARMUP_S + RUN_S + DRAIN_S:
+        phase = 3
+        write_summary(cnt)
