@@ -1,0 +1,325 @@
+root started: mode=flood run_id=3 (all boards must use the same) tx_power=16.75 dBm, logging to root_console_flood_run3.txt, root_events_flood_run3.csv
+[  10s] STATS      delivered=0 (none yet) | adverts heard=0 sent=0 | dropped: none
+[  10s] LINKS      last RSSI heard from: nobody yet
+[  10s] PDR        no data delivered yet
+[  21s] STATS      delivered=0 (none yet) | adverts heard=0 sent=0 | dropped: none
+[  21s] LINKS      last RSSI heard from: nobody yet
+[  21s] PDR        no data delivered yet
+[  31s] STATS      delivered=0 (none yet) | adverts heard=0 sent=0 | dropped: none
+[  31s] LINKS      last RSSI heard from: nobody yet
+[  31s] PDR        no data delivered yet
+[  41s] STATS      delivered=0 (none yet) | adverts heard=0 sent=0 | dropped: none
+[  41s] LINKS      last RSSI heard from: nobody yet
+[  41s] PDR        no data delivered yet
+[  51s] STATS      delivered=0 (none yet) | adverts heard=0 sent=0 | dropped: none
+[  51s] LINKS      last RSSI heard from: nobody yet
+[  51s] PDR        no data delivered yet
+[  60s] PHASE      warm-up over, measured run starts (300 s)
+[  61s] STATS      delivered=0 (none yet) | adverts heard=0 sent=0 | dropped: none
+[  61s] LINKS      last RSSI heard from: nobody yet
+[  61s] PDR        no data delivered yet
+[  64s] DELIVERED  node 5   seq 0     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -45 dBm]
+[  65s] DELIVERED  node 7   seq 1     GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 5, RSSI -46 dBm]
+[  66s] DELIVERED  node 13  seq 0     DHT11 (code 1)  temp=22.00 C hum=31.0 %  [via node 7, RSSI -82 dBm]
+[  68s] DELIVERED  node 4   seq 0     ACCEL (code 5)  accel=11.467 m/s2  [via node 4, RSSI -84 dBm]
+[  72s] STATS      delivered=4 (node 4: 1, node 5: 1, node 7: 1, node 13: 1) | adverts heard=0 sent=0 | dropped: dup=1
+[  72s] LINKS      last RSSI heard from: node 4: -84 dBm, node 5: -44 dBm, node 7: -82 dBm
+[  72s] PDR        overall 4/5 = 80.0% | node 4: 1/1 = 100.0%, node 5: 1/1 = 100.0%, node 7: 1/2 = 50.0%, node 13: 1/1 = 100.0%
+[  74s] DELIVERED  node 5   seq 1     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -47 dBm]
+[  77s] DELIVERED  node 13  seq 1     DHT11 (code 1)  temp=22.00 C hum=30.0 %  [via node 4, RSSI -82 dBm]
+[  77s] DELIVERED  node 10  seq 1     DS18  (code 2)  temp=20.32 C  [via node 6, RSSI -86 dBm]
+[  77s] DELIVERED  node 1   seq 1     ACCEL (code 5)  accel=11.762 m/s2  [via node 8, RSSI -90 dBm]
+[  78s] DELIVERED  node 4   seq 1     ACCEL (code 5)  accel=11.474 m/s2  [via node 4, RSSI -85 dBm]
+[  79s] DELIVERED  node 12  seq 1     SMOKE (code 4)  smoke=0 (not detected)  [via node 6, RSSI -87 dBm]
+[  81s] DELIVERED  node 6   seq 0     DHT11 (code 1)  temp=22.00 C hum=20.0 %  [via node 5, RSSI -46 dBm]
+[  82s] DELIVERED  node 3   seq 1     DS18  (code 2)  temp=21.44 C  [via node 5, RSSI -45 dBm]
+[  82s] STATS      delivered=12 (node 1: 1, node 3: 1, node 4: 2, node 5: 2, node 6: 1, node 7: 1, node 10: 1, node 12: 1, node 13: 2) | adverts heard=0 sent=0 | dropped: dup=9
+[  82s] LINKS      last RSSI heard from: node 4: -80 dBm, node 5: -45 dBm, node 6: -87 dBm, node 7: -90 dBm, node 8: -90 dBm
+[  82s] PDR        overall 12/17 = 70.6% | node 1: 1/2 = 50.0%, node 3: 1/2 = 50.0%, node 4: 2/2 = 100.0%, node 5: 2/2 = 100.0%, node 6: 1/1 = 100.0%, node 7: 1/2 = 50.0%, node 10: 1/2 = 50.0%, node 12: 1/2 = 50.0%, node 13: 2/2 = 100.0%
+[  83s] DELIVERED  node 8   seq 1     ACCEL (code 5)  accel=9.750 m/s2  [via node 7, RSSI -84 dBm]
+[  84s] DELIVERED  node 5   seq 2     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -44 dBm]
+[  86s] DELIVERED  node 7   seq 3     GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 4, RSSI -84 dBm]
+[  88s] DELIVERED  node 10  seq 2     DS18  (code 2)  temp=20.01 C  [via node 7, RSSI -85 dBm]
+[  88s] DELIVERED  node 13  seq 2     DHT11 (code 1)  temp=22.00 C hum=30.0 %  [via node 7, RSSI -83 dBm]
+[  89s] DELIVERED  node 4   seq 2     ACCEL (code 5)  accel=11.479 m/s2  [via node 4, RSSI -83 dBm]
+[  90s] DELIVERED  node 12  seq 2     SMOKE (code 4)  smoke=0 (not detected)  [via node 7, RSSI -85 dBm]
+[  92s] DELIVERED  node 6   seq 1     DHT11 (code 1)  temp=22.00 C hum=20.0 %  [via node 6, RSSI -86 dBm]
+[  92s] STATS      delivered=20 (node 1: 1, node 3: 1, node 4: 3, node 5: 3, node 6: 2, node 7: 2, node 8: 1, node 10: 2, node 12: 2, node 13: 3) | adverts heard=0 sent=0 | dropped: dup=13
+[  92s] LINKS      last RSSI heard from: node 4: -83 dBm, node 5: -58 dBm, node 6: -86 dBm, node 7: -85 dBm, node 8: -90 dBm
+[  92s] PDR        overall 20/27 = 74.1% | node 1: 1/2 = 50.0%, node 3: 1/2 = 50.0%, node 4: 3/3 = 100.0%, node 5: 3/3 = 100.0%, node 6: 2/2 = 100.0%, node 7: 2/4 = 50.0%, node 8: 1/2 = 50.0%, node 10: 2/3 = 66.7%, node 12: 2/3 = 66.7%, node 13: 3/3 = 100.0%
+[  95s] DELIVERED  node 5   seq 3     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -51 dBm]
+[  97s] DELIVERED  node 7   seq 4     GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 5, RSSI -55 dBm]
+[  99s] DELIVERED  node 13  seq 3     DHT11 (code 1)  temp=22.00 C hum=30.0 %  [via node 6, RSSI -90 dBm]
+[  99s] DELIVERED  node 10  seq 3     DS18  (code 2)  temp=20.77 C  [via node 9, RSSI -90 dBm]
+[  99s] DELIVERED  node 9   seq 0     GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 5, RSSI -48 dBm]
+[ 100s] DELIVERED  node 12  seq 3     SMOKE (code 4)  smoke=0 (not detected)  [via node 7, RSSI -89 dBm]
+[ 101s] DELIVERED  node 4   seq 3     ACCEL (code 5)  accel=11.458 m/s2  [via node 5, RSSI -47 dBm]
+[ 102s] DELIVERED  node 3   seq 3     DS18  (code 2)  temp=21.44 C  [via node 1, RSSI -89 dBm]
+[ 103s] STATS      delivered=28 (node 1: 1, node 3: 2, node 4: 4, node 5: 4, node 6: 2, node 7: 3, node 8: 1, node 9: 1, node 10: 3, node 12: 3, node 13: 4) | adverts heard=0 sent=0 | dropped: dup=18
+[ 103s] LINKS      last RSSI heard from: node 1: -89 dBm, node 4: -87 dBm, node 5: -49 dBm, node 6: -90 dBm, node 7: -89 dBm, node 8: -90 dBm, node 9: -90 dBm
+[ 103s] PDR        overall 28/36 = 77.8% | node 1: 1/2 = 50.0%, node 3: 2/4 = 50.0%, node 4: 4/4 = 100.0%, node 5: 4/4 = 100.0%, node 6: 2/2 = 100.0%, node 7: 3/5 = 60.0%, node 8: 1/2 = 50.0%, node 9: 1/1 = 100.0%, node 10: 3/4 = 75.0%, node 12: 3/4 = 75.0%, node 13: 4/4 = 100.0%
+[ 103s] DELIVERED  node 6   seq 2     DHT11 (code 1)  temp=22.00 C hum=20.0 %  [via node 5, RSSI -49 dBm]
+[ 105s] DELIVERED  node 5   seq 4     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -54 dBm]
+[ 108s] DELIVERED  node 7   seq 5     GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 4, RSSI -83 dBm]
+[ 108s] DELIVERED  node 10  seq 4     DS18  (code 2)  temp=20.15 C  [via node 9, RSSI -88 dBm]
+[ 109s] DELIVERED  node 1   seq 4     ACCEL (code 5)  accel=11.723 m/s2  [via node 9, RSSI -86 dBm]
+[ 109s] DELIVERED  node 13  seq 4     DHT11 (code 1)  temp=22.00 C hum=30.0 %  [via node 5, RSSI -51 dBm]
+[ 110s] DELIVERED  node 4   seq 4     ACCEL (code 5)  accel=11.457 m/s2  [via node 4, RSSI -88 dBm]
+[ 111s] DELIVERED  node 12  seq 4     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -49 dBm]
+[ 113s] STATS      delivered=36 (node 1: 2, node 3: 2, node 4: 5, node 5: 5, node 6: 3, node 7: 4, node 8: 1, node 9: 1, node 10: 4, node 12: 4, node 13: 5) | adverts heard=0 sent=0 | dropped: dup=28
+[ 113s] LINKS      last RSSI heard from: node 1: -89 dBm, node 4: -88 dBm, node 5: -49 dBm, node 6: -88 dBm, node 7: -87 dBm, node 8: -90 dBm, node 9: -86 dBm
+[ 113s] PDR        overall 36/46 = 78.3% | node 1: 2/5 = 40.0%, node 3: 2/4 = 50.0%, node 4: 5/5 = 100.0%, node 5: 5/5 = 100.0%, node 6: 3/3 = 100.0%, node 7: 4/6 = 66.7%, node 8: 1/2 = 50.0%, node 9: 1/1 = 100.0%, node 10: 4/5 = 80.0%, node 12: 4/5 = 80.0%, node 13: 5/5 = 100.0%
+[ 113s] DELIVERED  node 6   seq 3     DHT11 (code 1)  temp=22.00 C hum=20.0 %  [via node 7, RSSI -86 dBm]
+[ 114s] DELIVERED  node 3   seq 4     DS18  (code 2)  temp=21.44 C  [via node 7, RSSI -85 dBm]
+[ 115s] DELIVERED  node 8   seq 4     ACCEL (code 5)  accel=9.734 m/s2  [via node 5, RSSI -49 dBm]
+[ 116s] DELIVERED  node 5   seq 5     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -50 dBm]
+[ 119s] DELIVERED  node 7   seq 6     GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 7, RSSI -85 dBm]
+[ 119s] DELIVERED  node 9   seq 2     GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 7, RSSI -86 dBm]
+[ 121s] DELIVERED  node 13  seq 5     DHT11 (code 1)  temp=22.00 C hum=30.0 %  [via node 7, RSSI -84 dBm]
+[ 121s] DELIVERED  node 4   seq 5     ACCEL (code 5)  accel=11.457 m/s2  [via node 5, RSSI -53 dBm]
+[ 122s] DELIVERED  node 12  seq 5     SMOKE (code 4)  smoke=0 (not detected)  [via node 7, RSSI -84 dBm]
+[ 123s] STATS      delivered=45 (node 1: 2, node 3: 3, node 4: 6, node 5: 6, node 6: 4, node 7: 5, node 8: 2, node 9: 2, node 10: 4, node 12: 5, node 13: 6) | adverts heard=0 sent=0 | dropped: dup=42
+[ 123s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -86 dBm, node 5: -49 dBm, node 6: -90 dBm, node 7: -84 dBm, node 8: -90 dBm, node 9: -90 dBm
+[ 123s] PDR        overall 45/58 = 77.6% | node 1: 2/5 = 40.0%, node 3: 3/5 = 60.0%, node 4: 6/6 = 100.0%, node 5: 6/6 = 100.0%, node 6: 4/4 = 100.0%, node 7: 5/7 = 71.4%, node 8: 2/5 = 40.0%, node 9: 2/3 = 66.7%, node 10: 4/5 = 80.0%, node 12: 5/6 = 83.3%, node 13: 6/6 = 100.0%
+[ 124s] DELIVERED  node 6   seq 4     DHT11 (code 1)  temp=22.00 C hum=20.0 %  [via node 4, RSSI -83 dBm]
+[ 126s] DELIVERED  node 5   seq 6     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -50 dBm]
+[ 129s] DELIVERED  node 9   seq 3     GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 7, RSSI -84 dBm]
+[ 130s] DELIVERED  node 7   seq 7     GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 9, RSSI -86 dBm]
+[ 130s] DELIVERED  node 10  seq 6     DS18  (code 2)  temp=20.21 C  [via node 5, RSSI -50 dBm]
+[ 130s] DELIVERED  node 4   seq 6     ACCEL (code 5)  accel=11.463 m/s2  [via node 7, RSSI -80 dBm]
+[ 133s] DELIVERED  node 12  seq 6     SMOKE (code 4)  smoke=0 (not detected)  [via node 7, RSSI -83 dBm]
+[ 134s] STATS      delivered=52 (node 1: 2, node 3: 3, node 4: 7, node 5: 7, node 6: 5, node 7: 6, node 8: 2, node 9: 3, node 10: 5, node 12: 6, node 13: 6) | adverts heard=0 sent=0 | dropped: dup=44
+[ 134s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -83 dBm, node 5: -50 dBm, node 6: -90 dBm, node 7: -83 dBm, node 8: -90 dBm, node 9: -86 dBm
+[ 134s] PDR        overall 52/66 = 78.8% | node 1: 2/5 = 40.0%, node 3: 3/5 = 60.0%, node 4: 7/7 = 100.0%, node 5: 7/7 = 100.0%, node 6: 5/5 = 100.0%, node 7: 6/8 = 75.0%, node 8: 2/5 = 40.0%, node 9: 3/4 = 75.0%, node 10: 5/7 = 71.4%, node 12: 6/7 = 85.7%, node 13: 6/6 = 100.0%
+[ 134s] DELIVERED  node 3   seq 6     DS18  (code 2)  temp=21.44 C  [via node 5, RSSI -51 dBm]
+[ 137s] DELIVERED  node 5   seq 7     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -52 dBm]
+[ 140s] DELIVERED  node 7   seq 8     GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 7, RSSI -85 dBm]
+[ 143s] DELIVERED  node 12  seq 7     SMOKE (code 4)  smoke=0 (not detected)  [via node 6, RSSI -87 dBm]
+[ 144s] STATS      delivered=56 (node 1: 2, node 3: 4, node 4: 7, node 5: 8, node 6: 5, node 7: 7, node 8: 2, node 9: 3, node 10: 5, node 12: 7, node 13: 6) | adverts heard=0 sent=0 | dropped: dup=44
+[ 144s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -83 dBm, node 5: -52 dBm, node 6: -87 dBm, node 7: -85 dBm, node 8: -90 dBm, node 9: -86 dBm
+[ 144s] PDR        overall 56/71 = 78.9% | node 1: 2/5 = 40.0%, node 3: 4/7 = 57.1%, node 4: 7/7 = 100.0%, node 5: 8/8 = 100.0%, node 6: 5/5 = 100.0%, node 7: 7/9 = 77.8%, node 8: 2/5 = 40.0%, node 9: 3/4 = 75.0%, node 10: 5/7 = 71.4%, node 12: 7/8 = 87.5%, node 13: 6/6 = 100.0%
+[ 145s] DELIVERED  node 3   seq 7     DS18  (code 2)  temp=21.44 C  [via node 5, RSSI -42 dBm]
+[ 147s] DELIVERED  node 5   seq 8     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -45 dBm]
+[ 150s] DELIVERED  node 9   seq 5     GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 6, RSSI -90 dBm]
+[ 153s] DELIVERED  node 4   seq 8     ACCEL (code 5)  accel=11.469 m/s2  [via node 4, RSSI -83 dBm]
+[ 153s] DELIVERED  node 13  seq 8     DHT11 (code 1)  temp=22.00 C hum=30.0 %  [via node 9, RSSI -87 dBm]
+[ 154s] STATS      delivered=61 (node 1: 2, node 3: 5, node 4: 8, node 5: 9, node 6: 5, node 7: 7, node 8: 2, node 9: 4, node 10: 5, node 12: 7, node 13: 7) | adverts heard=0 sent=0 | dropped: dup=49
+[ 154s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -83 dBm, node 5: -50 dBm, node 6: -90 dBm, node 7: -85 dBm, node 8: -90 dBm, node 9: -87 dBm
+[ 154s] PDR        overall 61/80 = 76.3% | node 1: 2/5 = 40.0%, node 3: 5/8 = 62.5%, node 4: 8/9 = 88.9%, node 5: 9/9 = 100.0%, node 6: 5/5 = 100.0%, node 7: 7/9 = 77.8%, node 8: 2/5 = 40.0%, node 9: 4/6 = 66.7%, node 10: 5/7 = 71.4%, node 12: 7/8 = 87.5%, node 13: 7/9 = 77.8%
+[ 156s] DELIVERED  node 6   seq 7     DHT11 (code 1)  temp=21.00 C hum=20.0 %  [via node 4, RSSI -85 dBm]
+[ 158s] DELIVERED  node 5   seq 9     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -45 dBm]
+[ 160s] DELIVERED  node 9   seq 6     GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 7, RSSI -88 dBm]
+[ 161s] DELIVERED  node 10  seq 9     DS18  (code 2)  temp=20.24 C  [via node 7, RSSI -90 dBm]
+[ 162s] DELIVERED  node 1   seq 9     ACCEL (code 5)  accel=11.532 m/s2  [via node 5, RSSI -49 dBm]
+[ 162s] DELIVERED  node 4   seq 9     ACCEL (code 5)  accel=11.464 m/s2  [via node 5, RSSI -49 dBm]
+[ 164s] DELIVERED  node 13  seq 9     DHT11 (code 1)  temp=22.00 C hum=30.0 %  [via node 6, RSSI -93 dBm]
+[ 164s] STATS      delivered=68 (node 1: 3, node 3: 5, node 4: 9, node 5: 10, node 6: 6, node 7: 7, node 8: 2, node 9: 5, node 10: 6, node 12: 7, node 13: 8) | adverts heard=0 sent=0 | dropped: dup=54
+[ 164s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -81 dBm, node 5: -49 dBm, node 6: -93 dBm, node 7: -90 dBm, node 8: -90 dBm, node 9: -87 dBm
+[ 164s] PDR        overall 68/95 = 71.6% | node 1: 3/10 = 30.0%, node 3: 5/8 = 62.5%, node 4: 9/10 = 90.0%, node 5: 10/10 = 100.0%, node 6: 6/8 = 75.0%, node 7: 7/9 = 77.8%, node 8: 2/5 = 40.0%, node 9: 5/7 = 71.4%, node 10: 6/10 = 60.0%, node 12: 7/8 = 87.5%, node 13: 8/10 = 80.0%
+[ 168s] DELIVERED  node 5   seq 10    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -50 dBm]
+[ 172s] DELIVERED  node 10  seq 10    DS18  (code 2)  temp=20.72 C  [via node 7, RSSI -86 dBm]
+[ 175s] STATS      delivered=70 (node 1: 3, node 3: 5, node 4: 9, node 5: 11, node 6: 6, node 7: 7, node 8: 2, node 9: 5, node 10: 7, node 12: 7, node 13: 8) | adverts heard=0 sent=0 | dropped: dup=56
+[ 175s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -81 dBm, node 5: -52 dBm, node 6: -93 dBm, node 7: -86 dBm, node 8: -90 dBm, node 9: -87 dBm
+[ 175s] PDR        overall 70/97 = 72.2% | node 1: 3/10 = 30.0%, node 3: 5/8 = 62.5%, node 4: 9/10 = 90.0%, node 5: 11/11 = 100.0%, node 6: 6/8 = 75.0%, node 7: 7/9 = 77.8%, node 8: 2/5 = 40.0%, node 9: 5/7 = 71.4%, node 10: 7/11 = 63.6%, node 12: 7/8 = 87.5%, node 13: 8/10 = 80.0%
+[ 176s] DELIVERED  node 6   seq 9     DHT11 (code 1)  temp=21.00 C hum=19.0 %  [via node 7, RSSI -86 dBm]
+[ 179s] DELIVERED  node 5   seq 11    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -50 dBm]
+[ 181s] DELIVERED  node 9   seq 8     GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 7, RSSI -85 dBm]
+[ 183s] DELIVERED  node 1   seq 11    ACCEL (code 5)  accel=11.526 m/s2  [via node 7, RSSI -84 dBm]
+[ 185s] STATS      delivered=74 (node 1: 4, node 3: 5, node 4: 9, node 5: 12, node 6: 7, node 7: 7, node 8: 2, node 9: 6, node 10: 7, node 12: 7, node 13: 8) | adverts heard=0 sent=0 | dropped: dup=56
+[ 185s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -81 dBm, node 5: -50 dBm, node 6: -93 dBm, node 7: -84 dBm, node 8: -90 dBm, node 9: -87 dBm
+[ 185s] PDR        overall 74/104 = 71.2% | node 1: 4/12 = 33.3%, node 3: 5/8 = 62.5%, node 4: 9/10 = 90.0%, node 5: 12/12 = 100.0%, node 6: 7/10 = 70.0%, node 7: 7/9 = 77.8%, node 8: 2/5 = 40.0%, node 9: 6/9 = 66.7%, node 10: 7/11 = 63.6%, node 12: 7/8 = 87.5%, node 13: 8/10 = 80.0%
+[ 185s] DELIVERED  node 12  seq 11    SMOKE (code 4)  smoke=0 (not detected)  [via node 7, RSSI -83 dBm]
+[ 189s] DELIVERED  node 8   seq 11    ACCEL (code 5)  accel=9.800 m/s2  [via node 9, RSSI -88 dBm]
+[ 190s] DELIVERED  node 5   seq 12    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -53 dBm]
+[ 193s] DELIVERED  node 10  seq 12    DS18  (code 2)  temp=20.15 C  [via node 4, RSSI -83 dBm]
+[ 193s] DELIVERED  node 1   seq 12    ACCEL (code 5)  accel=11.489 m/s2  [via node 4, RSSI -86 dBm]
+[ 195s] DELIVERED  node 4   seq 12    ACCEL (code 5)  accel=11.461 m/s2  [via node 5, RSSI -54 dBm]
+[ 195s] STATS      delivered=80 (node 1: 5, node 3: 5, node 4: 10, node 5: 13, node 6: 7, node 7: 7, node 8: 3, node 9: 6, node 10: 8, node 12: 8, node 13: 8) | adverts heard=0 sent=0 | dropped: dup=61
+[ 195s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -86 dBm, node 5: -54 dBm, node 6: -93 dBm, node 7: -83 dBm, node 8: -90 dBm, node 9: -88 dBm
+[ 195s] PDR        overall 80/122 = 65.6% | node 1: 5/13 = 38.5%, node 3: 5/8 = 62.5%, node 4: 10/13 = 76.9%, node 5: 13/13 = 100.0%, node 6: 7/10 = 70.0%, node 7: 7/9 = 77.8%, node 8: 3/12 = 25.0%, node 9: 6/9 = 66.7%, node 10: 8/13 = 61.5%, node 12: 8/12 = 66.7%, node 13: 8/10 = 80.0%
+[ 197s] DELIVERED  node 13  seq 12    DHT11 (code 1)  temp=22.00 C hum=30.0 %  [via node 5, RSSI -57 dBm]
+[ 198s] DELIVERED  node 6   seq 11    DHT11 (code 1)  temp=21.00 C hum=19.0 %  [via node 9, RSSI -85 dBm]
+[ 200s] DELIVERED  node 8   seq 12    ACCEL (code 5)  accel=9.790 m/s2  [via node 7, RSSI -87 dBm]
+[ 202s] DELIVERED  node 5   seq 13    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -55 dBm]
+[ 204s] DELIVERED  node 7   seq 14    GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 5, RSSI -55 dBm]
+[ 205s] STATS      delivered=85 (node 1: 5, node 3: 5, node 4: 10, node 5: 14, node 6: 8, node 7: 8, node 8: 4, node 9: 6, node 10: 8, node 12: 8, node 13: 9) | adverts heard=0 sent=0 | dropped: dup=63
+[ 205s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -86 dBm, node 5: -55 dBm, node 6: -93 dBm, node 7: -87 dBm, node 8: -90 dBm, node 9: -85 dBm
+[ 205s] PDR        overall 85/135 = 63.0% | node 1: 5/13 = 38.5%, node 3: 5/8 = 62.5%, node 4: 10/13 = 76.9%, node 5: 14/14 = 100.0%, node 6: 8/12 = 66.7%, node 7: 8/15 = 53.3%, node 8: 4/13 = 30.8%, node 9: 6/9 = 66.7%, node 10: 8/13 = 61.5%, node 12: 8/12 = 66.7%, node 13: 9/13 = 69.2%
+[ 208s] DELIVERED  node 3   seq 13    DS18  (code 2)  temp=21.44 C  [via node 9, RSSI -86 dBm]
+[ 210s] DELIVERED  node 8   seq 13    ACCEL (code 5)  accel=9.792 m/s2  [via node 9, RSSI -90 dBm]
+[ 211s] DELIVERED  node 5   seq 14    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -54 dBm]
+[ 212s] DELIVERED  node 9   seq 11    GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 7, RSSI -84 dBm]
+[ 214s] DELIVERED  node 1   seq 14    ACCEL (code 5)  accel=11.592 m/s2  [via node 7, RSSI -84 dBm]
+[ 216s] DELIVERED  node 4   seq 14    ACCEL (code 5)  accel=11.470 m/s2  [via node 5, RSSI -56 dBm]
+[ 216s] STATS      delivered=91 (node 1: 6, node 3: 6, node 4: 11, node 5: 15, node 6: 8, node 7: 8, node 8: 5, node 9: 7, node 10: 8, node 12: 8, node 13: 9) | adverts heard=0 sent=0 | dropped: dup=67
+[ 216s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -82 dBm, node 5: -56 dBm, node 6: -93 dBm, node 7: -84 dBm, node 8: -90 dBm, node 9: -90 dBm
+[ 216s] PDR        overall 91/150 = 60.7% | node 1: 6/15 = 40.0%, node 3: 6/14 = 42.9%, node 4: 11/15 = 73.3%, node 5: 15/15 = 100.0%, node 6: 8/12 = 66.7%, node 7: 8/15 = 53.3%, node 8: 5/14 = 35.7%, node 9: 7/12 = 58.3%, node 10: 8/13 = 61.5%, node 12: 8/12 = 66.7%, node 13: 9/13 = 69.2%
+[ 217s] DELIVERED  node 12  seq 14    SMOKE (code 4)  smoke=0 (not detected)  [via node 6, RSSI -89 dBm]
+[ 221s] DELIVERED  node 5   seq 15    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -57 dBm]
+[ 226s] STATS      delivered=93 (node 1: 6, node 3: 6, node 4: 11, node 5: 16, node 6: 8, node 7: 8, node 8: 5, node 9: 7, node 10: 8, node 12: 9, node 13: 9) | adverts heard=0 sent=0 | dropped: dup=68
+[ 226s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -82 dBm, node 5: -57 dBm, node 6: -89 dBm, node 7: -84 dBm, node 8: -90 dBm, node 9: -90 dBm
+[ 226s] PDR        overall 93/154 = 60.4% | node 1: 6/15 = 40.0%, node 3: 6/14 = 42.9%, node 4: 11/15 = 73.3%, node 5: 16/16 = 100.0%, node 6: 8/12 = 66.7%, node 7: 8/15 = 53.3%, node 8: 5/14 = 35.7%, node 9: 7/12 = 58.3%, node 10: 8/13 = 61.5%, node 12: 9/15 = 60.0%, node 13: 9/13 = 69.2%
+[ 230s] DELIVERED  node 6   seq 14    DHT11 (code 1)  temp=21.00 C hum=19.0 %  [via node 7, RSSI -82 dBm]
+[ 230s] DELIVERED  node 13  seq 15    DHT11 (code 1)  temp=22.00 C hum=30.0 %  [via node 4, RSSI -84 dBm]
+[ 231s] DELIVERED  node 8   seq 15    ACCEL (code 5)  accel=9.797 m/s2  [via node 5, RSSI -50 dBm]
+[ 233s] DELIVERED  node 5   seq 16    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -57 dBm]
+[ 234s] DELIVERED  node 10  seq 16    DS18  (code 2)  temp=20.59 C  [via node 5, RSSI -58 dBm]
+[ 236s] DELIVERED  node 7   seq 17    GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 7, RSSI -88 dBm]
+[ 236s] STATS      delivered=99 (node 1: 6, node 3: 6, node 4: 11, node 5: 17, node 6: 9, node 7: 9, node 8: 6, node 9: 7, node 10: 9, node 12: 9, node 13: 10) | adverts heard=0 sent=0 | dropped: dup=72
+[ 236s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -83 dBm, node 5: -62 dBm, node 6: -89 dBm, node 7: -88 dBm, node 8: -90 dBm, node 9: -90 dBm
+[ 236s] PDR        overall 99/170 = 58.2% | node 1: 6/15 = 40.0%, node 3: 6/14 = 42.9%, node 4: 11/15 = 73.3%, node 5: 17/17 = 100.0%, node 6: 9/15 = 60.0%, node 7: 9/18 = 50.0%, node 8: 6/16 = 37.5%, node 9: 7/12 = 58.3%, node 10: 9/17 = 52.9%, node 12: 9/15 = 60.0%, node 13: 10/16 = 62.5%
+[ 238s] DELIVERED  node 4   seq 16    ACCEL (code 5)  accel=11.468 m/s2  [via node 7, RSSI -86 dBm]
+[ 238s] DELIVERED  node 12  seq 16    SMOKE (code 4)  smoke=0 (not detected)  [via node 7, RSSI -89 dBm]
+[ 243s] DELIVERED  node 5   seq 17    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -59 dBm]
+[ 245s] DELIVERED  node 10  seq 17    DS18  (code 2)  temp=20.35 C  [via node 4, RSSI -87 dBm]
+[ 246s] DELIVERED  node 1   seq 17    ACCEL (code 5)  accel=11.345 m/s2  [via node 5, RSSI -60 dBm]
+[ 247s] DELIVERED  node 7   seq 18    GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 5, RSSI -63 dBm]
+[ 247s] STATS      delivered=105 (node 1: 7, node 3: 6, node 4: 12, node 5: 18, node 6: 9, node 7: 10, node 8: 6, node 9: 7, node 10: 10, node 12: 10, node 13: 10) | adverts heard=0 sent=0 | dropped: dup=77
+[ 247s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -83 dBm, node 5: -63 dBm, node 6: -89 dBm, node 7: -89 dBm, node 8: -90 dBm, node 9: -90 dBm
+[ 247s] PDR        overall 105/180 = 58.3% | node 1: 7/18 = 38.9%, node 3: 6/14 = 42.9%, node 4: 12/17 = 70.6%, node 5: 18/18 = 100.0%, node 6: 9/15 = 60.0%, node 7: 10/19 = 52.6%, node 8: 6/16 = 37.5%, node 9: 7/12 = 58.3%, node 10: 10/18 = 55.6%, node 12: 10/17 = 58.8%, node 13: 10/16 = 62.5%
+[ 247s] DELIVERED  node 4   seq 17    ACCEL (code 5)  accel=11.470 m/s2  [via node 5, RSSI -61 dBm]
+[ 250s] DELIVERED  node 6   seq 16    DHT11 (code 1)  temp=21.00 C hum=19.0 %  [via node 7, RSSI -89 dBm]
+[ 251s] DELIVERED  node 3   seq 17    DS18  (code 2)  temp=21.50 C  [via node 4, RSSI -84 dBm]
+[ 253s] DELIVERED  node 5   seq 18    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -63 dBm]
+[ 255s] DELIVERED  node 10  seq 18    DS18  (code 2)  temp=20.91 C  [via node 6, RSSI -90 dBm]
+[ 257s] STATS      delivered=110 (node 1: 7, node 3: 7, node 4: 13, node 5: 19, node 6: 10, node 7: 10, node 8: 6, node 9: 7, node 10: 11, node 12: 10, node 13: 10) | adverts heard=0 sent=0 | dropped: dup=83
+[ 257s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -82 dBm, node 5: -62 dBm, node 6: -90 dBm, node 7: -89 dBm, node 8: -90 dBm, node 9: -90 dBm
+[ 257s] PDR        overall 110/189 = 58.2% | node 1: 7/18 = 38.9%, node 3: 7/18 = 38.9%, node 4: 13/18 = 72.2%, node 5: 19/19 = 100.0%, node 6: 10/17 = 58.8%, node 7: 10/19 = 52.6%, node 8: 6/16 = 37.5%, node 9: 7/12 = 58.3%, node 10: 11/19 = 57.9%, node 12: 10/17 = 58.8%, node 13: 10/16 = 62.5%
+[ 258s] DELIVERED  node 4   seq 18    ACCEL (code 5)  accel=11.470 m/s2  [via node 5, RSSI -65 dBm]
+[ 258s] DELIVERED  node 7   seq 19    GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 7, RSSI -88 dBm]
+[ 263s] DELIVERED  node 8   seq 18    ACCEL (code 5)  accel=9.797 m/s2  [via node 5, RSSI -64 dBm]
+[ 263s] DELIVERED  node 5   seq 19    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -63 dBm]
+[ 267s] STATS      delivered=114 (node 1: 7, node 3: 7, node 4: 14, node 5: 20, node 6: 10, node 7: 11, node 8: 7, node 9: 7, node 10: 11, node 12: 10, node 13: 10) | adverts heard=0 sent=0 | dropped: dup=86
+[ 267s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -83 dBm, node 5: -63 dBm, node 6: -90 dBm, node 7: -88 dBm, node 8: -90 dBm, node 9: -90 dBm
+[ 267s] PDR        overall 114/195 = 58.5% | node 1: 7/18 = 38.9%, node 3: 7/18 = 38.9%, node 4: 14/19 = 73.7%, node 5: 20/20 = 100.0%, node 6: 10/17 = 58.8%, node 7: 11/20 = 55.0%, node 8: 7/19 = 36.8%, node 9: 7/12 = 58.3%, node 10: 11/19 = 57.9%, node 12: 10/17 = 58.8%, node 13: 10/16 = 62.5%
+[ 269s] DELIVERED  node 4   seq 19    ACCEL (code 5)  accel=11.460 m/s2  [via node 4, RSSI -84 dBm]
+[ 269s] DELIVERED  node 7   seq 20    GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 5, RSSI -61 dBm]
+[ 271s] DELIVERED  node 3   seq 19    DS18  (code 2)  temp=21.44 C  [via node 6, RSSI -86 dBm]
+[ 274s] DELIVERED  node 8   seq 19    ACCEL (code 5)  accel=9.794 m/s2  [via node 4, RSSI -83 dBm]
+[ 274s] DELIVERED  node 5   seq 20    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -64 dBm]
+[ 278s] STATS      delivered=119 (node 1: 7, node 3: 8, node 4: 15, node 5: 21, node 6: 10, node 7: 12, node 8: 8, node 9: 7, node 10: 11, node 12: 10, node 13: 10) | adverts heard=0 sent=0 | dropped: dup=89
+[ 278s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -83 dBm, node 5: -64 dBm, node 6: -86 dBm, node 7: -88 dBm, node 8: -90 dBm, node 9: -90 dBm
+[ 278s] PDR        overall 119/201 = 59.2% | node 1: 7/18 = 38.9%, node 3: 8/20 = 40.0%, node 4: 15/20 = 75.0%, node 5: 21/21 = 100.0%, node 6: 10/17 = 58.8%, node 7: 12/21 = 57.1%, node 8: 8/20 = 40.0%, node 9: 7/12 = 58.3%, node 10: 11/19 = 57.9%, node 12: 10/17 = 58.8%, node 13: 10/16 = 62.5%
+[ 279s] DELIVERED  node 4   seq 20    ACCEL (code 5)  accel=11.472 m/s2  [via node 5, RSSI -63 dBm]
+[ 284s] DELIVERED  node 5   seq 21    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -59 dBm]
+[ 288s] STATS      delivered=121 (node 1: 7, node 3: 8, node 4: 16, node 5: 22, node 6: 10, node 7: 12, node 8: 8, node 9: 7, node 10: 11, node 12: 10, node 13: 10) | adverts heard=0 sent=0 | dropped: dup=89
+[ 288s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -83 dBm, node 5: -59 dBm, node 6: -86 dBm, node 7: -88 dBm, node 8: -90 dBm, node 9: -90 dBm
+[ 288s] PDR        overall 121/203 = 59.6% | node 1: 7/18 = 38.9%, node 3: 8/20 = 40.0%, node 4: 16/21 = 76.2%, node 5: 22/22 = 100.0%, node 6: 10/17 = 58.8%, node 7: 12/21 = 57.1%, node 8: 8/20 = 40.0%, node 9: 7/12 = 58.3%, node 10: 11/19 = 57.9%, node 12: 10/17 = 58.8%, node 13: 10/16 = 62.5%
+[ 289s] DELIVERED  node 4   seq 21    ACCEL (code 5)  accel=11.465 m/s2  [via node 5, RSSI -50 dBm]
+[ 295s] DELIVERED  node 5   seq 22    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -59 dBm]
+[ 298s] STATS      delivered=123 (node 1: 7, node 3: 8, node 4: 17, node 5: 23, node 6: 10, node 7: 12, node 8: 8, node 9: 7, node 10: 11, node 12: 10, node 13: 10) | adverts heard=0 sent=0 | dropped: dup=89
+[ 298s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -83 dBm, node 5: -59 dBm, node 6: -86 dBm, node 7: -88 dBm, node 8: -90 dBm, node 9: -90 dBm
+[ 298s] PDR        overall 123/205 = 60.0% | node 1: 7/18 = 38.9%, node 3: 8/20 = 40.0%, node 4: 17/22 = 77.3%, node 5: 23/23 = 100.0%, node 6: 10/17 = 58.8%, node 7: 12/21 = 57.1%, node 8: 8/20 = 40.0%, node 9: 7/12 = 58.3%, node 10: 11/19 = 57.9%, node 12: 10/17 = 58.8%, node 13: 10/16 = 62.5%
+[ 299s] DELIVERED  node 9   seq 0     GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 7, RSSI -86 dBm]
+[ 300s] DELIVERED  node 4   seq 22    ACCEL (code 5)  accel=11.471 m/s2  [via node 5, RSSI -50 dBm]
+[ 303s] DELIVERED  node 6   seq 21    DHT11 (code 1)  temp=21.00 C hum=19.0 %  [via node 7, RSSI -87 dBm]
+[ 305s] DELIVERED  node 5   seq 23    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -51 dBm]
+[ 308s] STATS      delivered=127 (node 1: 7, node 3: 8, node 4: 18, node 5: 24, node 6: 11, node 7: 12, node 8: 8, node 9: 8, node 10: 11, node 12: 10, node 13: 10) | adverts heard=0 sent=0 | dropped: dup=90
+[ 308s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -83 dBm, node 5: -51 dBm, node 6: -86 dBm, node 7: -87 dBm, node 8: -90 dBm, node 9: -90 dBm
+[ 308s] PDR        overall 127/212 = 59.9% | node 1: 7/18 = 38.9%, node 3: 8/20 = 40.0%, node 4: 18/23 = 78.3%, node 5: 24/24 = 100.0%, node 6: 11/22 = 50.0%, node 7: 12/21 = 57.1%, node 8: 8/20 = 40.0%, node 9: 8/12 = 66.7%, node 10: 11/19 = 57.9%, node 12: 10/17 = 58.8%, node 13: 10/16 = 62.5%
+[ 311s] DELIVERED  node 4   seq 23    ACCEL (code 5)  accel=11.465 m/s2  [via node 5, RSSI -52 dBm]
+[ 315s] DELIVERED  node 5   seq 24    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -50 dBm]
+[ 316s] DELIVERED  node 8   seq 23    ACCEL (code 5)  accel=9.798 m/s2  [via node 7, RSSI -88 dBm]
+[ 318s] STATS      delivered=130 (node 1: 7, node 3: 8, node 4: 19, node 5: 25, node 6: 11, node 7: 12, node 8: 9, node 9: 8, node 10: 11, node 12: 10, node 13: 10) | adverts heard=0 sent=0 | dropped: dup=94
+[ 318s] LINKS      last RSSI heard from: node 1: -88 dBm, node 4: -88 dBm, node 5: -50 dBm, node 6: -86 dBm, node 7: -88 dBm, node 8: -90 dBm, node 9: -90 dBm
+[ 318s] PDR        overall 130/218 = 59.6% | node 1: 7/18 = 38.9%, node 3: 8/20 = 40.0%, node 4: 19/24 = 79.2%, node 5: 25/25 = 100.0%, node 6: 11/22 = 50.0%, node 7: 12/21 = 57.1%, node 8: 9/24 = 37.5%, node 9: 8/12 = 66.7%, node 10: 11/19 = 57.9%, node 12: 10/17 = 58.8%, node 13: 10/16 = 62.5%
+[ 320s] DELIVERED  node 1   seq 24    ACCEL (code 5)  accel=11.755 m/s2  [via node 7, RSSI -87 dBm]
+[ 320s] DELIVERED  node 9   seq 2     GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 1, RSSI -90 dBm]
+[ 321s] DELIVERED  node 7   seq 25    GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 5, RSSI -50 dBm]
+[ 325s] DELIVERED  node 5   seq 25    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -51 dBm]
+[ 327s] DELIVERED  node 8   seq 24    ACCEL (code 5)  accel=9.795 m/s2  [via node 13, RSSI -93 dBm]
+[ 328s] DELIVERED  node 10  seq 25    DS18  (code 2)  temp=20.16 C  [via node 4, RSSI -86 dBm]
+[ 328s] STATS      delivered=136 (node 1: 8, node 3: 8, node 4: 19, node 5: 26, node 6: 11, node 7: 13, node 8: 10, node 9: 9, node 10: 12, node 12: 10, node 13: 10) | adverts heard=0 sent=0 | dropped: dup=94
+[ 328s] LINKS      last RSSI heard from: node 1: -90 dBm, node 4: -86 dBm, node 5: -51 dBm, node 6: -86 dBm, node 7: -87 dBm, node 8: -90 dBm, node 9: -90 dBm, node 13: -93 dBm
+[ 328s] PDR        overall 136/239 = 56.9% | node 1: 8/25 = 32.0%, node 3: 8/20 = 40.0%, node 4: 19/24 = 79.2%, node 5: 26/26 = 100.0%, node 6: 11/22 = 50.0%, node 7: 13/26 = 50.0%, node 8: 10/25 = 40.0%, node 9: 9/12 = 75.0%, node 10: 12/26 = 46.2%, node 12: 10/17 = 58.8%, node 13: 10/16 = 62.5%
+[ 329s] DELIVERED  node 9   seq 3     GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 1, RSSI -92 dBm]
+[ 329s] DELIVERED  node 1   seq 25    ACCEL (code 5)  accel=11.581 m/s2  [via node 5, RSSI -51 dBm]
+[ 330s] DELIVERED  node 4   seq 25    ACCEL (code 5)  accel=11.458 m/s2  [via node 4, RSSI -83 dBm]
+[ 331s] DELIVERED  node 7   seq 26    GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 7, RSSI -88 dBm]
+[ 335s] DELIVERED  node 3   seq 25    DS18  (code 2)  temp=21.44 C  [via node 1, RSSI -91 dBm]
+[ 336s] DELIVERED  node 5   seq 26    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -50 dBm]
+[ 338s] STATS      delivered=142 (node 1: 9, node 3: 9, node 4: 20, node 5: 27, node 6: 11, node 7: 14, node 8: 10, node 9: 10, node 10: 12, node 12: 10, node 13: 10) | adverts heard=0 sent=0 | dropped: dup=99
+[ 338s] LINKS      last RSSI heard from: node 1: -91 dBm, node 4: -83 dBm, node 5: -50 dBm, node 6: -89 dBm, node 7: -86 dBm, node 8: -90 dBm, node 9: -90 dBm, node 13: -93 dBm
+[ 338s] PDR        overall 142/250 = 56.8% | node 1: 9/26 = 34.6%, node 3: 9/26 = 34.6%, node 4: 20/26 = 76.9%, node 5: 27/27 = 100.0%, node 6: 11/22 = 50.0%, node 7: 14/27 = 51.9%, node 8: 10/25 = 40.0%, node 9: 10/12 = 83.3%, node 10: 12/26 = 46.2%, node 12: 10/17 = 58.8%, node 13: 10/16 = 62.5%
+[ 339s] DELIVERED  node 10  seq 26    DS18  (code 2)  temp=20.33 C  [via node 5, RSSI -51 dBm]
+[ 341s] DELIVERED  node 4   seq 26    ACCEL (code 5)  accel=11.472 m/s2  [via node 4, RSSI -82 dBm]
+[ 342s] DELIVERED  node 7   seq 27    GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 4, RSSI -84 dBm]
+[ 345s] DELIVERED  node 6   seq 25    DHT11 (code 1)  temp=21.00 C hum=20.0 %  [via node 4, RSSI -84 dBm]
+[ 346s] DELIVERED  node 5   seq 27    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -55 dBm]
+[ 347s] DELIVERED  node 8   seq 26    ACCEL (code 5)  accel=9.796 m/s2  [via node 4, RSSI -82 dBm]
+[ 349s] STATS      delivered=148 (node 1: 9, node 3: 9, node 4: 21, node 5: 28, node 6: 12, node 7: 15, node 8: 11, node 9: 10, node 10: 13, node 12: 10, node 13: 10) | adverts heard=0 sent=0 | dropped: dup=103
+[ 349s] LINKS      last RSSI heard from: node 1: -91 dBm, node 4: -82 dBm, node 5: -53 dBm, node 6: -89 dBm, node 7: -85 dBm, node 8: -90 dBm, node 9: -90 dBm, node 13: -93 dBm
+[ 349s] PDR        overall 148/260 = 56.9% | node 1: 9/26 = 34.6%, node 3: 9/26 = 34.6%, node 4: 21/27 = 77.8%, node 5: 28/28 = 100.0%, node 6: 12/26 = 46.2%, node 7: 15/28 = 53.6%, node 8: 11/27 = 40.7%, node 9: 10/12 = 83.3%, node 10: 13/27 = 48.1%, node 12: 10/17 = 58.8%, node 13: 10/16 = 62.5%
+[ 350s] DELIVERED  node 1   seq 27    ACCEL (code 5)  accel=11.239 m/s2  [via node 7, RSSI -85 dBm]
+[ 351s] DELIVERED  node 10  seq 27    DS18  (code 2)  temp=20.41 C  [via node 7, RSSI -85 dBm]
+[ 351s] DELIVERED  node 9   seq 5     GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 6, RSSI -89 dBm]
+[ 353s] DELIVERED  node 12  seq 27    SMOKE (code 4)  smoke=0 (not detected)  [via node 7, RSSI -87 dBm]
+[ 356s] DELIVERED  node 5   seq 28    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -49 dBm]
+[ 358s] DELIVERED  node 8   seq 27    ACCEL (code 5)  accel=9.800 m/s2  [via node 8, RSSI -93 dBm]
+[ 359s] STATS      delivered=154 (node 1: 10, node 3: 9, node 4: 21, node 5: 29, node 6: 12, node 7: 15, node 8: 12, node 9: 11, node 10: 14, node 12: 11, node 13: 10) | adverts heard=0 sent=0 | dropped: dup=109
+[ 359s] LINKS      last RSSI heard from: node 1: -91 dBm, node 4: -82 dBm, node 5: -50 dBm, node 6: -89 dBm, node 7: -87 dBm, node 8: -93 dBm, node 9: -90 dBm, node 13: -93 dBm
+[ 359s] PDR        overall 154/276 = 55.8% | node 1: 10/28 = 35.7%, node 3: 9/26 = 34.6%, node 4: 21/27 = 77.8%, node 5: 29/29 = 100.0%, node 6: 12/26 = 46.2%, node 7: 15/28 = 53.6%, node 8: 12/28 = 42.9%, node 9: 11/12 = 91.7%, node 10: 14/28 = 50.0%, node 12: 11/28 = 39.3%, node 13: 10/16 = 62.5%
+[ 360s] DELIVERED  node 10  seq 28    DS18  (code 2)  temp=20.05 C  [via node 5, RSSI -50 dBm]
+[ 360s] PHASE      nodes stop generating, draining for 60 s
+[ 362s] DELIVERED  node 7   seq 29    GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 7, RSSI -86 dBm]
+[ 362s] DELIVERED  node 13  seq 27    DHT11 (code 1)  temp=22.00 C hum=30.0 %  [via node 5, RSSI -55 dBm]
+[ 363s] DELIVERED  node 4   seq 28    ACCEL (code 5)  accel=11.464 m/s2  [via node 4, RSSI -83 dBm]
+[ 366s] DELIVERED  node 3   seq 28    DS18  (code 2)  temp=21.44 C  [via node 7, RSSI -84 dBm]
+[ 368s] DELIVERED  node 8   seq 28    ACCEL (code 5)  accel=9.800 m/s2  [via node 5, RSSI -53 dBm]
+[ 369s] STATS      delivered=160 (node 1: 10, node 3: 10, node 4: 22, node 5: 29, node 6: 12, node 7: 16, node 8: 13, node 9: 11, node 10: 15, node 12: 11, node 13: 11) | adverts heard=0 sent=0 | dropped: dup=113
+[ 369s] LINKS      last RSSI heard from: node 1: -91 dBm, node 4: -82 dBm, node 5: -53 dBm, node 6: -89 dBm, node 7: -84 dBm, node 8: -93 dBm, node 9: -90 dBm, node 13: -93 dBm
+[ 369s] PDR        overall 160/297 = 53.9% | node 1: 10/28 = 35.7%, node 3: 10/29 = 34.5%, node 4: 22/29 = 75.9%, node 5: 29/29 = 100.0%, node 6: 12/26 = 46.2%, node 7: 16/30 = 53.3%, node 8: 13/29 = 44.8%, node 9: 11/12 = 91.7%, node 10: 15/29 = 51.7%, node 12: 11/28 = 39.3%, node 13: 11/28 = 39.3%
+[ 371s] DELIVERED  node 9   seq 7     GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 4, RSSI -81 dBm]
+[ 380s] STATS      delivered=161 (node 1: 10, node 3: 10, node 4: 22, node 5: 29, node 6: 12, node 7: 16, node 8: 13, node 9: 12, node 10: 15, node 12: 11, node 13: 11) | adverts heard=0 sent=0 | dropped: dup=115
+[ 380s] LINKS      last RSSI heard from: node 1: -91 dBm, node 4: -81 dBm, node 5: -53 dBm, node 6: -89 dBm, node 7: -86 dBm, node 8: -93 dBm, node 9: -90 dBm, node 13: -93 dBm
+[ 380s] PDR        overall 161/297 = 54.2% | node 1: 10/28 = 35.7%, node 3: 10/29 = 34.5%, node 4: 22/29 = 75.9%, node 5: 29/29 = 100.0%, node 6: 12/26 = 46.2%, node 7: 16/30 = 53.3%, node 8: 13/29 = 44.8%, node 9: 12/12 = 100.0%, node 10: 15/29 = 51.7%, node 12: 11/28 = 39.3%, node 13: 11/28 = 39.3%
+[ 382s] DELIVERED  node 9   seq 8     GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 5, RSSI -52 dBm]
+[ 390s] STATS      delivered=162 (node 1: 10, node 3: 10, node 4: 22, node 5: 29, node 6: 12, node 7: 16, node 8: 13, node 9: 13, node 10: 15, node 12: 11, node 13: 11) | adverts heard=0 sent=0 | dropped: dup=115
+[ 390s] LINKS      last RSSI heard from: node 1: -91 dBm, node 4: -81 dBm, node 5: -52 dBm, node 6: -89 dBm, node 7: -86 dBm, node 8: -93 dBm, node 9: -90 dBm, node 13: -93 dBm
+[ 390s] PDR        overall 162/297 = 54.5% | node 1: 10/28 = 35.7%, node 3: 10/29 = 34.5%, node 4: 22/29 = 75.9%, node 5: 29/29 = 100.0%, node 6: 12/26 = 46.2%, node 7: 16/30 = 53.3%, node 8: 13/29 = 44.8%, node 9: 13/12 = 108.3%, node 10: 15/29 = 51.7%, node 12: 11/28 = 39.3%, node 13: 11/28 = 39.3%
+[ 400s] STATS      delivered=162 (node 1: 10, node 3: 10, node 4: 22, node 5: 29, node 6: 12, node 7: 16, node 8: 13, node 9: 13, node 10: 15, node 12: 11, node 13: 11) | adverts heard=0 sent=0 | dropped: dup=115
+[ 400s] LINKS      last RSSI heard from: node 1: -91 dBm, node 4: -81 dBm, node 5: -52 dBm, node 6: -89 dBm, node 7: -86 dBm, node 8: -93 dBm, node 9: -90 dBm, node 13: -93 dBm
+[ 400s] PDR        overall 162/297 = 54.5% | node 1: 10/28 = 35.7%, node 3: 10/29 = 34.5%, node 4: 22/29 = 75.9%, node 5: 29/29 = 100.0%, node 6: 12/26 = 46.2%, node 7: 16/30 = 53.3%, node 8: 13/29 = 44.8%, node 9: 13/12 = 108.3%, node 10: 15/29 = 51.7%, node 12: 11/28 = 39.3%, node 13: 11/28 = 39.3%
+[ 402s] DELIVERED  node 9   seq 10    GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 5, RSSI -50 dBm]
+[ 410s] STATS      delivered=163 (node 1: 10, node 3: 10, node 4: 22, node 5: 29, node 6: 12, node 7: 16, node 8: 13, node 9: 14, node 10: 15, node 12: 11, node 13: 11) | adverts heard=0 sent=0 | dropped: dup=116
+[ 410s] LINKS      last RSSI heard from: node 1: -91 dBm, node 4: -84 dBm, node 5: -50 dBm, node 6: -89 dBm, node 7: -86 dBm, node 8: -93 dBm, node 9: -90 dBm, node 13: -93 dBm
+[ 410s] PDR        overall 163/297 = 54.9% | node 1: 10/28 = 35.7%, node 3: 10/29 = 34.5%, node 4: 22/29 = 75.9%, node 5: 29/29 = 100.0%, node 6: 12/26 = 46.2%, node 7: 16/30 = 53.3%, node 8: 13/29 = 44.8%, node 9: 14/12 = 116.7%, node 10: 15/29 = 51.7%, node 12: 11/28 = 39.3%, node 13: 11/28 = 39.3%
+[ 412s] DELIVERED  node 9   seq 11    GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 7, RSSI -86 dBm]
+[ 420s] STATS      delivered=164 (node 1: 10, node 3: 10, node 4: 22, node 5: 29, node 6: 12, node 7: 16, node 8: 13, node 9: 15, node 10: 15, node 12: 11, node 13: 11) | adverts heard=0 sent=0 | dropped: dup=118
+[ 420s] LINKS      last RSSI heard from: node 1: -91 dBm, node 4: -85 dBm, node 5: -51 dBm, node 6: -89 dBm, node 7: -86 dBm, node 8: -93 dBm, node 9: -90 dBm, node 13: -93 dBm
+[ 420s] PDR        overall 164/297 = 55.2% | node 1: 10/28 = 35.7%, node 3: 10/29 = 34.5%, node 4: 22/29 = 75.9%, node 5: 29/29 = 100.0%, node 6: 12/26 = 46.2%, node 7: 16/30 = 53.3%, node 8: 13/29 = 44.8%, node 9: 15/12 = 125.0%, node 10: 15/29 = 51.7%, node 12: 11/28 = 39.3%, node 13: 11/28 = 39.3%
+SUMMARY run_id=3 mode=flood tx_power=16.75 dBm
+schedule: warm-up 60 s, measured run 300 s, drain 60 s (from root boot, t = 0)
+[ 421s] STATS      delivered=164 (node 1: 10, node 3: 10, node 4: 22, node 5: 29, node 6: 12, node 7: 16, node 8: 13, node 9: 15, node 10: 15, node 12: 11, node 13: 11) | adverts heard=0 sent=0 | dropped: dup=118
+[ 421s] LINKS      last RSSI heard from: node 1: -91 dBm, node 4: -85 dBm, node 5: -51 dBm, node 6: -89 dBm, node 7: -86 dBm, node 8: -93 dBm, node 9: -90 dBm, node 13: -93 dBm
+[ 421s] PDR        overall 164/297 = 55.2% | node 1: 10/28 = 35.7%, node 3: 10/29 = 34.5%, node 4: 22/29 = 75.9%, node 5: 29/29 = 100.0%, node 6: 12/26 = 46.2%, node 7: 16/30 = 53.3%, node 8: 13/29 = 44.8%, node 9: 15/12 = 125.0%, node 10: 15/29 = 51.7%, node 12: 11/28 = 39.3%, node 13: 11/28 = 39.3%
+node 1: first heard 77 s, first route 77 s, last route change 77 s, hop None parent None
+node 3: first heard 82 s, first route 82 s, last route change 82 s, hop None parent None
+node 4: first heard 68 s, first route 68 s, last route change 68 s, hop None parent None
+node 5: first heard 64 s, first route 64 s, last route change 64 s, hop None parent None
+node 6: first heard 81 s, first route 81 s, last route change 81 s, hop None parent None
+node 7: first heard 65 s, first route 65 s, last route change 65 s, hop None parent None
+node 8: first heard 83 s, first route 83 s, last route change 83 s, hop None parent None
+node 9: first heard 99 s, first route 99 s, last route change 99 s, hop None parent None
+node 10: first heard 77 s, first route 77 s, last route change 77 s, hop None parent None
+node 12: first heard 79 s, first route 79 s, last route change 79 s, hop None parent None
+node 13: first heard 66 s, first route 66 s, last route change 66 s, hop None parent None
+PDR note: generated = highest seq seen + 1 per node (packets lost at the very end are invisible), compare with each node's own 'generated' count.
+[ 422s] SUMMARY    written to root_summary_flood_run3.txt
+[ 423s] DELIVERED  node 9   seq 12    GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 6, RSSI -88 dBm]
+[ 431s] STATS      delivered=165 (node 1: 10, node 3: 10, node 4: 22, node 5: 29, node 6: 12, node 7: 16, node 8: 13, node 9: 16, node 10: 15, node 12: 11, node 13: 11) | adverts heard=0 sent=0 | dropped: dup=120
+[ 431s] LINKS      last RSSI heard from: node 1: -91 dBm, node 4: -85 dBm, node 5: -54 dBm, node 6: -88 dBm, node 7: -89 dBm, node 8: -93 dBm, node 9: -90 dBm, node 13: -93 dBm
+[ 431s] PDR        overall 165/298 = 55.4% | node 1: 10/28 = 35.7%, node 3: 10/29 = 34.5%, node 4: 22/29 = 75.9%, node 5: 29/29 = 100.0%, node 6: 12/26 = 46.2%, node 7: 16/30 = 53.3%, node 8: 13/29 = 44.8%, node 9: 16/13 = 123.1%, node 10: 15/29 = 51.7%, node 12: 11/28 = 39.3%, node 13: 11/28 = 39.3%
+[ 433s] DELIVERED  node 9   seq 13    GPS   (code 3)  lon=71.399440 deg lat=51.090000 deg  [via node 9, RSSI -87 dBm]
+[ 441s] STATS      delivered=166 (node 1: 10, node 3: 10, node 4: 22, node 5: 29, node 6: 12, node 7: 16, node 8: 13, node 9: 17, node 10: 15, node 12: 11, node 13: 11) | adverts heard=0 sent=0 | dropped: dup=120
+[ 441s] LINKS      last RSSI heard from: node 1: -91 dBm, node 4: -85 dBm, node 5: -54 dBm, node 6: -88 dBm, node 7: -89 dBm, node 8: -93 dBm, node 9: -87 dBm, node 13: -93 dBm
+[ 441s] PDR        overall 166/299 = 55.5% | node 1: 10/28 = 35.7%, node 3: 10/29 = 34.5%, node 4: 22/29 = 75.9%, node 5: 29/29 = 100.0%, node 6: 12/26 = 46.2%, node 7: 16/30 = 53.3%, node 8: 13/29 = 44.8%, node 9: 17/14 = 121.4%, node 10: 15/29 = 51.7%, node 12: 11/28 = 39.3%, node 13: 11/28 = 39.3%
+[ 451s] STATS      delivered=166 (node 1: 10, node 3: 10, node 4: 22, node 5: 29, node 6: 12, node 7: 16, node 8: 13, node 9: 17, node 10: 15, node 12: 11, node 13: 11) | adverts heard=0 sent=0 | dropped: dup=120
+[ 451s] LINKS      last RSSI heard from: node 1: -91 dBm, node 4: -85 dBm, node 5: -54 dBm, node 6: -88 dBm, node 7: -89 dBm, node 8: -93 dBm, node 9: -87 dBm, node 13: -93 dBm
+[ 451s] PDR        overall 166/299 = 55.5% | node 1: 10/28 = 35.7%, node 3: 10/29 = 34.5%, node 4: 22/29 = 75.9%, node 5: 29/29 = 100.0%, node 6: 12/26 = 46.2%, node 7: 16/30 = 53.3%, node 8: 13/29 = 44.8%, node 9: 17/14 = 121.4%, node 10: 15/29 = 51.7%, node 12: 11/28 = 39.3%, node 13: 11/28 = 39.3%
+[ 461s] STATS      delivered=166 (node 1: 10, node 3: 10, node 4: 22, node 5: 29, node 6: 12, node 7: 16, node 8: 13, node 9: 17, node 10: 15, node 12: 11, node 13: 11) | adverts heard=0 sent=0 | dropped: dup=120
+[ 461s] LINKS      last RSSI heard from: node 1: -91 dBm, node 4: -85 dBm, node 5: -54 dBm, node 6: -88 dBm, node 7: -89 dBm, node 8: -93 dBm, node 9: -87 dBm, node 13: -93 dBm
+[ 461s] PDR        overall 166/299 = 55.5% | node 1: 10/28 = 35.7%, node 3: 10/29 = 34.5%, node 4: 22/29 = 75.9%, node 5: 29/29 = 100.0%, node 6: 12/26 = 46.2%, node 7: 16/30 = 53.3%, node 8: 13/29 = 44.8%, node 9: 17/14 = 121.4%, node 10: 15/29 = 51.7%, node 12: 11/28 = 39.3%, node 13: 11/28 = 39.3%
+[ 472s] STATS      delivered=166 (node 1: 10, node 3: 10, node 4: 22, node 5: 29, node 6: 12, node 7: 16, node 8: 13, node 9: 17, node 10: 15, node 12: 11, node 13: 11) | adverts heard=0 sent=0 | dropped: dup=120
+[ 472s] LINKS      last RSSI heard from: node 1: -91 dBm, node 4: -85 dBm, node 5: -54 dBm, node 6: -88 dBm, node 7: -89 dBm, node 8: -93 dBm, node 9: -87 dBm, node 13: -93 dBm
+[ 472s] PDR        overall 166/299 = 55.5% | node 1: 10/28 = 35.7%, node 3: 10/29 = 34.5%, node 4: 22/29 = 75.9%, node 5: 29/29 = 100.0%, node 6: 12/26 = 46.2%, node 7: 16/30 = 53.3%, node 8: 13/29 = 44.8%, node 9: 17/14 = 121.4%, node 10: 15/29 = 51.7%, node 12: 11/28 = 39.3%, node 13: 11/28 = 39.3%

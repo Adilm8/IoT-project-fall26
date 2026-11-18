@@ -176,7 +176,7 @@ logs/02/team-5-CO/dv/node5_summary_dv_run2.txt, node5_events_dv_run2.csv
 python3 summarize.py 02
 ```
 
-It needs only Python 3 (plots need `matplotlib`, and are skipped without it). It prints a Markdown report and saves it as `logs/02/results/summary.md` together with `runs.csv` and `per_source.csv` (the underlying results table) and, if matplotlib is installed, `plot_per_source_pdr.png` and `plot_overhead.png`. The report has warnings first (missing node summaries, wrong run IDs, fewer than three runs), then per-run results, mean ± sd per mode, per-source PDR, DV convergence, topology (last route and RSSI per node) and a short answer per metric. `--expect 1,3,4,...` warns when a source is silent in a run.
+It needs only Python 3 (plots need `matplotlib`, and are skipped without it). It prints a Markdown report and saves it as `logs/02/results/summary.md` together with `runs.csv` and `per_source.csv` (the underlying results table) and, if matplotlib is installed, `plot_per_source_pdr.png` and `plot_overhead.png`. The report has warnings first (missing node summaries, wrong run IDs, fewer than three runs), then per-run results, mean ± sd per mode, per-source PDR, DV convergence, topology (last route and RSSI per node) and a short answer per metric. `--expect 1,3,4,...` warns when a source is silent in a run. `--assume-full 5` treats a listed source whose node summary is missing as having generated exactly what the root received (PDR 100%), and says so in the warnings.
 
 How the numbers are computed:
 

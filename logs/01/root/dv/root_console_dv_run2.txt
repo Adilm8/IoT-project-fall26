@@ -1,0 +1,310 @@
+root started: mode=dv run_id=2 (all boards must use the same) tx_power=17.0 dBm, logging to root_console_dv_run2.txt, root_events_dv_run2.csv
+[   1s] ROUTE      node 5 first heard: hop 1 parent 0
+[   2s] DELIVERED  node 5   seq 28    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -48 dBm]
+[   6s] ROUTE      node 4 first heard: hop 255 parent 255
+[   7s] ROUTE      node 9 first heard: hop 255 parent 255
+[   9s] ROUTE      node 8 first heard: hop 255 parent 255
+[  12s] STATS      delivered=1 (node 5: 1) | adverts heard=5 sent=2 | dropped: none
+[  12s] LINKS      last RSSI heard from: node 4: -83 dBm, node 5: -48 dBm, node 8: -93 dBm, node 9: -88 dBm
+[  12s] PDR        overall 1/29 = 3.4% | node 5: 1/29 = 3.4%
+[  12s] CONVERGE   waiting for a route from node 4, 8, 9
+[  22s] STATS      delivered=1 (node 5: 1) | adverts heard=7 sent=4 | dropped: none
+[  22s] LINKS      last RSSI heard from: node 4: -83 dBm, node 5: -52 dBm, node 8: -93 dBm, node 9: -88 dBm
+[  22s] PDR        overall 1/29 = 3.4% | node 5: 1/29 = 3.4%
+[  22s] CONVERGE   waiting for a route from node 4, 8, 9
+[  22s] ROUTE      node 6 first heard: hop 2 parent 5
+[  26s] ROUTE      node 4 hop 255->1 parent 255->0
+[  30s] ROUTE      node 8 hop 255->2 parent 255->5
+[  32s] STATS      delivered=1 (node 5: 1) | adverts heard=13 sent=6 | dropped: none
+[  32s] LINKS      last RSSI heard from: node 4: -84 dBm, node 5: -52 dBm, node 6: -86 dBm, node 8: -89 dBm, node 9: -88 dBm
+[  32s] PDR        overall 1/29 = 3.4% | node 5: 1/29 = 3.4%
+[  32s] CONVERGE   waiting for a route from node 9
+[  37s] ROUTE      node 4 hop 1->3 parent 0->8
+[  42s] STATS      delivered=1 (node 5: 1) | adverts heard=17 sent=8 | dropped: none
+[  42s] LINKS      last RSSI heard from: node 4: -82 dBm, node 5: -53 dBm, node 6: -86 dBm, node 8: -89 dBm, node 9: -88 dBm
+[  42s] PDR        overall 1/29 = 3.4% | node 5: 1/29 = 3.4%
+[  42s] CONVERGE   waiting for a route from node 9
+[  52s] STATS      delivered=1 (node 5: 1) | adverts heard=19 sent=10 | dropped: none
+[  52s] LINKS      last RSSI heard from: node 4: -82 dBm, node 5: -52 dBm, node 6: -86 dBm, node 8: -89 dBm, node 9: -88 dBm
+[  52s] PDR        overall 1/29 = 3.4% | node 5: 1/29 = 3.4%
+[  52s] CONVERGE   waiting for a route from node 9
+[  53s] ROUTE      node 4 hop 3->1 parent 8->0
+[  60s] PHASE      warm-up over, measured run starts (300 s)
+[  62s] STATS      delivered=1 (node 5: 1) | adverts heard=22 sent=12 | dropped: none
+[  62s] LINKS      last RSSI heard from: node 4: -78 dBm, node 5: -52 dBm, node 6: -86 dBm, node 8: -89 dBm, node 9: -88 dBm
+[  62s] PDR        overall 1/29 = 3.4% | node 5: 1/29 = 3.4%
+[  62s] CONVERGE   waiting for a route from node 9
+[  68s] DELIVERED  node 4   seq 0     ACCEL (code 5)  accel=11.479 m/s2  [via node 5, RSSI -52 dBm]
+[  68s] DELIVERED  node 5   seq 0     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -52 dBm]
+[  68s] ROUTE      node 4 hop 1->2 parent 0->5
+[  70s] ROUTE      node 6 hop 2->2 parent 5->10
+[  72s] STATS      delivered=3 (node 4: 1, node 5: 2) | adverts heard=26 sent=14 | dropped: dest=1
+[  72s] LINKS      last RSSI heard from: node 4: -82 dBm, node 5: -52 dBm, node 6: -89 dBm, node 8: -89 dBm, node 9: -88 dBm
+[  72s] PDR        overall 3/30 = 10.0% | node 4: 1/1 = 100.0%, node 5: 2/29 = 6.9%
+[  72s] CONVERGE   waiting for a route from node 9
+[  78s] DELIVERED  node 4   seq 1     ACCEL (code 5)  accel=11.479 m/s2  [via node 5, RSSI -54 dBm]
+[  78s] DELIVERED  node 5   seq 1     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -53 dBm]
+[  80s] ROUTE      node 10 first heard: hop 1 parent 0
+[  83s] STATS      delivered=5 (node 4: 2, node 5: 3) | adverts heard=31 sent=16 | dropped: dest=3
+[  83s] LINKS      last RSSI heard from: node 4: -81 dBm, node 5: -53 dBm, node 6: -89 dBm, node 7: -90 dBm, node 8: -89 dBm, node 9: -88 dBm, node 10: -88 dBm
+[  83s] PDR        overall 5/31 = 16.1% | node 4: 2/2 = 100.0%, node 5: 3/29 = 10.3%
+[  83s] CONVERGE   waiting for a route from node 9
+[  88s] DELIVERED  node 4   seq 2     ACCEL (code 5)  accel=11.475 m/s2  [via node 4, RSSI -82 dBm]
+[  89s] DELIVERED  node 5   seq 2     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -53 dBm]
+[  92s] ROUTE      node 8 hop 2->3 parent 5->6
+[  93s] STATS      delivered=7 (node 4: 3, node 5: 4) | adverts heard=35 sent=18 | dropped: dest=3
+[  93s] LINKS      last RSSI heard from: node 4: -82 dBm, node 5: -52 dBm, node 6: -89 dBm, node 7: -90 dBm, node 8: -87 dBm, node 9: -88 dBm, node 10: -88 dBm
+[  93s] PDR        overall 7/32 = 21.9% | node 4: 3/3 = 100.0%, node 5: 4/29 = 13.8%
+[  93s] CONVERGE   waiting for a route from node 9
+[ 100s] DELIVERED  node 5   seq 3     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -51 dBm]
+[ 103s] STATS      delivered=8 (node 4: 3, node 5: 5) | adverts heard=37 sent=20 | dropped: dest=3
+[ 103s] LINKS      last RSSI heard from: node 4: -82 dBm, node 5: -50 dBm, node 6: -89 dBm, node 7: -90 dBm, node 8: -87 dBm, node 9: -88 dBm, node 10: -88 dBm
+[ 103s] PDR        overall 8/32 = 25.0% | node 4: 3/3 = 100.0%, node 5: 5/29 = 17.2%
+[ 103s] CONVERGE   waiting for a route from node 9
+[ 105s] ROUTE      node 4 hop 2->1 parent 5->0
+[ 108s] ROUTE      node 8 hop 3->3 parent 6->13
+[ 110s] DELIVERED  node 4   seq 4     ACCEL (code 5)  accel=11.479 m/s2  [via node 4, RSSI -80 dBm]
+[ 110s] DELIVERED  node 5   seq 4     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -52 dBm]
+[ 112s] ROUTE      node 6 hop 2->3 parent 10->13
+[ 113s] STATS      delivered=10 (node 4: 4, node 5: 6) | adverts heard=43 sent=22 | dropped: dest=4
+[ 113s] LINKS      last RSSI heard from: node 4: -82 dBm, node 5: -52 dBm, node 6: -89 dBm, node 7: -90 dBm, node 8: -83 dBm, node 9: -88 dBm, node 10: -88 dBm
+[ 113s] PDR        overall 10/34 = 29.4% | node 4: 4/5 = 80.0%, node 5: 6/29 = 20.7%
+[ 113s] CONVERGE   waiting for a route from node 9
+[ 120s] DELIVERED  node 5   seq 5     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -51 dBm]
+[ 123s] ROUTE      node 9 hop 255->2 parent 255->4
+[ 123s] STATS      delivered=11 (node 4: 4, node 5: 7) | adverts heard=47 sent=24 | dropped: dest=5
+[ 123s] LINKS      last RSSI heard from: node 4: -83 dBm, node 5: -51 dBm, node 6: -89 dBm, node 7: -90 dBm, node 8: -83 dBm, node 9: -85 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 123s] PDR        overall 11/34 = 32.4% | node 4: 4/5 = 80.0%, node 5: 7/29 = 24.1%
+[ 123s] CONVERGE   all routes up, last change 0 s ago, waiting for 15 s of stability
+[ 130s] DELIVERED  node 4   seq 6     ACCEL (code 5)  accel=11.482 m/s2  [via node 4, RSSI -81 dBm]
+[ 131s] DELIVERED  node 5   seq 6     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -50 dBm]
+[ 134s] STATS      delivered=13 (node 4: 5, node 5: 8) | adverts heard=51 sent=26 | dropped: dest=5
+[ 134s] LINKS      last RSSI heard from: node 4: -79 dBm, node 5: -50 dBm, node 6: -89 dBm, node 7: -90 dBm, node 8: -83 dBm, node 9: -85 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 134s] PDR        overall 13/36 = 36.1% | node 4: 5/7 = 71.4%, node 5: 8/29 = 27.6%
+[ 134s] CONVERGE   all routes up, last change 10 s ago, waiting for 15 s of stability
+[ 139s] ROUTE      node 9 hop 2->3 parent 4->13
+[ 141s] DELIVERED  node 5   seq 7     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -51 dBm]
+[ 144s] STATS      delivered=14 (node 4: 5, node 5: 9) | adverts heard=55 sent=28 | dropped: dest=5
+[ 144s] LINKS      last RSSI heard from: node 4: -88 dBm, node 5: -51 dBm, node 6: -89 dBm, node 7: -90 dBm, node 8: -83 dBm, node 9: -84 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 144s] PDR        overall 14/36 = 38.9% | node 4: 5/7 = 71.4%, node 5: 9/29 = 31.0%
+[ 144s] CONVERGE   all routes up, last change 5 s ago, waiting for 15 s of stability
+[ 147s] ROUTE      node 4 hop 1->2 parent 0->5
+[ 147s] DELIVERED  node 6   seq 6     DHT11 (code 1)  temp=22.00 C hum=20.0 %  [via node 6, RSSI -89 dBm]
+[ 151s] DELIVERED  node 4   seq 8     ACCEL (code 5)  accel=11.479 m/s2  [via node 5, RSSI -51 dBm]
+[ 152s] DELIVERED  node 5   seq 8     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -51 dBm]
+[ 154s] ROUTE      node 6 hop 3->1 parent 13->0
+[ 155s] STATS      delivered=17 (node 4: 6, node 5: 10, node 6: 1) | adverts heard=59 sent=29 | dropped: dest=8
+[ 155s] LINKS      last RSSI heard from: node 4: -84 dBm, node 5: -51 dBm, node 6: -90 dBm, node 7: -90 dBm, node 8: -83 dBm, node 9: -86 dBm, node 10: -88 dBm, node 13: -85 dBm
+[ 155s] PDR        overall 17/45 = 37.8% | node 4: 6/9 = 66.7%, node 5: 10/29 = 34.5%, node 6: 1/7 = 14.3%
+[ 155s] CONVERGE   all routes up, last change 0 s ago, waiting for 15 s of stability
+[ 158s] DELIVERED  node 6   seq 7     DHT11 (code 1)  temp=22.00 C hum=20.0 %  [via node 6, RSSI -89 dBm]
+[ 160s] ROUTE      node 8 hop 3->2 parent 13->6
+[ 161s] DELIVERED  node 10  seq 9     DS18  (code 2)  temp=20.14 C  [via node 10, RSSI -88 dBm]
+[ 161s] DELIVERED  node 7   seq 10    GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 10, RSSI -92 dBm]
+[ 162s] DELIVERED  node 5   seq 9     SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -52 dBm]
+[ 165s] ROUTE      node 6 hop 1->2 parent 0->10
+[ 165s] STATS      delivered=21 (node 4: 6, node 5: 11, node 6: 2, node 7: 1, node 10: 1) | adverts heard=63 sent=31 | dropped: dest=11
+[ 165s] LINKS      last RSSI heard from: node 4: -84 dBm, node 5: -52 dBm, node 6: -90 dBm, node 7: -90 dBm, node 8: -91 dBm, node 9: -82 dBm, node 10: -92 dBm, node 13: -88 dBm
+[ 165s] PDR        overall 21/67 = 31.3% | node 4: 6/9 = 66.7%, node 5: 11/29 = 37.9%, node 6: 2/8 = 25.0%, node 7: 1/11 = 9.1%, node 10: 1/10 = 10.0%
+[ 165s] CONVERGE   all routes up, last change 0 s ago, waiting for 15 s of stability
+[ 168s] DELIVERED  node 6   seq 8     DHT11 (code 1)  temp=22.00 C hum=20.0 %  [via node 10, RSSI -89 dBm]
+[ 170s] ROUTE      node 8 hop 2->2 parent 6->10
+[ 172s] DELIVERED  node 4   seq 10    ACCEL (code 5)  accel=11.479 m/s2  [via node 5, RSSI -52 dBm]
+[ 172s] DELIVERED  node 7   seq 11    GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 10, RSSI -90 dBm]
+[ 173s] DELIVERED  node 5   seq 10    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -51 dBm]
+[ 175s] STATS      delivered=25 (node 4: 7, node 5: 12, node 6: 3, node 7: 2, node 10: 1) | adverts heard=68 sent=33 | dropped: dest=11
+[ 175s] LINKS      last RSSI heard from: node 4: -83 dBm, node 5: -51 dBm, node 6: -90 dBm, node 7: -90 dBm, node 8: -88 dBm, node 9: -82 dBm, node 10: -90 dBm, node 13: -88 dBm
+[ 175s] PDR        overall 25/71 = 35.2% | node 4: 7/11 = 63.6%, node 5: 12/29 = 41.4%, node 6: 3/9 = 33.3%, node 7: 2/12 = 16.7%, node 10: 1/10 = 10.0%
+[ 175s] CONVERGE   all routes up, last change 5 s ago, waiting for 15 s of stability
+[ 176s] ROUTE      node 13 first heard: hop 2 parent 10
+[ 176s] ROUTE      node 6 hop 2->1 parent 10->0
+[ 183s] DELIVERED  node 4   seq 11    ACCEL (code 5)  accel=11.484 m/s2  [via node 4, RSSI -85 dBm]
+[ 183s] ROUTE      node 4 hop 2->1 parent 5->0
+[ 183s] DELIVERED  node 5   seq 11    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -53 dBm]
+[ 185s] STATS      delivered=27 (node 4: 8, node 5: 13, node 6: 3, node 7: 2, node 10: 1) | adverts heard=75 sent=35 | dropped: dest=12
+[ 185s] LINKS      last RSSI heard from: node 4: -84 dBm, node 5: -53 dBm, node 6: -86 dBm, node 7: -90 dBm, node 8: -88 dBm, node 9: -87 dBm, node 10: -90 dBm, node 13: -89 dBm
+[ 185s] PDR        overall 27/72 = 37.5% | node 4: 8/12 = 66.7%, node 5: 13/29 = 44.8%, node 6: 3/9 = 33.3%, node 7: 2/12 = 16.7%, node 10: 1/10 = 10.0%
+[ 185s] CONVERGE   all routes up, last change 2 s ago, waiting for 15 s of stability
+[ 192s] ROUTE      node 8 hop 2->2 parent 10->6
+[ 193s] DELIVERED  node 5   seq 12    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -52 dBm]
+[ 193s] DELIVERED  node 4   seq 12    ACCEL (code 5)  accel=11.480 m/s2  [via node 4, RSSI -83 dBm]
+[ 196s] STATS      delivered=29 (node 4: 9, node 5: 14, node 6: 3, node 7: 2, node 10: 1) | adverts heard=81 sent=37 | dropped: dest=14
+[ 196s] LINKS      last RSSI heard from: node 4: -82 dBm, node 5: -52 dBm, node 6: -86 dBm, node 7: -90 dBm, node 8: -90 dBm, node 9: -87 dBm, node 10: -92 dBm, node 13: -89 dBm
+[ 196s] PDR        overall 29/73 = 39.7% | node 4: 9/13 = 69.2%, node 5: 14/29 = 48.3%, node 6: 3/9 = 33.3%, node 7: 2/12 = 16.7%, node 10: 1/10 = 10.0%
+[ 196s] CONVERGE   all routes up, last change 4 s ago, waiting for 15 s of stability
+[ 196s] ROUTE      node 6 hop 1->2 parent 0->5
+[ 196s] ROUTE      node 9 hop 3->2 parent 13->5
+[ 203s] ROUTE      node 8 hop 2->2 parent 6->10
+[ 203s] DELIVERED  node 5   seq 13    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -50 dBm]
+[ 204s] DELIVERED  node 7   seq 14    GPS   (code 3)  lon=71.398300 deg lat=51.090400 deg  [via node 10, RSSI -89 dBm]
+[ 206s] STATS      delivered=31 (node 4: 9, node 5: 15, node 6: 3, node 7: 3, node 10: 1) | adverts heard=88 sent=39 | dropped: dest=15
+[ 206s] LINKS      last RSSI heard from: node 4: -82 dBm, node 5: -50 dBm, node 6: -91 dBm, node 7: -90 dBm, node 8: -88 dBm, node 9: -86 dBm, node 10: -89 dBm, node 13: -89 dBm
+[ 206s] PDR        overall 31/76 = 40.8% | node 4: 9/13 = 69.2%, node 5: 15/29 = 51.7%, node 6: 3/9 = 33.3%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%
+[ 206s] CONVERGE   all routes up, last change 3 s ago, waiting for 15 s of stability
+[ 207s] ROUTE      node 6 hop 2->2 parent 5->10
+[ 210s] ROUTE      node 4 hop 1->3 parent 0->8
+[ 213s] DELIVERED  node 5   seq 14    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -51 dBm]
+[ 216s] STATS      delivered=32 (node 4: 9, node 5: 16, node 6: 3, node 7: 3, node 10: 1) | adverts heard=93 sent=41 | dropped: dest=15
+[ 216s] LINKS      last RSSI heard from: node 4: -85 dBm, node 5: -52 dBm, node 6: -90 dBm, node 7: -90 dBm, node 8: -88 dBm, node 9: -86 dBm, node 10: -89 dBm, node 13: -89 dBm
+[ 216s] PDR        overall 32/76 = 42.1% | node 4: 9/13 = 69.2%, node 5: 16/29 = 55.2%, node 6: 3/9 = 33.3%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%
+[ 216s] CONVERGE   all routes up, last change 6 s ago, waiting for 15 s of stability
+[ 223s] DELIVERED  node 5   seq 15    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -52 dBm]
+[ 227s] STATS      delivered=33 (node 4: 9, node 5: 17, node 6: 3, node 7: 3, node 10: 1) | adverts heard=95 sent=43 | dropped: dest=16
+[ 227s] LINKS      last RSSI heard from: node 4: -85 dBm, node 5: -53 dBm, node 6: -90 dBm, node 7: -90 dBm, node 8: -89 dBm, node 9: -86 dBm, node 10: -89 dBm, node 13: -89 dBm
+[ 227s] PDR        overall 33/76 = 43.4% | node 4: 9/13 = 69.2%, node 5: 17/29 = 58.6%, node 6: 3/9 = 33.3%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%
+[ 227s] CONVERGE   converged: 8 node(s) have a route, last change at 210 s  <== STARTUP CONVERGENCE TIME
+[ 232s] DELIVERED  node 6   seq 13    DHT11 (code 1)  temp=22.00 C hum=20.0 %  [via node 5, RSSI -52 dBm]
+[ 234s] DELIVERED  node 5   seq 16    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -53 dBm]
+[ 237s] STATS      delivered=35 (node 4: 9, node 5: 18, node 6: 4, node 7: 3, node 10: 1) | adverts heard=97 sent=45 | dropped: dest=17
+[ 237s] LINKS      last RSSI heard from: node 4: -85 dBm, node 5: -53 dBm, node 6: -90 dBm, node 7: -90 dBm, node 8: -89 dBm, node 9: -87 dBm, node 10: -89 dBm, node 13: -89 dBm
+[ 237s] PDR        overall 35/81 = 43.2% | node 4: 9/13 = 69.2%, node 5: 18/29 = 62.1%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%
+[ 237s] CONVERGE   converged: 8 node(s) have a route, last change at 210 s
+[ 244s] ROUTE      node 6 hop 2->3 parent 10->9
+[ 244s] DELIVERED  node 4   seq 17    ACCEL (code 5)  accel=11.478 m/s2  [via node 4, RSSI -88 dBm]
+[ 245s] DELIVERED  node 5   seq 17    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -52 dBm]
+[ 245s] ROUTE      node 8 hop 2->2 parent 10->4
+[ 247s] STATS      delivered=37 (node 4: 10, node 5: 19, node 6: 4, node 7: 3, node 10: 1) | adverts heard=101 sent=47 | dropped: dest=18
+[ 247s] LINKS      last RSSI heard from: node 4: -88 dBm, node 5: -52 dBm, node 6: -88 dBm, node 7: -90 dBm, node 8: -91 dBm, node 9: -88 dBm, node 10: -89 dBm, node 13: -89 dBm
+[ 247s] PDR        overall 37/86 = 43.0% | node 4: 10/18 = 55.6%, node 5: 19/29 = 65.5%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%
+[ 247s] CONVERGE   all routes up, last change 3 s ago, waiting for 15 s of stability
+[ 249s] ROUTE      node 9 hop 2->2 parent 5->4
+[ 255s] DELIVERED  node 5   seq 18    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -53 dBm]
+[ 258s] STATS      delivered=38 (node 4: 10, node 5: 20, node 6: 4, node 7: 3, node 10: 1) | adverts heard=106 sent=49 | dropped: dest=18
+[ 258s] LINKS      last RSSI heard from: node 4: -88 dBm, node 5: -53 dBm, node 6: -88 dBm, node 7: -90 dBm, node 8: -87 dBm, node 9: -88 dBm, node 10: -89 dBm, node 13: -89 dBm
+[ 258s] PDR        overall 38/86 = 44.2% | node 4: 10/18 = 55.6%, node 5: 20/29 = 69.0%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%
+[ 258s] CONVERGE   all routes up, last change 8 s ago, waiting for 15 s of stability
+[ 265s] DELIVERED  node 5   seq 19    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -52 dBm]
+[ 268s] STATS      delivered=39 (node 4: 10, node 5: 21, node 6: 4, node 7: 3, node 10: 1) | adverts heard=108 sent=51 | dropped: dest=18
+[ 268s] LINKS      last RSSI heard from: node 4: -88 dBm, node 5: -52 dBm, node 6: -88 dBm, node 7: -90 dBm, node 8: -87 dBm, node 9: -88 dBm, node 10: -89 dBm, node 13: -89 dBm
+[ 268s] PDR        overall 39/86 = 45.3% | node 4: 10/18 = 55.6%, node 5: 21/29 = 72.4%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%
+[ 268s] CONVERGE   converged: 8 node(s) have a route, last change at 249 s
+[ 276s] DELIVERED  node 5   seq 20    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -53 dBm]
+[ 276s] DELIVERED  node 12  seq 18    SMOKE (code 4)  smoke=0 (not detected)  [via node 10, RSSI -88 dBm]
+[ 278s] STATS      delivered=41 (node 4: 10, node 5: 22, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=110 sent=53 | dropped: dest=18
+[ 278s] LINKS      last RSSI heard from: node 4: -88 dBm, node 5: -53 dBm, node 6: -88 dBm, node 7: -90 dBm, node 8: -87 dBm, node 9: -88 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 278s] PDR        overall 41/105 = 39.0% | node 4: 10/18 = 55.6%, node 5: 22/29 = 75.9%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 278s] CONVERGE   all routes up, last change 2 s ago, waiting for 15 s of stability
+[ 286s] DELIVERED  node 4   seq 21    ACCEL (code 5)  accel=11.474 m/s2  [via node 4, RSSI -88 dBm]
+[ 286s] DELIVERED  node 5   seq 21    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -52 dBm]
+[ 288s] STATS      delivered=43 (node 4: 11, node 5: 23, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=112 sent=55 | dropped: dest=18
+[ 288s] LINKS      last RSSI heard from: node 4: -88 dBm, node 5: -53 dBm, node 6: -88 dBm, node 7: -90 dBm, node 8: -87 dBm, node 9: -88 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 288s] PDR        overall 43/109 = 39.4% | node 4: 11/22 = 50.0%, node 5: 23/29 = 79.3%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 288s] CONVERGE   all routes up, last change 12 s ago, waiting for 15 s of stability
+[ 297s] DELIVERED  node 5   seq 22    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -51 dBm]
+[ 299s] STATS      delivered=44 (node 4: 11, node 5: 24, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=114 sent=57 | dropped: dest=18
+[ 299s] LINKS      last RSSI heard from: node 4: -88 dBm, node 5: -51 dBm, node 6: -88 dBm, node 7: -90 dBm, node 8: -87 dBm, node 9: -88 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 299s] PDR        overall 44/109 = 40.4% | node 4: 11/22 = 50.0%, node 5: 24/29 = 82.8%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 299s] CONVERGE   converged: 9 node(s) have a route, last change at 276 s
+[ 304s] ROUTE      node 4 hop 3->2 parent 8->5
+[ 307s] DELIVERED  node 4   seq 23    ACCEL (code 5)  accel=11.479 m/s2  [via node 5, RSSI -53 dBm]
+[ 307s] DELIVERED  node 5   seq 23    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -52 dBm]
+[ 309s] STATS      delivered=46 (node 4: 12, node 5: 25, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=117 sent=59 | dropped: dest=18
+[ 309s] LINKS      last RSSI heard from: node 4: -87 dBm, node 5: -52 dBm, node 6: -88 dBm, node 7: -90 dBm, node 8: -87 dBm, node 9: -88 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 309s] PDR        overall 46/111 = 41.4% | node 4: 12/24 = 50.0%, node 5: 25/29 = 86.2%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 309s] CONVERGE   all routes up, last change 4 s ago, waiting for 15 s of stability
+[ 310s] ROUTE      node 4 hop 2->1 parent 5->0
+[ 318s] DELIVERED  node 5   seq 24    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -51 dBm]
+[ 319s] STATS      delivered=47 (node 4: 12, node 5: 26, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=121 sent=61 | dropped: dest=19
+[ 319s] LINKS      last RSSI heard from: node 4: -86 dBm, node 5: -50 dBm, node 6: -88 dBm, node 7: -91 dBm, node 8: -87 dBm, node 9: -89 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 319s] PDR        overall 47/111 = 42.3% | node 4: 12/24 = 50.0%, node 5: 26/29 = 89.7%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 319s] CONVERGE   all routes up, last change 9 s ago, waiting for 15 s of stability
+[ 329s] DELIVERED  node 5   seq 25    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -51 dBm]
+[ 329s] STATS      delivered=48 (node 4: 12, node 5: 27, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=123 sent=63 | dropped: dest=19
+[ 329s] LINKS      last RSSI heard from: node 4: -86 dBm, node 5: -51 dBm, node 6: -88 dBm, node 7: -91 dBm, node 8: -87 dBm, node 9: -89 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 329s] PDR        overall 48/111 = 43.2% | node 4: 12/24 = 50.0%, node 5: 27/29 = 93.1%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 329s] CONVERGE   converged: 9 node(s) have a route, last change at 310 s
+[ 339s] DELIVERED  node 5   seq 26    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -51 dBm]
+[ 339s] STATS      delivered=49 (node 4: 12, node 5: 28, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=125 sent=64 | dropped: dest=19
+[ 339s] LINKS      last RSSI heard from: node 4: -86 dBm, node 5: -52 dBm, node 6: -88 dBm, node 7: -91 dBm, node 8: -87 dBm, node 9: -89 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 339s] PDR        overall 49/111 = 44.1% | node 4: 12/24 = 50.0%, node 5: 28/29 = 96.6%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 339s] CONVERGE   converged: 9 node(s) have a route, last change at 310 s
+[ 350s] DELIVERED  node 5   seq 27    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -51 dBm]
+[ 350s] STATS      delivered=50 (node 4: 12, node 5: 29, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=129 sent=66 | dropped: dest=19
+[ 350s] LINKS      last RSSI heard from: node 4: -86 dBm, node 5: -51 dBm, node 6: -88 dBm, node 7: -91 dBm, node 8: -87 dBm, node 9: -89 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 350s] PDR        overall 50/111 = 45.0% | node 4: 12/24 = 50.0%, node 5: 29/29 = 100.0%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 350s] CONVERGE   converged: 9 node(s) have a route, last change at 310 s
+[ 355s] ROUTE      node 6 hop 3->1 parent 9->0
+[ 359s] DELIVERED  node 4   seq 28    ACCEL (code 5)  accel=11.483 m/s2  [via node 4, RSSI -88 dBm]
+[ 360s] DELIVERED  node 5   seq 28    SMOKE (code 4)  smoke=0 (not detected)  [via node 5, RSSI -52 dBm]
+[ 360s] STATS      delivered=52 (node 4: 13, node 5: 30, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=131 sent=68 | dropped: dest=20
+[ 360s] LINKS      last RSSI heard from: node 4: -88 dBm, node 5: -52 dBm, node 6: -89 dBm, node 7: -91 dBm, node 8: -87 dBm, node 9: -89 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 360s] PDR        overall 52/116 = 44.8% | node 4: 13/29 = 44.8%, node 5: 30/29 = 103.4%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 360s] CONVERGE   all routes up, last change 5 s ago, waiting for 15 s of stability
+[ 360s] ROUTE      node 6 hop 1->2 parent 0->4
+[ 360s] PHASE      nodes stop generating, draining for 60 s
+[ 370s] STATS      delivered=52 (node 4: 13, node 5: 30, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=137 sent=70 | dropped: dest=21
+[ 370s] LINKS      last RSSI heard from: node 4: -87 dBm, node 5: -52 dBm, node 6: -88 dBm, node 7: -91 dBm, node 8: -87 dBm, node 9: -90 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 370s] PDR        overall 52/116 = 44.8% | node 4: 13/29 = 44.8%, node 5: 30/29 = 103.4%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 370s] CONVERGE   all routes up, last change 10 s ago, waiting for 15 s of stability
+[ 372s] ROUTE      node 4 hop 1->2 parent 0->5
+[ 374s] ROUTE      node 7 advert heard: hop 3 parent 6
+[ 380s] STATS      delivered=52 (node 4: 13, node 5: 30, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=140 sent=72 | dropped: dest=22
+[ 380s] LINKS      last RSSI heard from: node 4: -85 dBm, node 5: -51 dBm, node 6: -84 dBm, node 7: -93 dBm, node 8: -87 dBm, node 9: -90 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 380s] PDR        overall 52/116 = 44.8% | node 4: 13/29 = 44.8%, node 5: 30/29 = 103.4%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 380s] CONVERGE   all routes up, last change 8 s ago, waiting for 15 s of stability
+[ 386s] ROUTE      node 9 hop 2->4 parent 4->1
+[ 387s] ROUTE      node 6 hop 2->3 parent 4->13
+[ 390s] STATS      delivered=52 (node 4: 13, node 5: 30, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=144 sent=74 | dropped: dest=22
+[ 390s] LINKS      last RSSI heard from: node 4: -85 dBm, node 5: -51 dBm, node 6: -89 dBm, node 7: -93 dBm, node 8: -87 dBm, node 9: -87 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 390s] PDR        overall 52/116 = 44.8% | node 4: 13/29 = 44.8%, node 5: 30/29 = 103.4%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 390s] CONVERGE   all routes up, last change 3 s ago, waiting for 15 s of stability
+[ 393s] ROUTE      node 4 hop 2->1 parent 5->0
+[ 397s] ROUTE      node 9 hop 4->2 parent 1->4
+[ 401s] STATS      delivered=52 (node 4: 13, node 5: 30, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=148 sent=76 | dropped: dest=22
+[ 401s] LINKS      last RSSI heard from: node 4: -86 dBm, node 5: -52 dBm, node 6: -89 dBm, node 7: -93 dBm, node 8: -87 dBm, node 9: -84 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 401s] PDR        overall 52/116 = 44.8% | node 4: 13/29 = 44.8%, node 5: 30/29 = 103.4%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 401s] CONVERGE   all routes up, last change 4 s ago, waiting for 15 s of stability
+[ 402s] ROUTE      node 6 hop 3->1 parent 13->0
+[ 411s] STATS      delivered=52 (node 4: 13, node 5: 30, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=152 sent=78 | dropped: dest=22
+[ 411s] LINKS      last RSSI heard from: node 4: -86 dBm, node 5: -52 dBm, node 6: -89 dBm, node 7: -93 dBm, node 8: -87 dBm, node 9: -84 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 411s] PDR        overall 52/116 = 44.8% | node 4: 13/29 = 44.8%, node 5: 30/29 = 103.4%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 411s] CONVERGE   all routes up, last change 9 s ago, waiting for 15 s of stability
+SUMMARY run_id=2 mode=dv tx_power=17.0 dBm
+schedule: warm-up 60 s, measured run 300 s, drain 60 s (from root boot, t = 0)
+[ 421s] STATS      delivered=52 (node 4: 13, node 5: 30, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=155 sent=80 | dropped: dest=22
+[ 421s] LINKS      last RSSI heard from: node 4: -86 dBm, node 5: -52 dBm, node 6: -90 dBm, node 7: -93 dBm, node 8: -87 dBm, node 9: -84 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 421s] PDR        overall 52/116 = 44.8% | node 4: 13/29 = 44.8%, node 5: 30/29 = 103.4%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 421s] CONVERGE   converged: 9 node(s) have a route, last change at 402 s
+node 4: first heard 6 s, first route 26 s, last route change 393 s, hop 1 parent 0
+node 5: first heard 1 s, first route 1 s, last route change 1 s, hop 1 parent 0
+node 6: first heard 22 s, first route 22 s, last route change 402 s, hop 1 parent 0
+node 7: first heard 161 s, first route 161 s, last route change 161 s, hop 3 parent 6
+node 8: first heard 9 s, first route 30 s, last route change 245 s, hop 2 parent 4
+node 9: first heard 7 s, first route 123 s, last route change 397 s, hop 2 parent 4
+node 10: first heard 80 s, first route 80 s, last route change 80 s, hop 1 parent 0
+node 12: first heard 276 s, first route 276 s, last route change 276 s, hop None parent None
+node 13: first heard 176 s, first route 176 s, last route change 176 s, hop 2 parent 10
+PDR note: generated = highest seq seen + 1 per node (packets lost at the very end are invisible), compare with each node's own 'generated' count.
+[ 422s] SUMMARY    written to root_summary_dv_run2.txt
+[ 422s] STATS      delivered=52 (node 4: 13, node 5: 30, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=156 sent=80 | dropped: dest=22
+[ 422s] LINKS      last RSSI heard from: node 4: -86 dBm, node 5: -52 dBm, node 6: -90 dBm, node 7: -93 dBm, node 8: -87 dBm, node 9: -84 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 422s] PDR        overall 52/116 = 44.8% | node 4: 13/29 = 44.8%, node 5: 30/29 = 103.4%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 422s] CONVERGE   converged: 9 node(s) have a route, last change at 402 s
+[ 423s] ROUTE      node 6 hop 1->2 parent 0->4
+[ 430s] ROUTE      node 4 hop 1->4 parent 0->9
+[ 433s] STATS      delivered=52 (node 4: 13, node 5: 30, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=159 sent=82 | dropped: dest=22
+[ 433s] LINKS      last RSSI heard from: node 4: -87 dBm, node 5: -50 dBm, node 6: -87 dBm, node 7: -93 dBm, node 8: -87 dBm, node 9: -84 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 433s] PDR        overall 52/116 = 44.8% | node 4: 13/29 = 44.8%, node 5: 30/29 = 103.4%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 433s] CONVERGE   all routes up, last change 2 s ago, waiting for 15 s of stability
+[ 435s] ROUTE      node 4 hop 4->1 parent 9->0
+[ 443s] STATS      delivered=52 (node 4: 13, node 5: 30, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=162 sent=84 | dropped: dest=22
+[ 443s] LINKS      last RSSI heard from: node 4: -85 dBm, node 5: -48 dBm, node 6: -87 dBm, node 7: -93 dBm, node 8: -87 dBm, node 9: -84 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 443s] PDR        overall 52/116 = 44.8% | node 4: 13/29 = 44.8%, node 5: 30/29 = 103.4%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 443s] CONVERGE   all routes up, last change 7 s ago, waiting for 15 s of stability
+[ 453s] STATS      delivered=52 (node 4: 13, node 5: 30, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=164 sent=86 | dropped: dest=22
+[ 453s] LINKS      last RSSI heard from: node 4: -85 dBm, node 5: -50 dBm, node 6: -87 dBm, node 7: -93 dBm, node 8: -87 dBm, node 9: -84 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 453s] PDR        overall 52/116 = 44.8% | node 4: 13/29 = 44.8%, node 5: 30/29 = 103.4%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 453s] CONVERGE   converged: 9 node(s) have a route, last change at 435 s
+[ 463s] STATS      delivered=52 (node 4: 13, node 5: 30, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=167 sent=88 | dropped: dest=22
+[ 463s] LINKS      last RSSI heard from: node 4: -84 dBm, node 5: -50 dBm, node 6: -87 dBm, node 7: -93 dBm, node 8: -87 dBm, node 9: -84 dBm, node 10: -88 dBm, node 13: -89 dBm
+[ 463s] PDR        overall 52/116 = 44.8% | node 4: 13/29 = 44.8%, node 5: 30/29 = 103.4%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 463s] CONVERGE   converged: 9 node(s) have a route, last change at 435 s
+[ 465s] ROUTE      node 13 hop 2->255 parent 10->255
+[ 473s] STATS      delivered=52 (node 4: 13, node 5: 30, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=172 sent=90 | dropped: dest=22
+[ 473s] LINKS      last RSSI heard from: node 4: -85 dBm, node 5: -50 dBm, node 6: -87 dBm, node 7: -93 dBm, node 8: -87 dBm, node 9: -84 dBm, node 10: -88 dBm, node 13: -90 dBm
+[ 473s] PDR        overall 52/116 = 44.8% | node 4: 13/29 = 44.8%, node 5: 30/29 = 103.4%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 473s] CONVERGE   all routes up, last change 9 s ago, waiting for 15 s of stability
+[ 484s] STATS      delivered=52 (node 4: 13, node 5: 30, node 6: 4, node 7: 3, node 10: 1, node 12: 1) | adverts heard=176 sent=92 | dropped: dest=22
+[ 484s] LINKS      last RSSI heard from: node 4: -88 dBm, node 5: -50 dBm, node 6: -87 dBm, node 7: -93 dBm, node 8: -87 dBm, node 9: -84 dBm, node 10: -92 dBm, node 13: -90 dBm
+[ 484s] PDR        overall 52/116 = 44.8% | node 4: 13/29 = 44.8%, node 5: 30/29 = 103.4%, node 6: 4/14 = 28.6%, node 7: 3/15 = 20.0%, node 10: 1/10 = 10.0%, node 12: 1/19 = 5.3%
+[ 484s] CONVERGE   converged: 9 node(s) have a route, last change at 465 s

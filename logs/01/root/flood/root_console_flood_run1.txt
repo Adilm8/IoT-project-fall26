@@ -1,0 +1,4 @@
+root started: mode=flood run_id=1 (all boards must use the same) tx_power=16.5 dBm, logging to root_console_flood_run1.txt, root_events_flood_run1.csv
+[  11s] STATS      delivered=0 (none yet) | adverts heard=0 sent=0 | dropped: none
+[  11s] LINKS      last RSSI heard from: nobody yet
+[  11s] PDR        no data delivered yet

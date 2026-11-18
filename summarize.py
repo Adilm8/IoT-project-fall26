@@ -117,7 +117,7 @@ def convergence_time(rows, quiet_ms, end_ms):
     return None, sorted(n for n in connected if state.get(n, NO_ROUTE) >= NO_ROUTE)
 
 
-def analyze(run, expect):
+def analyze(run, expect, assume_full=()):
     rkv, rrows = run.root
     nodekv = {i: v[0] for i, v in run.nodes.items()}
     sched = (num(rkv, "warmup_s", 60), num(rkv, "run_s", 300), num(rkv, "drain_s", 60))
@@ -134,20 +134,23 @@ def analyze(run, expect):
         by_src.setdefault(o, []).append((r["t_ms"], s))
 
     sources = sorted((set(nodekv) | set(by_src) | set(expect)) - {0})
-    per, estimated = {}, []
+    per, estimated, assumed = {}, [], []
     for n in sources:
         kv = nodekv.get(n)
         seqs = {s for _, s in by_src.get(n, [])}
         est = max(seqs) + 1 if seqs else None
         gen = num(kv, "generated") if kv else None
         exact = gen is not None
-        if gen is None:
+        if gen is None and n in assume_full and seqs:
+            gen = len(seqs)         # --assume-full: no summary, generated := delivered (PDR 100% by assumption)
+            assumed.append(n)
+        elif gen is None:
             gen = est
         got = len([s for s in seqs if gen is not None and s < gen])
         if exact and len(seqs) != got:
             run.warn.append("node %d: %d delivered seq(s) >= generated=%d (reboot or wrong summary?), not counted"
                             % (n, len(seqs) - got, gen))
-        if not exact and gen is not None:
+        if not exact and gen is not None and n not in assumed:
             estimated.append(n)
         if gen is None:
             run.warn.append("node %d: nothing delivered and no summary, source not in PDR" % n)
@@ -155,6 +158,9 @@ def analyze(run, expect):
                   "pdr": got / gen if gen else None,
                   "acq_fail": num(kv, "acq_fail", 0) if kv else None,
                   "noroute": num(kv, "drop_noroute", 0) if kv else None}
+    if assumed:
+        run.warn.append("no summary for node(s) %s: generated ASSUMED equal to delivered (--assume-full), PDR 100%% by assumption"
+                        % ", ".join(map(str, assumed)))
     if estimated:
         run.warn.append("no summary for node(s) %s: generated estimated as highest seq + 1 (PDR is an upper bound)"
                         % ", ".join(map(str, estimated)))
@@ -250,13 +256,17 @@ def build_report(set_id, results, warnings):
     w("| --- | --- | --- | --- | --- | --- | --- |")
     for mo, ms_ in sorted(groups.items()):
         w("| %s | %d | %s | %s | %s | %s | %s |" % (
-            mo, len(ms_), ms([m["pdr"] for m in ms_], pct_f, 100), ms([m["overhead"] for m in ms_]),
-            ms([m["data_tx"] for m in ms_], lambda x: "%.0f" % x), ms([m["adv_tx"] for m in ms_], lambda x: "%.0f" % x),
+            mo, len(ms_), ms([m["pdr"] for m in ms_], pct_f, 100), ms([m["overhead"] for m in ms_ if m["complete"]]),
+            ms([m["data_tx"] for m in ms_ if m["complete"]], lambda x: "%.0f" % x),
+            ms([m["adv_tx"] for m in ms_ if m["complete"]], lambda x: "%.0f" % x),
             ms([m["dup_at_root"] for m in ms_], lambda x: "%.0f" % x)))
     w("")
     for mo, ms_ in sorted(groups.items()):
         if len(ms_) < 3:
             w("⚠ %s: only %d run(s), Task.md asks for at least three." % (mo, len(ms_)))
+        done = sum(1 for m in ms_ if m["complete"])
+        if done < len(ms_):
+            w("⚠ %s: overhead, data tx and adv tx use only the %d of %d runs with every node summary present (the others would undercount)." % (mo, done, len(ms_)))
 
     w("## Per-source PDR (mean ± sd)\n")
     cols = sorted(groups)
@@ -300,10 +310,11 @@ def build_report(set_id, results, warnings):
     if not (d and fl):
         w("- Only %s runs found, no DV vs flooding comparison." % ("DV" if d else "flooding"))
     else:
-        avg = lambda g, k: statistics.mean([m[k] for m in g if m[k] is not None] or [float("nan")])
+        avg = lambda g, k, only_complete=False: statistics.mean(
+            [m[k] for m in g if m[k] is not None and (m["complete"] or not only_complete)] or [float("nan")])
         w("- **PDR**: DV %s, flooding %s." % (pct_f(100 * avg(d, "pdr")), pct_f(100 * avg(fl, "pdr"))))
         w("- **Overhead** (send attempts per delivered packet): DV %.2f (data %.0f + adverts %.0f per run), flooding %.2f (data %.0f)."
-          % (avg(d, "overhead"), avg(d, "data_tx"), avg(d, "adv_tx"), avg(fl, "overhead"), avg(fl, "data_tx")))
+          % (avg(d, "overhead", True), avg(d, "data_tx", True), avg(d, "adv_tx", True), avg(fl, "overhead", True), avg(fl, "data_tx", True)))
         conv = [m["convergence_s"] for m in d if m["convergence_s"] is not None]
         w("- **DV convergence**: %s." % (("%s s mean over %d of %d runs" % (f2(statistics.mean(conv), 0), len(conv), len(d)))
                                        if conv else "no run converged (some route kept changing)"))
@@ -382,6 +393,8 @@ def main():
     ap.add_argument("set_id", help="experiment set folder under --logs, e.g. 02")
     ap.add_argument("--logs", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs"))
     ap.add_argument("--expect", default="", help="comma-separated source IDs that must appear in every run")
+    ap.add_argument("--assume-full", default="", help="comma-separated source IDs: where their node summary is missing, "
+                    "take generated = delivered (PDR 100%%); listed as a warning in the report")
     ap.add_argument("--no-write", action="store_true", help="print only, do not write results/")
     a = ap.parse_args()
     set_dir = os.path.join(a.logs, a.set_id)
@@ -390,6 +403,7 @@ def main():
     if not os.path.isdir(set_dir):
         sys.exit("no such folder: " + set_dir)
     expect = [int(x) for x in a.expect.split(",") if x.strip()]
+    assume_full = [int(x) for x in a.assume_full.split(",") if x.strip()]
     warnings = []
     runs = load(set_dir, warnings)
     results = []
@@ -398,7 +412,7 @@ def main():
             warnings.append("%s run %d: node files but no root summary, run skipped (nodes: %s)"
                             % (mode, rid, ", ".join(map(str, sorted(run.nodes)))))
             continue
-        m = analyze(run, expect)
+        m = analyze(run, expect, assume_full)
         warnings += ["%s run %d: %s" % (mode, rid, x) for x in run.warn]
         results.append(m)
     if not results:

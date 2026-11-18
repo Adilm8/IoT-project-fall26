@@ -1,0 +1,103 @@
+t_ms,event,node,seq,via,rssi,hop,parent,info
+1679,route,5,,,,1,0,first_heard
+2991,rx,5,28,5,-48,,,SMOKE;smoke=0 (not detected)
+6450,route,4,,,,255,255,first_heard
+7020,route,9,,,,255,255,first_heard
+9220,route,8,,,,255,255,first_heard
+22742,route,6,,,,2,5,first_heard
+26773,route,4,,,,1,0,route_change
+30300,route,8,,,,2,5,route_change
+37291,route,4,,,,3,8,route_change
+53161,route,4,,,,1,0,route_change
+68161,rx,4,0,5,-52,,,ACCEL;accel=11.479 m/s2
+68371,rx,5,0,5,-52,,,SMOKE;smoke=0 (not detected)
+68659,route,4,,,,2,5,route_change
+70309,route,6,,,,2,10,route_change
+78132,rx,4,1,5,-54,,,ACCEL;accel=11.479 m/s2
+78802,rx,5,1,5,-53,,,SMOKE;smoke=0 (not detected)
+80419,route,10,,,,1,0,first_heard
+88613,rx,4,2,4,-82,,,ACCEL;accel=11.475 m/s2
+89552,rx,5,2,5,-53,,,SMOKE;smoke=0 (not detected)
+92730,route,8,,,,3,6,route_change
+100113,rx,5,3,5,-51,,,SMOKE;smoke=0 (not detected)
+105843,route,4,,,,1,0,route_change
+108572,route,8,,,,3,13,route_change
+110064,rx,4,4,4,-80,,,ACCEL;accel=11.479 m/s2
+110544,rx,5,4,5,-52,,,SMOKE;smoke=0 (not detected)
+112928,route,6,,,,3,13,route_change
+120882,rx,5,5,5,-51,,,SMOKE;smoke=0 (not detected)
+123833,route,9,,,,2,4,route_change
+130653,rx,4,6,4,-81,,,ACCEL;accel=11.482 m/s2
+130982,rx,5,6,5,-50,,,SMOKE;smoke=0 (not detected)
+139551,route,9,,,,3,13,route_change
+141082,rx,5,7,5,-51,,,SMOKE;smoke=0 (not detected)
+147321,route,4,,,,2,5,route_change
+147834,rx,6,6,6,-89,,,DHT11;temp=22.00 C hum=20.0 %
+151824,rx,4,8,5,-51,,,ACCEL;accel=11.479 m/s2
+152034,rx,5,8,5,-51,,,SMOKE;smoke=0 (not detected)
+154532,route,6,,,,1,0,route_change
+158359,rx,6,7,6,-89,,,DHT11;temp=22.00 C hum=20.0 %
+160423,route,8,,,,2,6,route_change
+160905,rx,10,9,10,-88,,,DS18;temp=20.14 C
+161841,rx,7,10,10,-92,,,GPS;lon=71.398300 deg lat=51.090400 deg
+162791,rx,5,9,5,-52,,,SMOKE;smoke=0 (not detected)
+165269,route,6,,,,2,10,route_change
+168712,rx,6,8,10,-89,,,DHT11;temp=22.00 C hum=20.0 %
+170699,route,8,,,,2,10,route_change
+172422,rx,4,10,5,-52,,,ACCEL;accel=11.479 m/s2
+172757,rx,7,11,10,-90,,,GPS;lon=71.398300 deg lat=51.090400 deg
+173031,rx,5,10,5,-51,,,SMOKE;smoke=0 (not detected)
+176050,route,13,,,,2,10,first_heard
+176212,route,6,,,,1,0,route_change
+183353,rx,4,11,4,-85,,,ACCEL;accel=11.484 m/s2
+183531,route,4,,,,1,0,route_change
+183713,rx,5,11,5,-53,,,SMOKE;smoke=0 (not detected)
+192232,route,8,,,,2,6,route_change
+193193,rx,5,12,5,-52,,,SMOKE;smoke=0 (not detected)
+193390,rx,4,12,4,-83,,,ACCEL;accel=11.480 m/s2
+196835,route,6,,,,2,5,route_change
+196985,route,9,,,,2,5,route_change
+203069,route,8,,,,2,10,route_change
+203621,rx,5,13,5,-50,,,SMOKE;smoke=0 (not detected)
+204282,rx,7,14,10,-89,,,GPS;lon=71.398300 deg lat=51.090400 deg
+207051,route,6,,,,2,10,route_change
+210059,route,4,,,,3,8,route_change
+213732,rx,5,14,5,-51,,,SMOKE;smoke=0 (not detected)
+223803,rx,5,15,5,-52,,,SMOKE;smoke=0 (not detected)
+231914,rx,6,13,5,-52,,,DHT11;temp=22.00 C hum=20.0 %
+234572,rx,5,16,5,-53,,,SMOKE;smoke=0 (not detected)
+244656,route,6,,,,3,9,route_change
+244839,rx,4,17,4,-88,,,ACCEL;accel=11.478 m/s2
+245052,rx,5,17,5,-52,,,SMOKE;smoke=0 (not detected)
+245247,route,8,,,,2,4,route_change
+249693,route,9,,,,2,4,route_change
+255511,rx,5,18,5,-53,,,SMOKE;smoke=0 (not detected)
+265741,rx,5,19,5,-52,,,SMOKE;smoke=0 (not detected)
+276042,rx,5,20,5,-53,,,SMOKE;smoke=0 (not detected)
+276232,rx,12,18,10,-88,,,SMOKE;smoke=0 (not detected)
+286454,rx,4,21,4,-88,,,ACCEL;accel=11.474 m/s2
+286673,rx,5,21,5,-52,,,SMOKE;smoke=0 (not detected)
+297594,rx,5,22,5,-51,,,SMOKE;smoke=0 (not detected)
+304892,route,4,,,,2,5,route_change
+307315,rx,4,23,5,-53,,,ACCEL;accel=11.479 m/s2
+307753,rx,5,23,5,-52,,,SMOKE;smoke=0 (not detected)
+310043,route,4,,,,1,0,route_change
+318321,rx,5,24,5,-51,,,SMOKE;smoke=0 (not detected)
+328913,rx,5,25,5,-51,,,SMOKE;smoke=0 (not detected)
+339132,rx,5,26,5,-51,,,SMOKE;smoke=0 (not detected)
+350073,rx,5,27,5,-51,,,SMOKE;smoke=0 (not detected)
+355511,route,6,,,,1,0,route_change
+359084,rx,4,28,4,-88,,,ACCEL;accel=11.483 m/s2
+360143,rx,5,28,5,-52,,,SMOKE;smoke=0 (not detected)
+360892,route,6,,,,2,4,route_change
+372873,route,4,,,,2,5,route_change
+374973,route,7,,,,3,6,advert_heard
+386839,route,9,,,,4,1,route_change
+387199,route,6,,,,3,13,route_change
+393830,route,4,,,,1,0,route_change
+397199,route,9,,,,2,4,route_change
+402590,route,6,,,,1,0,route_change
+423961,route,6,,,,2,4,route_change
+430759,route,4,,,,4,9,route_change
+435920,route,4,,,,1,0,route_change
+465023,route,13,,,,255,255,route_change

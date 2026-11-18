@@ -1,0 +1,2 @@
+# PLACEHOLDER: node 5 summary for flood run 1 was lost and not recorded. Contains no measurements.
+# summarize.py skips this file (no format=1), so node 5 counts as "no summary"; see --assume-full in README.md.

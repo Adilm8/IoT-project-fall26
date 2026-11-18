@@ -1,0 +1,111 @@
+t_ms,event,node,seq,via,rssi,hop,parent,info
+7621,route,4,,,,255,255,first_heard
+12813,route,4,,,,1,0,route_change
+13601,route,5,,,,1,0,first_heard
+15391,route,9,,,,2,4,first_heard
+18741,route,7,,,,1,0,first_heard
+32144,route,8,,,,3,10,first_heard
+36262,route,9,,,,2,7,route_change
+37082,route,8,,,,3,9,route_change
+49569,route,4,,,,4,6,route_change
+50209,route,7,,,,3,9,route_change
+51258,route,10,,,,3,7,first_heard
+60434,route,4,,,,1,0,route_change
+68742,rx,5,0,5,-61,,,SMOKE;smoke=0 (not detected)
+69653,rx,4,0,4,-84,,,ACCEL;accel=11.482 m/s2
+71313,rx,3,0,10,-91,,,DS18;temp=21.69 C
+78903,rx,5,1,5,-59,,,SMOKE;smoke=0 (not detected)
+80284,rx,4,1,4,-87,,,ACCEL;accel=11.481 m/s2
+81305,route,4,,,,2,5,route_change
+88762,route,10,,,,3,13,route_change
+88974,rx,5,2,5,-60,,,SMOKE;smoke=0 (not detected)
+91174,rx,4,2,5,-59,,,ACCEL;accel=11.478 m/s2
+92136,route,6,,,,2,10,first_heard
+99011,rx,5,3,5,-59,,,SMOKE;smoke=0 (not detected)
+107171,route,4,,,,1,0,route_change
+109411,rx,5,4,5,-59,,,SMOKE;smoke=0 (not detected)
+109873,rx,7,5,7,-90,,,GPS;lon=71.398300 deg lat=51.090400 deg
+115461,route,9,,,,2,4,route_change
+119261,route,7,,,,1,0,route_change
+119433,rx,5,5,5,-60,,,SMOKE;smoke=0 (not detected)
+122443,rx,10,5,7,-88,,,DS18;temp=20.63 C
+129352,route,6,,,,2,7,route_change
+129894,rx,5,6,5,-58,,,SMOKE;smoke=0 (not detected)
+131041,route,10,,,,2,7,route_change
+136622,route,9,,,,2,5,route_change
+140574,rx,5,7,5,-58,,,SMOKE;smoke=0 (not detected)
+142421,rx,4,7,4,-87,,,ACCEL;accel=11.477 m/s2
+151161,rx,5,8,5,-58,,,SMOKE;smoke=0 (not detected)
+152791,rx,4,8,5,-58,,,ACCEL;accel=11.480 m/s2
+154060,route,4,,,,2,5,route_change
+161507,rx,5,9,5,-57,,,SMOKE;smoke=0 (not detected)
+164420,route,4,,,,1,0,route_change
+171633,rx,5,10,5,-58,,,SMOKE;smoke=0 (not detected)
+181833,rx,5,11,5,-58,,,SMOKE;smoke=0 (not detected)
+184364,rx,4,11,4,-86,,,ACCEL;accel=11.479 m/s2
+192174,rx,5,12,5,-61,,,SMOKE;smoke=0 (not detected)
+192368,route,7,,,,2,4,route_change
+196360,route,8,,,,2,7,route_change
+202801,rx,5,13,5,-59,,,SMOKE;smoke=0 (not detected)
+206524,rx,4,13,5,-58,,,ACCEL;accel=11.479 m/s2
+211233,rx,6,9,7,-91,,,DHT11;temp=22.00 C hum=20.0 %
+213561,rx,5,14,5,-58,,,SMOKE;smoke=0 (not detected)
+221764,rx,6,10,7,-92,,,DHT11;temp=22.00 C hum=20.0 %
+223687,rx,5,15,5,-58,,,SMOKE;smoke=0 (not detected)
+227265,rx,7,16,4,-86,,,GPS;lon=71.398300 deg lat=51.090400 deg
+233814,rx,5,16,5,-56,,,SMOKE;smoke=0 (not detected)
+238065,rx,4,16,4,-87,,,ACCEL;accel=11.484 m/s2
+244344,rx,5,17,5,-57,,,SMOKE;smoke=0 (not detected)
+248009,route,4,,,,255,255,route_change
+250169,route,7,,,,3,6,route_change
+253409,route,4,,,,4,7,route_change
+255079,route,13,,,,3,7,first_heard
+255280,rx,5,18,5,-56,,,SMOKE;smoke=0 (not detected)
+260042,rx,4,18,5,-56,,,ACCEL;accel=11.481 m/s2
+265190,route,4,,,,2,5,route_change
+265432,rx,5,19,5,-56,,,SMOKE;smoke=0 (not detected)
+266323,rx,13,18,5,-60,,,DHT11;temp=22.00 C hum=31.0 %
+270395,route,4,,,,1,0,route_change
+275633,rx,5,20,5,-60,,,SMOKE;smoke=0 (not detected)
+280425,rx,4,20,4,-86,,,ACCEL;accel=11.476 m/s2
+286104,rx,5,21,5,-52,,,SMOKE;smoke=0 (not detected)
+291302,route,4,,,,255,255,route_change
+296758,route,4,,,,2,7,route_change
+296931,rx,5,22,5,-53,,,SMOKE;smoke=0 (not detected)
+301563,rx,4,22,4,-87,,,ACCEL;accel=11.475 m/s2
+304889,route,9,,,,2,7,route_change
+306952,rx,5,23,5,-55,,,SMOKE;smoke=0 (not detected)
+311973,rx,4,23,4,-84,,,ACCEL;accel=11.479 m/s2
+313153,rx,7,24,4,-88,,,GPS;lon=71.398300 deg lat=51.090400 deg
+317462,rx,5,24,5,-56,,,SMOKE;smoke=0 (not detected)
+318486,route,4,,,,2,5,route_change
+323541,route,4,,,,255,255,route_change
+325980,route,8,,,,3,6,route_change
+327737,rx,5,25,5,-54,,,SMOKE;smoke=0 (not detected)
+330862,route,10,,,,4,8,route_change
+331062,route,9,,,,4,7,route_change
+339804,route,4,,,,1,0,route_change
+340279,route,7,,,,4,8,route_change
+350893,rx,8,27,6,-86,,,ACCEL;accel=10.555 m/s2
+352313,rx,10,27,6,-88,,,DS18;temp=20.93 C
+354002,rx,4,27,4,-88,,,ACCEL;accel=11.477 m/s2
+356832,rx,9,28,4,-88,,,GPS;lon=71.399440 deg lat=51.090000 deg
+359122,rx,6,23,6,-90,,,DHT11;temp=22.00 C hum=20.0 %
+377522,route,7,,,,1,0,route_change
+377707,route,6,,,,2,4,route_change
+380336,rx,6,25,6,-88,,,DHT11;temp=22.00 C hum=20.0 %
+380805,route,4,,,,3,7,route_change
+386061,route,4,,,,2,7,route_change
+387702,route,7,,,,2,6,route_change
+393788,route,9,,,,3,7,route_change
+394269,route,6,,,,1,0,route_change
+413513,rx,5,0,5,-54,,,SMOKE;smoke=0 (not detected)
+415180,route,10,,,,2,7,route_change
+418370,route,4,,,,1,0,route_change
+424467,rx,5,1,5,-54,,,SMOKE;smoke=0 (not detected)
+428932,route,4,,,,2,7,route_change
+433979,route,4,,,,1,0,route_change
+435300,rx,5,2,5,-52,,,SMOKE;smoke=0 (not detected)
+436499,route,6,,,,2,4,route_change
+445570,route,7,,,,1,0,route_change
+446272,rx,5,3,5,-52,,,SMOKE;smoke=0 (not detected)
