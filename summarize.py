@@ -124,6 +124,17 @@ def analyze(run, expect, assume_full=()):
     end_ms = sum(sched) * 1000
     adv_ms = num(rkv, "adv_interval_s", 5) * 1000
 
+    # the run ends at warm-up + run + drain on the root's clock: anything later (a board still transmitting or booted
+    # late) is outside the measurement and would inflate delivered, the estimated denominators and the topology
+    late = [r for r in rrows if r["t_ms"] > end_ms]
+    if late:
+        rrows = [r for r in rrows if r["t_ms"] <= end_ms]
+        late_rx = [r for r in late if r["event"] == "rx"]
+        who = sorted({r["node"] for r in late_rx if r["node"] is not None})
+        run.warn.append("%d root event(s) after the %d s end of the run ignored (%d rx%s)"
+                        % (len(late), end_ms // 1000, len(late_rx),
+                           " from node(s) " + ", ".join(map(str, who)) if who else ""))
+
     # unique deliveries by (origin, seq), first reception wins
     first = {}
     for r in rrows:
